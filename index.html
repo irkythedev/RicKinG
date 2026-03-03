@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>和平精英特种兵档案 | 你的名字</title>
+    <!-- 引入 Tailwind CSS (样式库) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 FontAwesome (图标库) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入 Chart.js (图表库) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen relative selection:bg-red-500 selection:text-white" onclick="showClickEffect(event)">
+
+    <!-- 背景烟雾画布 -->
+    <canvas id="smoke-canvas"></canvas>
+
+    <!-- 游戏全屏 Modal -->
+    <div id="game-modal" class="fixed inset-0 z-50 hidden flex flex-col items-center justify-center p-4">
+        <div class="absolute top-4 right-4 z-50">
+            <button onclick="closeGameModal()" class="text-white hover:text-red-500 text-3xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <h2 id="modal-game-title" class="text-3xl font-bold text-yellow-500 mb-4 animate-pulse">训练开始</h2>
+        
+        <div id="game-canvas-container" class="relative bg-gray-800 rounded-lg border-2 border-yellow-600 shadow-2xl overflow-hidden cursor-crosshair w-full max-w-4xl aspect-video">
+            <!-- 游戏内容将注入到这里 -->
+            <div id="modal-game-content" class="w-full h-full relative"></div>
+            
+            <!-- 游戏 UI 覆盖层 -->
+            <div id="modal-game-ui" class="absolute inset-0 pointer-events-none flex flex-col justify-between p-4">
+                <div class="flex justify-between text-xl font-bold text-white drop-shadow-md">
+                    <span id="modal-score-label">得分: <span id="modal-score-val" class="text-yellow-400">0</span></span>
+                    <span id="modal-timer-label">时间: <span id="modal-timer-val" class="text-red-400">00</span></span>
+                </div>
+                <div id="modal-start-btn-container" class="absolute inset-0 flex items-center justify-center pointer-events-auto">
+                    <button id="modal-start-btn" class="bg-yellow-600 hover:bg-yellow-500 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110">
+                        START MISSION
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <p class="text-gray-400 mt-4 text-sm md:text-base text-center">
+            <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 
+            <span class="hidden md:inline mx-2">|</span> 
+            <i class="fas fa-volume-up mr-1"></i> 包含音效
+        </p>
+    </div>
+
+    <!-- 页面主体容器 -->
+    <div class="container mx-auto px-4 py-8 max-w-5xl relative z-10">
+        
+        <!-- 顶部：个人ID卡片 -->
+        <!-- 修改提示：这里是你的个人头部信息 -->
+        <header class="glass-panel rounded-xl p-8 mb-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+            <!-- 装饰线 -->
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-yellow-400 to-green-500"></div>
+            
+            <!-- 头像区域 (可以是图片或图标) -->
+                <div class="relative group">
+                    <div class="w-32 h-32 rounded-full border-4 border-yellow-500 overflow-hidden shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
+                        <!-- 请在这里替换你的头像图片链接 -->
+                        <img src="https://ui-avatars.com/api/?name=Elite&background=random&size=200" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <!-- 三级头图标装饰 (官方图标) -->
+                    <div class="absolute -bottom-2 -right-2 bg-gray-800 p-2 rounded-full border border-gray-600">
+                        <img src="https://static.wikia.nocookie.net/pubg_gamepedia/images/0/09/Icon_head_G_01.png" class="w-8 h-8 object-contain">
+                    </div>
+                </div>
+
+            <!-- 文字信息 -->
+            <div class="text-center md:text-left flex-1">
+                <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
+                    <span class="bg-yellow-600 text-xs px-2 py-1 rounded font-bold text-white">SS12 赛季王牌</span>
+                    <span class="bg-green-600 text-xs px-2 py-1 rounded font-bold text-white">前端新兵</span>
+                </div>
+                <!-- 你的名字 (带闪烁特效) -->
+                <h1 class="text-4xl md:text-6xl font-black text-white mb-2 glitch-text cursor-pointer" data-text="RICKING_PLAYER">
+                    特种兵_RickinG
+                </h1>
+                <p class="text-gray-400 text-lg">
+                    <i class="fas fa-quote-left text-gray-600 mr-2"></i>
+                    落地一把98K，代码一行Bug Free。
+                    <i class="fas fa-quote-right text-gray-600 ml-2"></i>
+                </p>
+                
+                <!-- 社交链接按钮 -->
+                <div class="mt-6 flex gap-4 justify-center md:justify-start">
+                    <a href="https://github.com/RickinG" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-2 rounded-full transition border border-gray-600 flex items-center gap-3">
+                        <img src="https://gitee.com/static/images/logo-black.svg" class="h-5 filter invert" alt="Gitee">
+                        <span class="text-gray-400">|</span>
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark-Light-120px-plus.png" class="h-5" alt="GitHub">
+                        <span class="font-bold">代码仓库</span>
+                    </a>
+                    <a href="#" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full transition shadow-lg flex items-center gap-2 group">
+                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-6 w-auto group-hover:-translate-y-1 transition-transform">
+                        <span class="font-bold">发射信号弹</span>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- 右上角 K/D 数据牌 -->
+            <div class="hidden md:block text-right border-l border-gray-600 pl-8">
+                <div class="text-sm text-gray-400">生存时长</div>
+                <div class="text-3xl font-mono text-yellow-400 font-bold">16年</div>
+                <div class="text-sm text-gray-400 mt-2">代码击杀数</div>
+                <div class="text-3xl font-mono text-red-500 font-bold">ERROR_0</div>
+            </div>
+        </header>
+
+        <!-- 双列布局：左侧属性面板，右侧项目仓库 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- 左侧栏：个人属性 + 演习任务 -->
+            <div class="lg:col-span-1 space-y-8">
+                
+                <!-- 1. 个人战绩详情 (数值面板) -->
+                <section class="glass-panel rounded-xl p-6 relative">
+                    <div class="crosshair-decor crosshair-tl"></div>
+                    <div class="crosshair-decor crosshair-tr"></div>
+                    <div class="crosshair-decor crosshair-bl"></div>
+                    <div class="crosshair-decor crosshair-br"></div>
+                    
+                    <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
+                        <img src="https://static.wikia.nocookie.net/pubg_gamepedia/images/4/44/Icon_Head_G_01.png" class="h-8 w-auto">
+                        <span class="text-yellow-500">PLAYER STATS</span>
+                    </h2>
+
+                    <!-- 六边形战力图 (Radar Chart) -->
+                    <div class="w-full relative h-64 flex justify-center items-center">
+                        <canvas id="skillsChart"></canvas>
+                    </div>
+                </section>
+
+                <!-- 2. 演习任务区 (小游戏入口) -->
+                <section class="glass-panel rounded-xl p-6">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
+                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_Kar98k_C.png" class="h-8 w-auto">
+                        <span class="text-red-500">MISSIONS</span>
+                    </h2>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- 射击训练入口 -->
+                        <div onclick="openGameModal('aim')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-green-900 opacity-0 group-hover:opacity-20 transition"></div>
+                            <div class="h-16 mb-2 flex items-center justify-center">
+                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png" alt="M416" class="h-full object-contain drop-shadow-lg">
+                            </div>
+                            <h3 class="text-center font-bold text-white text-sm">射击训练场</h3>
+                            <p class="text-xs text-gray-400 text-center mt-1">反应速度测试</p>
+                        </div>
+
+                        <!-- 空投争夺入口 -->
+                        <div onclick="openGameModal('dodge')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden">
+                            <div class="absolute inset-0 bg-blue-900 opacity-0 group-hover:opacity-20 transition"></div>
+                            <div class="h-16 mb-2 flex items-center justify-center">
+                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/CarePackage/CarePackage_Normal.png" alt="Airdrop" class="h-full object-contain drop-shadow-lg">
+                            </div>
+                            <h3 class="text-center font-bold text-white text-sm">空投争夺战</h3>
+                            <p class="text-xs text-gray-400 text-center mt-1">极限闪避挑战</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- 右侧栏：装备仓库 (项目展示) -->
+            <div class="lg:col-span-2">
+                <section class="glass-panel rounded-xl p-8 h-full">
+                    <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
+                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png" class="h-10 w-auto">
+                        <span class="text-yellow-500">WAREHOUSE / PROJECTS</span>
+                    </h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- 传说级武器 (已上线项目) -->
+                        <!-- 修改提示：复制这个 block 来增加更多项目 -->
+                        <a href="#" class="block group relative">
+                            <div class="glass-panel p-5 rounded-lg legendary-glow h-full flex flex-col relative overflow-hidden">
+                                <!-- 稀有度标签 -->
+                                <div class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded-bl">传说级</div>
+                                
+                                <div class="h-16 mb-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]">
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition">超酷个人博客</h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                                    基于 Hexo 搭建的静态博客，记录学习笔记。就像 AWM 一样精准击中知识盲区。
+                                </p>
+                                <div class="flex gap-2">
+                                    <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">HTML</span>
+                                    <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">CSS</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a href="#" class="block group relative">
+                            <div class="glass-panel p-5 rounded-lg legendary-glow h-full flex flex-col relative overflow-hidden">
+                                <div class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">史诗级</div>
+                                
+                                <div class="h-16 mb-3 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                    <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_Kar98k_C.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]">
+                                </div>
+                                <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition">番茄钟计时器</h3>
+                                <p class="text-gray-400 text-sm mb-4 flex-grow">
+                                    帮助集中注意力的 JS 小工具。跑圈赶路必备，不再错过缩圈时间。
+                                </p>
+                                <div class="flex gap-2">
+                                    <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">JS</span>
+                                    <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">LocalStore</span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <!-- 待解锁空投 (待开发项目) -->
+                        <div class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-full flex flex-col relative opacity-70 hover:opacity-100 transition">
+                            <div class="absolute top-0 right-0 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-bl">锁定中</div>
+                            
+                            <div class="h-16 mb-3 flex items-center justify-center">
+                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AK47_C.png" class="h-full object-contain filter grayscale opacity-50">
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">神秘空投项目</h3>
+                            <p class="text-gray-500 text-sm mb-4">
+                                正在降落中... 下一个大版本更新。
+                            </p>
+                            <!-- 进度条 -->
+                            <div class="w-full bg-gray-800 rounded-full h-2 mt-auto group cursor-help" title="开发进度: 30%">
+                                <div class="bg-red-600 h-2 rounded-full w-[30%] relative overflow-hidden">
+                                    <div class="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <p>&copy; 2026 RickinG的特种兵基地. Powered by <span class="text-yellow-500">Gitee Pages</span>.</p>
+            <p class="mt-2 text-xs opacity-50">Winner Winner, Chicken Dinner!</p>
+        </footer>
+    </div>
+
+    <!-- --- JavaScript 逻辑区域 --- -->
+    <!-- 引入自定义脚本 -->
+    <script src="js/script.js"></script>
+</body>
+</html>
