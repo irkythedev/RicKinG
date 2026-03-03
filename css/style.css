@@ -1,0 +1,91 @@
+/* --- 全局样式设定 --- */
+body {
+    /* 鼠标样式改为 平底锅 (Pan) */
+    cursor: url('https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Melee/Item_Weapon_Pan_C.png') 32 32, crosshair;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden; /* 防止左右滚动条出现 */
+    touch-action: manipulation; /* 优化移动端触摸 */
+}
+
+/* --- 背景烟雾效果 --- */
+#smoke-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 放在最底层 */
+    pointer-events: none; /* 让鼠标点击可以穿透画布 */
+}
+
+/* --- 玻璃拟态效果 (Glassmorphism) --- */
+.glass-panel {
+    background: rgba(30, 41, 59, 0.7); /* 深蓝灰色半透明 */
+    backdrop-filter: blur(10px); /* 背景模糊 */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* 微弱的白边框 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 阴影 */
+}
+
+/* --- 名字闪烁特效 (模拟信号接收) --- */
+@keyframes glitch {
+    0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
+    25% { text-shadow: -2px 2px #0000ff, 2px -2px #ffff00; }
+    50% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff; }
+    75% { text-shadow: -2px -2px #ff0000, 2px 2px #00ff00; }
+    100% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
+}
+.glitch-text:hover {
+    animation: glitch 0.3s infinite; /* 鼠标悬停时触发闪烁 */
+}
+
+/* --- 传说级装备光效 --- */
+.legendary-glow {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); /* 金色光晕 */
+    border: 1px solid rgba(255, 215, 0, 0.8);
+    transition: transform 0.3s;
+}
+.legendary-glow:hover {
+    transform: scale(1.05); /* 鼠标悬停放大 */
+}
+
+/* --- 点击出现的漂浮文字动画 --- */
+.float-text {
+    position: absolute;
+    color: #fbbf24; /* 金黄色 */
+    font-weight: bold;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    z-index: 9999;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-50px); opacity: 0; }
+}
+
+/* --- 游戏准星装饰 --- */
+.crosshair-decor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+}
+.crosshair-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+.crosshair-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+.crosshair-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+.crosshair-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+/* --- 进度条动画 --- */
+.progress-fill {
+    transition: width 1.5s ease-out;
+    width: 0; /* 初始宽度为0，JS加载后变长 */
+}
+
+/* --- 游戏全屏 Modal --- */
+#game-modal {
+    transition: opacity 0.3s;
+    background: rgba(0, 0, 0, 0.9);
+}
+#game-canvas-container {
+    touch-action: none; /* 防止游戏时触发滚动 */
+}
