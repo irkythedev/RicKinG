@@ -58,61 +58,67 @@
         
         <!-- 顶部：个人ID卡片 -->
         <!-- 修改提示：这里是你的个人头部信息 -->
-        <header class="glass-panel rounded-xl p-8 mb-8 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
-            <!-- 装饰线 -->
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 via-yellow-400 to-green-500"></div>
+        <header class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center gap-6 md:gap-8 relative overflow-hidden">
             
             <!-- 头像区域 (可以是图片或图标) -->
-                <div class="relative group">
-                    <div class="w-32 h-32 rounded-full border-4 border-yellow-500 overflow-hidden shadow-lg transform group-hover:rotate-12 transition-transform duration-300">
-                        <!-- 请在这里替换你的头像图片链接 -->
-                        <img src="https://ui-avatars.com/api/?name=Rickin+G&background=random&size=200" alt="Avatar" class="w-full h-full object-cover">
+                <div class="relative group flex-shrink-0">
+                    <div class="w-28 h-28 md:w-32 md:h-32 rounded-full border-4 border-yellow-500 overflow-hidden shadow-lg transform group-hover:rotate-12 transition-transform duration-300 relative z-10 bg-gray-900 flex items-center justify-center">
+                        <!-- RG 文字头像 (带故障特效) -->
+                        <span class="text-4xl md:text-5xl font-black text-white glitch-text select-none" data-text="RG">RG</span>
                     </div>
+                    <!-- 动态光圈装饰 -->
+                    <div class="absolute inset-0 rounded-full border-2 border-transparent border-t-red-500 border-r-yellow-500 animate-spin-slow -m-1"></div>
+                    
                     <!-- 三级头图标装饰 (使用 Spetsnaz Helmet 图标) -->
-                    <div class="absolute -bottom-2 -right-2 bg-gray-800 p-2 rounded-full border border-gray-600">
-                        <img src="https://img.icons8.com/color/48/pubg-helmet.png" class="w-8 h-8 object-contain" alt="Level 3 Helmet">
+                    <div class="absolute -bottom-2 -right-2 bg-gray-800 p-2 rounded-full border border-gray-600 z-20">
+                        <img src="https://img.icons8.com/color/48/pubg-helmet.png" class="w-6 h-6 md:w-8 md:h-8 object-contain" alt="Level 3 Helmet">
                     </div>
                 </div>
 
             <!-- 文字信息 -->
-            <div class="text-center md:text-left flex-1">
-                <div class="flex items-center justify-center md:justify-start gap-3 mb-2">
-                    <span class="bg-yellow-600 text-xs px-2 py-1 rounded font-bold text-white">SS12 赛季王牌</span>
-                    <span class="bg-green-600 text-xs px-2 py-1 rounded font-bold text-white">前端新兵</span>
+            <div class="text-center md:text-left flex-1 min-w-0">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3">
+                    <span class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS12 王牌</span>
+                    <span class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
+                    <span class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">React 专精</span>
+                    <span class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">AI 指挥官</span>
                 </div>
                 <!-- 你的名字 (带闪烁特效) -->
-                <h1 class="text-4xl md:text-6xl font-black text-white mb-2 glitch-text cursor-pointer" data-text="RICKING_PLAYER">
+                <h1 class="text-3xl md:text-5xl font-black text-white mb-2 glitch-text cursor-pointer truncate" data-text="RICKING_PLAYER">
                     特种兵_RickinG
                 </h1>
-                <p class="text-gray-400 text-lg">
+                <p class="text-gray-400 text-sm md:text-lg mb-2 line-clamp-2 md:line-clamp-none">
                     <i class="fas fa-quote-left text-gray-600 mr-2"></i>
                     落地一把98K，代码一行Bug Free。
                     <i class="fas fa-quote-right text-gray-600 ml-2"></i>
                 </p>
+                <div class="text-xs md:text-sm font-mono text-gray-500 mb-4 tracking-wide">
+                    <span class="text-green-500 mr-2">//</span>好好学习，天天向上 <span class="mx-1 text-gray-700">|</span> Good Good Study, Day Day Up
+                </div>
                 
                 <!-- 社交链接按钮 -->
-                <div class="mt-6 flex flex-wrap gap-4 justify-center md:justify-start">
+                <div class="flex flex-wrap gap-3 justify-center md:justify-start items-center">
                     <!-- Gitee (Active) -->
-                    <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-5 py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50">
-                        <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5" alt="Gitee">
+                    <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-4 py-1.5 md:px-5 md:py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50 text-sm md:text-base">
+                        <img src="https://gitee.com/favicon.ico" class="h-4 w-4 md:h-5 md:w-5 rounded-full bg-white p-0.5" alt="Gitee">
                         <span class="font-bold">Gitee 仓库</span>
                     </a>
 
                     <!-- GitHub (Disabled / Locked) -->
-                    <div class="bg-gray-800 text-gray-500 px-5 py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none" title="暂未开放 / Locked">
-                        <i class="fab fa-github text-xl"></i>
+                    <div class="bg-gray-800 text-gray-500 px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none text-sm md:text-base" title="暂未开放 / Locked">
+                        <i class="fab fa-github text-lg md:text-xl"></i>
                         <span class="font-bold">GitHub</span>
                     </div>
 
                     <!-- 联系我 (Flare Gun) -->
-                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group" title="发射信号弹 / Signal">
-                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-12 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim">
+                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-2" title="发射信号弹 / Signal">
+                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-10 md:h-12 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim">
                     </a>
                 </div>
             </div>
             
             <!-- 右上角 K/D 数据牌 -->
-            <div class="hidden md:block text-right border-l border-gray-600 pl-8">
+            <div class="hidden md:block text-right border-l border-gray-600 pl-8 flex-shrink-0">
                 <div class="text-sm text-gray-400">役期时长</div>
                 <div class="text-3xl font-mono text-yellow-400 font-bold">16年</div>
                 <div class="text-sm text-gray-400 mt-2">代码击杀数</div>
@@ -288,7 +294,7 @@
 
         <!-- 页脚 -->
         <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
-            <p>&copy; 2026 RickinG的特种兵基地. Powered by <span class="text-yellow-500">Gitee Pages</span>.</p>
+            <p>&copy; 2026 RickinG. All Systems Operational.</p>
             <p class="mt-2 text-xs opacity-50">Winner Winner, Chicken Dinner!</p>
         </footer>
     </div>
