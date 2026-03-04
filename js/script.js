@@ -62,7 +62,7 @@ const gameWords = ["大吉大利", "今晚吃鸡", "落地成盒", "扶我起来
 
 function showClickEffect(e) {
     // 如果点击的是按钮，就不显示特效，避免干扰
-    if (e.target.tagName === 'BUTTON' || e.target.closest('a')) return;
+    if (e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('.flip-card')) return;
 
     const span = document.createElement('span');
     span.className = 'float-text';
@@ -216,41 +216,41 @@ function initAimGame() {
     spawnLoop();
 }
 
-        function spawnAimTarget(container, onHit) {
-            const target = document.createElement('div');
-            // 目标更大了，方便手机点击
-            target.className = 'absolute cursor-pointer transform transition active:scale-90 flex items-center justify-center w-20 h-20 bg-transparent';
-            
-            // 随机平底锅(普通)或M416(高分)
-            const isRare = Math.random() > 0.7;
-            // 使用官方资源
-            const imgSrc = isRare ? 
-                'https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png' : 
-                'https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Melee/Item_Weapon_Pan_C.png';
-            
-            target.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain drop-shadow-2xl filter hover:brightness-125 transition">`;
-            
-            // 必须减去目标大小
-            const maxX = container.offsetWidth - 80;
-            const maxY = container.offsetHeight - 80;
-            
-            target.style.left = Math.random() * maxX + 'px';
-            target.style.top = Math.random() * maxY + 'px';
+function spawnAimTarget(container, onHit) {
+    const target = document.createElement('div');
+    // 目标更大了，方便手机点击
+    target.className = 'absolute cursor-pointer transform transition active:scale-90 flex items-center justify-center w-20 h-20 bg-transparent';
+    
+    // 随机平底锅(普通)或M416(高分)
+    const isRare = Math.random() > 0.7;
+    // 使用官方资源
+    const imgSrc = isRare ? 
+        'https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png' : 
+        'https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Melee/Item_Weapon_Pan_C.png';
+    
+    target.innerHTML = `<img src="${imgSrc}" class="w-full h-full object-contain drop-shadow-2xl filter hover:brightness-125 transition">`;
+    
+    // 必须减去目标大小
+    const maxX = container.offsetWidth - 80;
+    const maxY = container.offsetHeight - 80;
+    
+    target.style.left = Math.random() * maxX + 'px';
+    target.style.top = Math.random() * maxY + 'px';
 
-            target.onclick = (e) => {
-                e.stopPropagation();
-                playSound('hit');
-                onHit(isRare ? 50 : 10);
-                target.remove();
-            };
+    target.onclick = (e) => {
+        e.stopPropagation();
+        playSound('hit');
+        onHit(isRare ? 50 : 10);
+        target.remove();
+    };
 
-            container.appendChild(target);
+    container.appendChild(target);
 
-            // 自动消失时间
-            setTimeout(() => {
-                if (target.parentNode) target.remove();
-            }, isRare ? 800 : 1200);
-        }
+    // 自动消失时间
+    setTimeout(() => {
+        if (target.parentNode) target.remove();
+    }, isRare ? 800 : 1200);
+}
 
 function endAimGame(score) {
     gameActive = false;
@@ -371,18 +371,18 @@ const ctxChart = document.getElementById('skillsChart').getContext('2d');
 new Chart(ctxChart, {
     type: 'radar',
     data: {
-        labels: ['代码力', '创意值', '耐力', 'AI Prompt', 'Agent', '战术'],
+        labels: ['刚枪 (Code)', '指挥 (Plan)', 'AI Agent', 'Prompt', '跑图 (Ops)', '投掷 (Idea)'],
         datasets: [{
             label: '能力值',
-            data: [99, 85, 100, 95, 90, 88],
-            backgroundColor: 'rgba(234, 179, 8, 0.2)', // Yellow-500 透明度降低
-            borderColor: '#EAB308', // Yellow-500 高亮
-            borderWidth: 3,
+            data: [95, 85, 92, 90, 88, 80],
+            backgroundColor: 'rgba(234, 179, 8, 0.4)', // 填充色加深
+            borderColor: '#EAB308', 
+            borderWidth: 2,
             pointBackgroundColor: '#EAB308',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#EAB308',
-            pointRadius: 4
+            pointRadius: 3
         }]
     },
     options: {
@@ -391,22 +391,22 @@ new Chart(ctxChart, {
         scales: {
             r: {
                 angleLines: {
-                    color: 'rgba(255, 255, 255, 0.1)' // 放射线颜色更淡
+                    color: 'rgba(255, 255, 255, 0.1)' 
                 },
                 grid: {
-                    color: 'rgba(255, 255, 255, 0.1)', // 网格线颜色
-                    circular: true // 改为圆形网格，更像雷达
+                    color: 'rgba(255, 255, 255, 0.1)', 
+                    circular: true 
                 },
                 pointLabels: {
-                    color: '#9CA3AF', // Gray-400
+                    color: '#9CA3AF', 
                     font: {
-                        size: 12,
+                        size: 11, // 移动端适配：稍微调小字体
                         family: "'Segoe UI', sans-serif",
                         weight: 'bold'
                     }
                 },
                 ticks: {
-                    display: false, // 隐藏刻度数字
+                    display: false, 
                     backdropColor: 'transparent'
                 },
                 suggestedMin: 20,
@@ -418,14 +418,49 @@ new Chart(ctxChart, {
                 display: false
             },
             tooltip: {
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                backgroundColor: 'rgba(17, 24, 39, 0.9)', // 匹配深色主题
                 titleColor: '#EAB308',
-                bodyFont: {
-                    size: 14
-                },
-                padding: 10,
-                displayColors: false
+                bodyColor: '#fff',
+                padding: 8,
+                displayColors: false,
+                callbacks: {
+                    title: (items) => items[0].label,
+                    label: (item) => `评分: ${item.raw} / 100`
+                }
             }
         }
     }
 });
+
+// --- 6. 信号枪逻辑 ---
+function fireSignal() {
+    playSound('shot');
+    // 创建一个临时的全屏 Overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in';
+    // 点击背景关闭
+    overlay.onclick = (e) => {
+        if(e.target === overlay) overlay.remove();
+    };
+
+    overlay.innerHTML = `
+        <div class="bg-gray-800 border-2 border-yellow-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
+            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
+                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-20 w-auto drop-shadow-lg filter brightness-110">
+            </div>
+            <h3 class="text-2xl font-black text-yellow-500 mt-8 mb-4">SIGNAL FLARE FIRED!</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+                信号弹已升空！空投支援正在路上... 📦<br>
+                <span class="text-xs text-gray-500">指挥中心已收到请求 / Command Center Acknowledged</span>
+            </p>
+            <div class="bg-gray-900/50 p-4 rounded border border-gray-700 mb-6 text-sm text-gray-400 text-left">
+                <p class="mb-2"><i class="fas fa-code-branch text-green-400 mr-2"></i> 欢迎前往项目仓库提交 <span class="text-green-400 font-bold">Pull Request</span></p>
+                <p><i class="fas fa-comment-dots text-yellow-400 mr-2"></i> 或建立 <span class="text-yellow-400 font-bold">Issue</span> 留下您的联系方式</p>
+            </div>
+            <button onclick="this.closest('.fixed').remove()" class="bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-8 rounded clip-path-polygon transition transform hover:scale-105">
+                收到 / COPY THAT
+            </button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+}

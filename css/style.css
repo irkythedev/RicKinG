@@ -1,7 +1,7 @@
 /* --- 全局样式设定 --- */
 body {
-    /* 鼠标样式改为 平底锅 (Pan) */
-    cursor: url('https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Melee/Item_Weapon_Pan_C.png') 32 32, crosshair;
+    /* 鼠标样式改为 Kar98k (使用官方 ICON) */
+    cursor: url('https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_Kar98k_C.png') 32 32, crosshair;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     overflow-x: hidden; /* 防止左右滚动条出现 */
     touch-action: manipulation; /* 优化移动端触摸 */
@@ -45,7 +45,7 @@ body {
     transition: transform 0.3s;
 }
 .legendary-glow:hover {
-    transform: scale(1.05); /* 鼠标悬停放大 */
+    transform: scale(1.02); /* 鼠标悬停放大，幅度减小防止溢出 */
 }
 
 /* --- 点击出现的漂浮文字动画 --- */
@@ -81,6 +81,42 @@ body {
     width: 0; /* 初始宽度为0，JS加载后变长 */
 }
 
+/* --- 3D 翻转卡片 (Flip Card) --- */
+.flip-card {
+    perspective: 1000px;
+}
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+/* 点击或添加 .flipped 类时翻转 */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 0.5rem; /* rounded-lg */
+}
+.flip-card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.95); /* 更深的背景以便阅读 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    z-index: 2;
+}
+
 /* --- 游戏全屏 Modal --- */
 #game-modal {
     transition: opacity 0.3s;
@@ -88,4 +124,24 @@ body {
 }
 #game-canvas-container {
     touch-action: none; /* 防止游戏时触发滚动 */
+}
+
+/* --- 信号枪呼吸动画 --- */
+@keyframes flare-pulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5)); }
+    50% { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.8)); }
+    100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5)); }
+}
+.flare-anim {
+    animation: flare-pulse 2s infinite ease-in-out;
+}
+
+/* --- 六边形雷达图容器 --- */
+.radar-container {
+    background: 
+        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.05) 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.05) 20px);
+    border-radius: 50%; /* 圆形背景模拟雷达扫描区域 */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
 }
