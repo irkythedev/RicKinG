@@ -6,7 +6,10 @@ const GAME_CONFIG = {
         SPEED_X: 1,
         SPEED_Y: 1
     },
-    WORDS: ["大吉大利", "今晚吃鸡", "落地成盒", "扶我起来", "有空投", "跑毒", "98K", "三级头", "加油", "Nice!"],
+    WORDS: {
+        zh: ["大吉大利", "今晚吃鸡", "落地成盒", "扶我起来", "有空投", "跑毒", "98K", "三级头", "加油", "Nice!"],
+        en: ["Winner Winner", "Chicken Dinner", "Loot Box", "Revive Me", "Airdrop", "Blue Zone", "Kar98k", "Lv3 Helmet", "Let's Go", "Nice!"]
+    },
     AUDIO: {
         SHOT: { FREQ: 150, DURATION: 0.1 },
         HIT: { FREQ: 800, DURATION: 0.1 },
@@ -26,12 +29,348 @@ const GAME_CONFIG = {
         SPAWN_RATE_INC: 0.002
     },
     SKILLS_CHART: {
-        LABELS: ['刚枪 (Code)', '指挥 (Plan)', 'AI Agent', 'Prompt', '跑图 (Ops)', '投掷 (Idea)'],
+        LABELS: {
+            zh: ['刚枪 (Code)', '指挥 (Plan)', 'AI Agent', 'Prompt', '跑图 (Ops)', '投掷 (Idea)'],
+            en: ['Code', 'Plan', 'AI Agent', 'Prompt', 'Ops', 'Idea']
+        },
         DATA: [95, 85, 92, 90, 88, 80],
         COLOR_BG: 'rgba(234, 179, 8, 0.4)',
         COLOR_BORDER: '#EAB308'
     }
 };
+
+// --- 多语言配置 (i18n) ---
+const I18N = {
+    zh: {
+        title: "特种兵_RickinG | 个人主页",
+        metaDesc: "RickinG 的战术指挥终端。沉浸式 PUBG 风格个人主页，集成作战数据与项目展示。Winner Winner, Chicken Dinner!",
+        rank: "SS12 王牌",
+        role: "前端突击手",
+        tags: {
+            react: "⚛️ React 爱好者",
+            tailwind: "🌬️ Tailwind 战术",
+            python: "🐍 Python 猎手",
+            rust: "🦀 Rust 先锋",
+            llm: "🤖 LLM 指挥官"
+        },
+        name: "特种兵_RickinG",
+        quote: "落地一把98K，代码一行Bug Free。",
+        motto: "<span class=\"text-green-500 mr-2\">//</span>好好学习，天天向上 <span class=\"mx-1 text-gray-700\">|</span> Good Good Study, Day Day Up",
+        giteeBtn: "Gitee 仓库",
+        githubBtn: "GitHub",
+        stats: {
+            title: "PLAYER STATS",
+            timeLabel: "役期时长",
+            timeVal: "16年",
+            killLabel: "代码击杀数",
+            killVal: "ERROR_0"
+        },
+        missions: {
+            title: "MISSIONS",
+            aim: { title: "射击训练场", desc: "反应速度测试" },
+            dodge: { title: "空投争夺战", desc: "极限闪避挑战" }
+        },
+        warehouse: {
+            title: "WAREHOUSE",
+            legendary: "传说级",
+            epic: "史诗级",
+            tactical: {
+                title: "特种兵战术终端",
+                desc: "基于原生 HTML/CSS/JS 打造的沉浸式个人主页。集成 Gitee/GitHub 双战区入口，全套 PUBG 官方战术图标。",
+                btnCode: "访问代码",
+                btnDemo: "访问页面"
+            },
+            aqua: {
+                title: "AquaInsight 水质分析",
+                desc: "AI 驱动的地表水环境监测系统。结合 GIS 与 LLM 技术，深度挖掘气象-水质耦合机理。",
+                btnCode: "访问代码",
+                btnDemo: "访问页面"
+            },
+            nextDrop: {
+                tag: "NEXT DROP",
+                title: "绝密空投物资",
+                desc: "下一波信号圈缩圈后投放。包含全新战术装备与功能模块，敬请期待。"
+            },
+            selectAction: "SELECT ACTION",
+            backTip: "点击空白处返回"
+        },
+        footer: {
+            operational: "All Systems Operational.",
+            slogan: "Winner Winner, Chicken Dinner!"
+        },
+        modal: {
+            start: "训练开始",
+            score: "得分:",
+            time: "时间:",
+            btn: "START MISSION",
+            tip: "<i class=\"fas fa-mouse-pointer mr-1\"></i> 点击/触摸屏幕操作 <span class=\"hidden md:inline mx-2\">|</span> <i class=\"fas fa-volume-up mr-1\"></i> 包含音效"
+        },
+        game: {
+            hit: "HIT!",
+            over: "训练结束！",
+            score: "最终得分:",
+            rank: "评价:",
+            ranks: {
+                conqueror: "战神 (Conqueror)",
+                ace: "王牌 (Ace)",
+                crown: "皇冠 (Crown)",
+                bronze: "青铜 (Bronze)"
+            },
+            crash: "空投坠毁！",
+            survive: "坚持时间:",
+            seconds: "秒"
+        },
+        signal: {
+            title: "SIGNAL FLARE FIRED!",
+            desc: "信号弹已升空！空投支援正在路上... 📦<br><span class=\"text-xs text-gray-500\">指挥中心已收到请求 / Command Center Acknowledged</span>",
+            pr: "欢迎前往项目仓库提交 <span class=\"text-green-400 font-bold\">Pull Request</span>",
+            issue: "或建立 <span class=\"text-yellow-400 font-bold\">Issue</span> 留下您的联系方式",
+            copy: "收到 / COPY THAT"
+        }
+    },
+    en: {
+        title: "Commando_RickinG | Personal HQ",
+        metaDesc: "RickinG's Tactical Command Terminal. Immersive PUBG-style personal homepage with player stats and project showcase. Winner Winner, Chicken Dinner!",
+        rank: "SS12 Ace",
+        role: "Frontend Assault",
+        tags: {
+            react: "⚛️ React Enthusiast",
+            tailwind: "🌬️ Tailwind Tactics",
+            python: "🐍 Python Hunter",
+            rust: "🦀 Rust Pioneer",
+            llm: "🤖 LLM Commander"
+        },
+        name: "Commando_RickinG",
+        quote: "Drop with a Kar98k, code with zero bugs.",
+        motto: "<span class=\"text-green-500 mr-2\">//</span>Study hard, play hard <span class=\"mx-1 text-gray-700\">|</span> See you in the final circle",
+        giteeBtn: "Gitee Repo",
+        githubBtn: "GitHub",
+        stats: {
+            title: "PLAYER STATS",
+            timeLabel: "Service Time",
+            timeVal: "16 Yrs",
+            killLabel: "Code Kills",
+            killVal: "ERROR_0"
+        },
+        missions: {
+            title: "MISSIONS",
+            aim: { title: "Shooting Range", desc: "Reaction Test" },
+            dodge: { title: "Airdrop Scramble", desc: "Extreme Evasion" }
+        },
+        warehouse: {
+            title: "WAREHOUSE",
+            legendary: "Legendary",
+            epic: "Epic",
+            tactical: {
+                title: "Tactical Terminal",
+                desc: "Immersive PUBG-style homepage built with HTML/CSS/JS. Integrated Gitee/GitHub portals and official tactical icons.",
+                btnCode: "Code",
+                btnDemo: "Demo"
+            },
+            aqua: {
+                title: "AquaInsight Analysis",
+                desc: "AI-driven water quality monitoring system. Combining GIS & LLM to uncover meteorological-water coupling mechanisms.",
+                btnCode: "Code",
+                btnDemo: "Demo"
+            },
+            nextDrop: {
+                tag: "NEXT DROP",
+                title: "Top Secret Drop",
+                desc: "Arriving after the next circle shrink. Contains new tactical gear and modules. Stay tuned."
+            },
+            selectAction: "SELECT ACTION",
+            backTip: "Click blank area to return"
+        },
+        footer: {
+            operational: "All Systems Operational.",
+            slogan: "Winner Winner, Chicken Dinner!"
+        },
+        modal: {
+            start: "MISSION START",
+            score: "Score:",
+            time: "Time:",
+            btn: "START MISSION",
+            tip: "<i class=\"fas fa-mouse-pointer mr-1\"></i> Click/Touch to interact <span class=\"hidden md:inline mx-2\">|</span> <i class=\"fas fa-volume-up mr-1\"></i> Sound On"
+        },
+        game: {
+            hit: "HIT!",
+            over: "Mission Complete!",
+            score: "Final Score:",
+            rank: "Rank:",
+            ranks: {
+                conqueror: "Conqueror",
+                ace: "Ace",
+                crown: "Crown",
+                bronze: "Bronze"
+            },
+            crash: "Airdrop Crashed!",
+            survive: "Time Survived:",
+            seconds: "s"
+        },
+        signal: {
+            title: "SIGNAL FLARE FIRED!",
+            desc: "Flare gun fired! Airdrop support is incoming... 📦<br><span class=\"text-xs text-gray-500\">Command Center Acknowledged</span>",
+            pr: "Submit a <span class=\"text-green-400 font-bold\">Pull Request</span> to the repo",
+            issue: "Or open an <span class=\"text-yellow-400 font-bold\">Issue</span> to leave contact info",
+            copy: "COPY THAT"
+        }
+    }
+};
+
+let currentLang = 'zh'; // 默认中文
+
+// 检测浏览器语言自动设置
+function detectLanguage() {
+    const lang = navigator.language || navigator.userLanguage; 
+    if (lang.startsWith('en')) {
+        setLanguage('en');
+    } else {
+        setLanguage('zh');
+    }
+}
+
+function setLanguage(lang) {
+    currentLang = lang;
+    const t = I18N[lang];
+
+    // 更新页面标题和 meta
+    document.title = t.title;
+    document.querySelector('meta[name="description"]').setAttribute("content", t.metaDesc);
+
+    // 更新文本内容
+    safeSetText('header-rank', t.rank);
+    safeSetText('header-role', t.role);
+    safeSetText('tag-react', t.tags.react);
+    safeSetText('tag-tailwind', t.tags.tailwind);
+    safeSetText('tag-python', t.tags.python);
+    safeSetText('tag-rust', t.tags.rust);
+    safeSetText('tag-llm', t.tags.llm);
+    
+    safeSetText('header-name', t.name);
+    safeSetText('header-quote', `<i class="fas fa-quote-left text-gray-600 mr-2"></i>${t.quote}<i class="fas fa-quote-right text-gray-600 ml-2"></i>`, true);
+    safeSetText('header-motto', t.motto, true);
+    
+    safeSetText('btn-gitee-text', t.giteeBtn);
+    safeSetText('btn-github-text', t.githubBtn);
+    
+    safeSetText('stats-title', t.stats.title);
+    safeSetText('stats-time-label', t.stats.timeLabel);
+    safeSetText('stats-time-val', t.stats.timeVal);
+    safeSetText('stats-kill-label', t.stats.killLabel);
+    // stats-kill-val (ERROR_0) 不变
+
+    safeSetText('missions-title', t.missions.title);
+    safeSetText('mission-aim-title', t.missions.aim.title);
+    safeSetText('mission-aim-desc', t.missions.aim.desc);
+    safeSetText('mission-dodge-title', t.missions.dodge.title);
+    safeSetText('mission-dodge-desc', t.missions.dodge.desc);
+
+    safeSetText('warehouse-title', t.warehouse.title);
+    
+    // Tactical Terminal
+    safeSetText('card-tactical-tag', t.warehouse.legendary);
+    safeSetText('card-tactical-title', t.warehouse.tactical.title);
+    safeSetText('card-tactical-desc', t.warehouse.tactical.desc);
+    safeSetText('card-tactical-action', t.warehouse.selectAction);
+    safeSetText('card-tactical-btn-code', t.warehouse.tactical.btnCode);
+    safeSetText('card-tactical-btn-demo', t.warehouse.tactical.btnDemo);
+    safeSetText('card-tactical-back-tip', t.warehouse.backTip);
+
+    // AquaInsight
+    safeSetText('card-aqua-tag', t.warehouse.epic);
+    safeSetText('card-aqua-title', t.warehouse.aqua.title);
+    safeSetText('card-aqua-desc', t.warehouse.aqua.desc);
+    safeSetText('card-aqua-action', t.warehouse.selectAction);
+    safeSetText('card-aqua-btn-code', t.warehouse.aqua.btnCode);
+    safeSetText('card-aqua-btn-demo', t.warehouse.aqua.btnDemo);
+    safeSetText('card-aqua-back-tip', t.warehouse.backTip);
+
+    // Next Drop
+    safeSetText('card-next-tag', t.warehouse.nextDrop.tag);
+    safeSetText('card-next-title', t.warehouse.nextDrop.title);
+    safeSetText('card-next-desc', t.warehouse.nextDrop.desc);
+
+    // Footer
+    safeSetText('footer-operational', `&copy; 2026 RickinG. ${t.footer.operational}`, true);
+    safeSetText('footer-slogan', t.footer.slogan);
+
+    // Modal
+    safeSetText('modal-game-title', t.modal.start);
+    safeSetText('modal-score-label', `${t.modal.score} <span id="modal-score-val" class="text-yellow-400">0</span>`, true);
+    safeSetText('modal-timer-label', `${t.modal.time} <span id="modal-timer-val" class="text-red-400">00</span>`, true);
+    safeSetText('modal-start-btn', t.modal.btn);
+    safeSetText('modal-tip', t.modal.tip, true);
+
+    // 更新图表
+    updateChart(lang);
+}
+
+function safeSetText(id, text, isHTML = false) {
+    const el = document.getElementById(id);
+    if (el) {
+        if (isHTML) el.innerHTML = text;
+        else el.innerText = text;
+    }
+}
+
+// 更新图表语言
+let skillsChart = null;
+function updateChart(lang) {
+    if (skillsChart) skillsChart.destroy();
+    
+    if (typeof Chart !== 'undefined') {
+        const ctxChart = document.getElementById('skillsChart').getContext('2d');
+        skillsChart = new Chart(ctxChart, {
+            type: 'radar',
+            data: {
+                labels: GAME_CONFIG.SKILLS_CHART.LABELS[lang],
+                datasets: [{
+                    label: lang === 'zh' ? '能力值' : 'Stats',
+                    data: GAME_CONFIG.SKILLS_CHART.DATA,
+                    backgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BG,
+                    borderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER, 
+                    borderWidth: 2,
+                    pointBackgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
+                    pointRadius: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)', circular: true },
+                        pointLabels: {
+                            color: '#9CA3AF', 
+                            font: { size: 11, family: "'Segoe UI', sans-serif", weight: 'bold' }
+                        },
+                        ticks: { display: false, backdropColor: 'transparent' },
+                        suggestedMin: 20,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                        titleColor: '#EAB308',
+                        bodyColor: '#fff',
+                        padding: 8,
+                        displayColors: false,
+                        callbacks: {
+                            title: (items) => items[0].label,
+                            label: (item) => `${lang === 'zh' ? '评分' : 'Score'}: ${item.raw} / 100`
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
 
 // --- 1. 烟雾背景动画 ---
 const canvas = document.getElementById('smoke-canvas');
@@ -94,20 +433,20 @@ animateSmoke();
 
 // --- 2. 全局点击特效 (漂浮文字) ---
 function showClickEffect(e) {
-    // 如果点击的是按钮，就不显示特效，避免干扰
     if (e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('.flip-card')) return;
 
     const span = document.createElement('span');
     span.className = 'float-text';
     span.style.left = e.pageX + 'px';
     span.style.top = e.pageY + 'px';
-    // 随机选择一个词
-    span.innerText = GAME_CONFIG.WORDS[Math.floor(Math.random() * GAME_CONFIG.WORDS.length)];
-    // 随机大小
+    
+    // 使用当前语言的词库
+    const words = GAME_CONFIG.WORDS[currentLang];
+    span.innerText = words[Math.floor(Math.random() * words.length)];
+    
     span.style.fontSize = (Math.random() * 10 + 12) + 'px';
     document.body.appendChild(span);
 
-    // 动画结束后删除元素
     setTimeout(() => {
         span.remove();
     }, 1000);
@@ -158,17 +497,14 @@ let gameTimer = null;
 let gameActive = false;
 let currentGameType = '';
 let gameLoopFrame = null;
-let gameTimeouts = []; // 存储所有 setTimeout ID
+let gameTimeouts = []; 
 
-// 事件处理函数引用，用于移除监听器
 let dodgeMouseHandler = null;
 let dodgeTouchHandler = null;
 
-// 清理游戏状态 (P2 & P0 修复)
 function cleanupGame() {
     gameActive = false;
     
-    // 清除定时器
     if (gameTimer) {
         clearInterval(gameTimer);
         gameTimer = null;
@@ -178,11 +514,9 @@ function cleanupGame() {
         gameLoopFrame = null;
     }
     
-    // 清除所有 setTimeout
     gameTimeouts.forEach(id => clearTimeout(id));
     gameTimeouts = [];
     
-    // 移除事件监听器
     const container = document.getElementById('modal-game-content');
     if (container) {
         if (dodgeMouseHandler) {
@@ -193,50 +527,40 @@ function cleanupGame() {
             container.removeEventListener('touchmove', dodgeTouchHandler);
             dodgeTouchHandler = null;
         }
-        // 清空内容
         container.innerHTML = '';
     }
     
-    // 重置 UI
     document.getElementById('modal-start-btn-container').style.display = 'flex';
 }
 
-// 打开游戏 Modal
 function openGameModal(type) {
-    cleanupGame(); // 确保打开前先清理
+    cleanupGame(); 
     currentGameType = type;
     const modal = document.getElementById('game-modal');
-    const title = document.getElementById('modal-game-title');
     const startBtn = document.getElementById('modal-start-btn');
     
     modal.classList.remove('hidden');
     
-    // 重置 UI
     document.getElementById('modal-score-val').innerText = '0';
     document.getElementById('modal-timer-val').innerText = type === 'aim' ? GAME_CONFIG.AIM_GAME.TIME : '0.0s';
     
     if (type === 'aim') {
-        title.innerText = "🎯 射击训练场";
         startBtn.onclick = initAimGame;
         startBtn.className = "bg-green-600 hover:bg-green-500 text-white font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110";
     } else {
-        title.innerText = "🪂 空投争夺战";
         startBtn.onclick = initDodgeGame;
         startBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110";
     }
 }
 
-// 关闭游戏 Modal
 function closeGameModal() {
     cleanupGame();
     document.getElementById('game-modal').classList.add('hidden');
 }
 
-// 封装 setTimeout 以便清理
 function safeSetTimeout(fn, delay) {
     const id = setTimeout(() => {
         fn();
-        // 执行后从数组移除 (可选优化，但 simplify 也可以)
     }, delay);
     gameTimeouts.push(id);
     return id;
@@ -244,8 +568,8 @@ function safeSetTimeout(fn, delay) {
 
 // --- 射击游戏逻辑 ---
 function initAimGame() {
-    if (gameActive) return; // 防止重复点击
-    cleanupGame(); // 再次确保清理
+    if (gameActive) return; 
+    cleanupGame(); 
     
     gameActive = true;
     document.getElementById('modal-start-btn-container').style.display = 'none';
@@ -255,7 +579,6 @@ function initAimGame() {
     let timeLeft = GAME_CONFIG.AIM_GAME.TIME;
     const container = document.getElementById('modal-game-content');
     
-    // 倒计时
     gameTimer = setInterval(() => {
         if (!gameActive) {
             clearInterval(gameTimer);
@@ -268,7 +591,6 @@ function initAimGame() {
         }
     }, 1000);
     
-    // 生成目标循环
     const spawnLoop = () => {
         if (!gameActive) return;
         spawnAimTarget(container, (points) => {
@@ -279,7 +601,7 @@ function initAimGame() {
             combo.className = 'absolute text-yellow-300 font-bold text-2xl animate-bounce pointer-events-none';
             combo.style.left = '50%';
             combo.style.top = '10%';
-            combo.innerText = "HIT!";
+            combo.innerText = I18N[currentLang].game.hit; // 多语言
             container.appendChild(combo);
             safeSetTimeout(() => combo.remove(), 500);
         });
@@ -324,20 +646,22 @@ function spawnAimTarget(container, onHit) {
 function endAimGame(score) {
     cleanupGame();
     playSound('gameover');
-    alert(`训练结束！\n最终得分: ${score}\n评价: ${getRank(score)}`);
+    const t = I18N[currentLang].game;
+    alert(`${t.over}\n${t.score} ${score}\n${t.rank} ${getRank(score)}`);
 }
 
 function getRank(score) {
-    if (score > 500) return "战神 (Conqueror)";
-    if (score > 300) return "王牌 (Ace)";
-    if (score > 100) return "皇冠 (Crown)";
-    return "青铜 (Bronze)";
+    const t = I18N[currentLang].game.ranks;
+    if (score > 500) return t.conqueror;
+    if (score > 300) return t.ace;
+    if (score > 100) return t.crown;
+    return t.bronze;
 }
 
 // --- 躲避游戏逻辑 ---
 function initDodgeGame() {
     if (gameActive) return;
-    cleanupGame(); // 再次确保清理
+    cleanupGame(); 
     
     gameActive = true;
     document.getElementById('modal-start-btn-container').style.display = 'none';
@@ -356,7 +680,6 @@ function initDodgeGame() {
     let obstacles = [];
     let speed = GAME_CONFIG.DODGE_GAME.SPEED_BASE;
 
-    // 定义事件处理函数
     const updatePlayerPos = (clientX) => {
         const rect = container.getBoundingClientRect();
         let x = clientX - rect.left;
@@ -372,16 +695,14 @@ function initDodgeGame() {
         updatePlayerPos(e.touches[0].clientX);
     };
 
-    // 添加监听器
     container.addEventListener('mousemove', dodgeMouseHandler);
     container.addEventListener('touchmove', dodgeTouchHandler, { passive: false });
 
-    // 游戏循环
     const loop = () => {
         if (!gameActive) return;
         
         survivalTime += 0.02;
-        document.getElementById('modal-timer-val').innerText = survivalTime.toFixed(1) + 's';
+        document.getElementById('modal-timer-val').innerText = survivalTime.toFixed(1) + I18N[currentLang].game.seconds;
         
         speed = GAME_CONFIG.DODGE_GAME.SPEED_BASE + survivalTime * GAME_CONFIG.DODGE_GAME.SPEED_INC;
 
@@ -410,8 +731,9 @@ function initDodgeGame() {
                   pRect.top + padding > oRect.bottom - padding)) {
                 
                 playSound('gameover');
-                alert(`空投坠毁！\n坚持时间: ${survivalTime.toFixed(2)}秒`);
-                cleanupGame(); // 游戏结束清理
+                const t = I18N[currentLang].game;
+                alert(`${t.crash}\n${t.survive} ${survivalTime.toFixed(2)}${t.seconds}`);
+                cleanupGame(); 
                 return;
             }
 
@@ -426,64 +748,6 @@ function initDodgeGame() {
     loop();
 }
 
-// --- 5. 战力雷达图 (样式优化) ---
-if (typeof Chart !== 'undefined') {
-    const ctxChart = document.getElementById('skillsChart').getContext('2d');
-    new Chart(ctxChart, {
-        type: 'radar',
-        data: {
-            labels: GAME_CONFIG.SKILLS_CHART.LABELS,
-            datasets: [{
-                label: '能力值',
-                data: GAME_CONFIG.SKILLS_CHART.DATA,
-                backgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BG,
-                borderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER, 
-                borderWidth: 2,
-                pointBackgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
-                pointBorderColor: '#fff',
-                pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
-                pointRadius: 3
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                r: {
-                    angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                    grid: { color: 'rgba(255, 255, 255, 0.1)', circular: true },
-                    pointLabels: {
-                        color: '#9CA3AF', 
-                        font: { size: 11, family: "'Segoe UI', sans-serif", weight: 'bold' }
-                    },
-                    ticks: { display: false, backdropColor: 'transparent' },
-                    suggestedMin: 20,
-                    suggestedMax: 100
-                }
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    backgroundColor: 'rgba(17, 24, 39, 0.9)',
-                    titleColor: '#EAB308',
-                    bodyColor: '#fff',
-                    padding: 8,
-                    displayColors: false,
-                    callbacks: {
-                        title: (items) => items[0].label,
-                        label: (item) => `评分: ${item.raw} / 100`
-                    }
-                }
-            }
-        }
-    });
-} else {
-    console.error('Chart.js failed to load.');
-    const chartContainer = document.getElementById('skillsChart').parentElement;
-    chartContainer.innerHTML = '<div class="text-gray-500 text-center flex items-center justify-center h-full">雷达图加载失败 / Radar Chart Load Failed</div>';
-}
-
 // --- 6. 信号枪逻辑 ---
 function fireSignal() {
     playSound('shot');
@@ -493,24 +757,27 @@ function fireSignal() {
         if(e.target === overlay) overlay.remove();
     };
 
+    const t = I18N[currentLang].signal;
     overlay.innerHTML = `
         <div class="bg-gray-800 border-2 border-yellow-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
             <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-20 w-auto drop-shadow-lg filter brightness-110" alt="Flare Gun">
             </div>
-            <h3 class="text-2xl font-black text-yellow-500 mt-8 mb-4">SIGNAL FLARE FIRED!</h3>
+            <h3 class="text-2xl font-black text-yellow-500 mt-8 mb-4">${t.title}</h3>
             <p class="text-gray-300 mb-6 leading-relaxed">
-                信号弹已升空！空投支援正在路上... 📦<br>
-                <span class="text-xs text-gray-500">指挥中心已收到请求 / Command Center Acknowledged</span>
+                ${t.desc}
             </p>
             <div class="bg-gray-900/50 p-4 rounded border border-gray-700 mb-6 text-sm text-gray-400 text-left">
-                <p class="mb-2"><i class="fas fa-code-branch text-green-400 mr-2"></i> 欢迎前往项目仓库提交 <span class="text-green-400 font-bold">Pull Request</span></p>
-                <p><i class="fas fa-comment-dots text-yellow-400 mr-2"></i> 或建立 <span class="text-yellow-400 font-bold">Issue</span> 留下您的联系方式</p>
+                <p class="mb-2"><i class="fas fa-code-branch text-green-400 mr-2"></i> ${t.pr}</p>
+                <p><i class="fas fa-comment-dots text-yellow-400 mr-2"></i> ${t.issue}</p>
             </div>
             <button onclick="this.closest('.fixed').remove()" class="bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-8 rounded clip-path-polygon transition transform hover:scale-105" aria-label="Close Signal">
-                收到 / COPY THAT
+                ${t.copy}
             </button>
         </div>
     `;
     document.body.appendChild(overlay);
 }
+
+// 初始化时检测语言
+detectLanguage();
