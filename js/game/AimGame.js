@@ -38,11 +38,14 @@ export class AimGame extends BaseGame {
             this.score += points;
             this.updateUI('score', this.score);
             
+            // Get latest lang
+            const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+            
             const combo = document.createElement('div');
             combo.className = 'absolute text-yellow-300 font-bold text-2xl animate-bounce pointer-events-none';
             combo.style.left = '50%';
             combo.style.top = '10%';
-            combo.innerText = I18N[currentLang].game.hit;
+            combo.innerText = I18N[lang].game.hit;
             this.container.appendChild(combo);
             this.safeSetTimeout(() => combo.remove(), 500);
         });
@@ -85,12 +88,14 @@ export class AimGame extends BaseGame {
     end() {
         super.end();
         playSound('gameover');
-        const t = I18N[currentLang].game;
+        const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+        const t = I18N[lang].game;
         alert(`${t.over}\n${t.score} ${this.score}\n${t.rank} ${this.getRank(this.score)}`);
     }
 
     getRank(score) {
-        const t = I18N[currentLang].game.ranks;
+        const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+        const t = I18N[lang].game.ranks;
         if (score > 500) return t.conqueror;
         if (score > 300) return t.ace;
         if (score > 100) return t.crown;

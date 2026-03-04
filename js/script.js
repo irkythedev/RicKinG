@@ -70,7 +70,8 @@ function showClickEffect(e) {
     span.style.left = e.pageX + 'px';
     span.style.top = e.pageY + 'px';
     
-    const words = GAME_CONFIG.WORDS[currentLang];
+    const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+    const words = GAME_CONFIG.WORDS[lang];
     span.innerText = words[Math.floor(Math.random() * words.length)];
     
     span.style.fontSize = (Math.random() * 10 + 12) + 'px';
@@ -270,7 +271,8 @@ window.fireSignal = function() {
         if(e.target === overlay) overlay.remove();
     };
 
-    const t = I18N[currentLang].signal;
+    const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+    const t = I18N[lang].signal;
     overlay.innerHTML = `
         <div class="bg-gray-800 border-2 border-yellow-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
             <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">

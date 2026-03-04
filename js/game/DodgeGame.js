@@ -57,8 +57,10 @@ export class DodgeGame extends BaseGame {
         const loop = () => {
             if (!this.gameActive) return;
             
+            const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+            
             this.survivalTime += 0.02;
-            this.updateUI('timer', this.survivalTime.toFixed(1) + I18N[currentLang].game.seconds);
+            this.updateUI('timer', this.survivalTime.toFixed(1) + I18N[lang].game.seconds);
             
             this.speed = GAME_CONFIG.DODGE_GAME.SPEED_BASE + this.survivalTime * GAME_CONFIG.DODGE_GAME.SPEED_INC;
 
@@ -114,7 +116,8 @@ export class DodgeGame extends BaseGame {
     end() {
         super.end();
         playSound('gameover');
-        const t = I18N[currentLang].game;
+        const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+        const t = I18N[lang].game;
         alert(`${t.crash}\n${t.survive} ${this.survivalTime.toFixed(2)}${t.seconds}`);
     }
     
