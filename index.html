@@ -137,7 +137,7 @@
                     
                     <div class="grid grid-cols-2 gap-4">
                         <!-- 射击训练入口 -->
-                        <div onclick="openGameModal('aim')" onkeydown="if(event.key==='Enter'||event.key===' ') openGameModal('aim')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Aim Training Game">
+                        <div data-game="aim" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Aim Training Game">
                             <div class="absolute inset-0 bg-green-900 opacity-0 group-hover:opacity-20 transition"></div>
                             <div class="h-16 mb-2 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png" alt="M416" class="h-full object-contain drop-shadow-lg">
@@ -147,7 +147,7 @@
                         </div>
 
                         <!-- 空投争夺入口 -->
-                        <div onclick="openGameModal('dodge')" onkeydown="if(event.key==='Enter'||event.key===' ') openGameModal('dodge')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Airdrop Dodge Game">
+                        <div data-game="dodge" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Airdrop Dodge Game">
                             <div class="absolute inset-0 bg-blue-900 opacity-0 group-hover:opacity-20 transition"></div>
                             <div class="h-16 mb-2 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/CarePackage/CarePackage_Normal.png" alt="Airdrop" class="h-full object-contain drop-shadow-lg">
@@ -311,7 +311,7 @@
     </div>
 
     <!-- --- JavaScript 逻辑区域 --- -->
-    <!-- 引入自定义脚本 -->
-    <script src="js/script.js"></script>
+    <!-- 引入自定义脚本 (模块化) -->
+    <script type="module" src="js/script.js"></script>
 </body>
 </html>
