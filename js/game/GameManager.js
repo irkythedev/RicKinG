@@ -59,9 +59,16 @@ class GameManager {
         document.getElementById('modal-timer-val').innerText = type === 'aim' ? GAME_CONFIG.AIM_GAME.TIME : '0.0s';
         
         const title = document.getElementById('modal-game-title');
-        const t = I18N[currentLang].missions;
+        // I18N[currentLang] may be undefined if currentLang is not updated correctly in this module scope
+        // Use window.getComputedLang() if available, or fallback to currentLang import
+        const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+        const t = I18N[lang].missions;
+        
         if (type === 'aim') title.innerText = t.aim.title;
         if (type === 'dodge') title.innerText = t.dodge.title;
+        
+        // Also update button text
+        this.startBtn.innerText = I18N[lang].modal.btn;
     }
 
     updateUI(type, value) {
