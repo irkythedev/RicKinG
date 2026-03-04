@@ -7,11 +7,11 @@
     <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/pubg-helmet.png">
     <title>特种兵_RickinG | 个人主页</title>
     <!-- 引入 Tailwind CSS (样式库) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com" onerror="console.error('Tailwind CSS failed to load'); document.body.innerHTML += '<div style=\'color:red;padding:20px\'>Error: Tailwind CSS failed to load. Please check your connection.</div>'"></script>
     <!-- 引入 FontAwesome (图标库) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="console.error('FontAwesome failed to load')">
     <!-- 引入 Chart.js (图表库) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="console.error('Chart.js failed to load')"></script>
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -104,20 +104,20 @@
                 <!-- 社交链接按钮 -->
                 <div class="flex flex-wrap gap-3 justify-center md:justify-start items-center">
                     <!-- Gitee (Active) -->
-                    <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-4 py-1.5 md:px-5 md:py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50 text-sm md:text-base">
+                    <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-red-700 hover:bg-red-600 text-white px-4 py-1.5 md:px-5 md:py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50 text-sm md:text-base" aria-label="Visit Gitee Repository">
                         <img src="https://gitee.com/favicon.ico" class="h-4 w-4 md:h-5 md:w-5 rounded-full bg-white p-0.5" alt="Gitee">
                         <span class="font-bold">Gitee 仓库</span>
                     </a>
 
                     <!-- GitHub (Disabled / Locked) -->
-                    <div class="bg-gray-800 text-gray-500 px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none text-sm md:text-base" title="暂未开放 / Locked">
-                        <i class="fab fa-github text-lg md:text-xl"></i>
+                    <div class="bg-gray-800 text-gray-500 px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none text-sm md:text-base" title="暂未开放 / Locked" aria-label="GitHub Repository Locked" role="button" aria-disabled="true">
+                        <i class="fab fa-github text-lg md:text-xl" aria-hidden="true"></i>
                         <span class="font-bold">GitHub</span>
                     </div>
 
                     <!-- 联系我 (Flare Gun) -->
-                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-2" title="发射信号弹 / Signal">
-                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-10 md:h-12 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim">
+                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-2" title="发射信号弹 / Signal" aria-label="Fire Signal Flare">
+                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png" class="h-10 md:h-12 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim" alt="Flare Gun">
                     </a>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                     
                     <div class="grid grid-cols-2 gap-4">
                         <!-- 射击训练入口 -->
-                        <div onclick="openGameModal('aim')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden">
+                        <div onclick="openGameModal('aim')" onkeydown="if(event.key==='Enter'||event.key===' ') openGameModal('aim')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Aim Training Game">
                             <div class="absolute inset-0 bg-green-900 opacity-0 group-hover:opacity-20 transition"></div>
                             <div class="h-16 mb-2 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png" alt="M416" class="h-full object-contain drop-shadow-lg">
@@ -174,7 +174,7 @@
                         </div>
 
                         <!-- 空投争夺入口 -->
-                        <div onclick="openGameModal('dodge')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden">
+                        <div onclick="openGameModal('dodge')" onkeydown="if(event.key==='Enter'||event.key===' ') openGameModal('dodge')" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Airdrop Dodge Game">
                             <div class="absolute inset-0 bg-blue-900 opacity-0 group-hover:opacity-20 transition"></div>
                             <div class="h-16 mb-2 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/CarePackage/CarePackage_Normal.png" alt="Airdrop" class="h-full object-contain drop-shadow-lg">
@@ -198,14 +198,14 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         
                         <!-- 传说级武器 (已上线项目) -->
-                        <div class="block group relative h-64 flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="block group relative h-64 flip-card cursor-pointer" onclick="this.classList.toggle('flipped')" onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')" role="button" tabindex="0" aria-label="Toggle Project Card: Tactical Terminal">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
-                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full">
+                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full" aria-hidden="false">
                                     <div class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded-bl">传说级</div>
                                     
                                     <div class="h-16 mb-3 flex items-center justify-center">
-                                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]">
+                                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]" alt="AWM Sniper">
                                     </div>
                                     <h3 class="text-xl font-bold text-white mb-2">特种兵战术终端</h3>
                                     <p class="text-gray-400 text-sm mb-4 flex-grow text-left line-clamp-3">
@@ -218,15 +218,15 @@
                                 </div>
                                 
                                 <!-- 背面 (翻转后显示) -->
-                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0">
+                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0" aria-hidden="true">
                                     <h3 class="text-xl font-bold text-yellow-500 mb-6">SELECT ACTION</h3>
                                     <div class="flex flex-col gap-4 w-full px-4">
-                                        <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()">
-                                            <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5">
+                                        <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()" aria-label="View Code on Gitee">
+                                            <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5" alt="">
                                             <span>访问代码</span>
                                         </a>
-                                        <a href="https://initricky.lol" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()">
-                                            <i class="fas fa-globe"></i>
+                                        <a href="https://initricky.lol" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()" aria-label="View Live Demo">
+                                            <i class="fas fa-globe" aria-hidden="true"></i>
                                             <span>访问页面</span>
                                         </a>
                                     </div>
@@ -235,14 +235,14 @@
                             </div>
                         </div>
 
-                        <div class="block group relative h-64 flip-card cursor-pointer" onclick="this.classList.toggle('flipped')">
+                        <div class="block group relative h-64 flip-card cursor-pointer" onclick="this.classList.toggle('flipped')" onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')" role="button" tabindex="0" aria-label="Toggle Project Card: AquaInsight">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
-                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full">
+                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full" aria-hidden="false">
                                     <div class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">史诗级</div>
                                     
                                     <div class="h-16 mb-3 flex items-center justify-center">
-                                        <img src="https://img.icons8.com/color/48/energy-drink.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]">
+                                        <img src="https://img.icons8.com/color/48/energy-drink.png" class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]" alt="Energy Drink">
                                     </div>
                                     <h3 class="text-xl font-bold text-white mb-2">AquaInsight 水质分析</h3>
                                     <p class="text-gray-400 text-sm mb-4 flex-grow text-left line-clamp-3">
@@ -256,15 +256,15 @@
                                 </div>
 
                                 <!-- 背面 (翻转后显示) -->
-                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0">
+                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0" aria-hidden="true">
                                     <h3 class="text-xl font-bold text-purple-400 mb-6">SELECT ACTION</h3>
                                     <div class="flex flex-col gap-4 w-full px-4">
-                                        <a href="https://gitee.com/K4Ricky2Win/water-sci-analyzer" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()">
-                                            <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5">
+                                        <a href="https://gitee.com/K4Ricky2Win/water-sci-analyzer" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()" aria-label="View Code on Gitee">
+                                            <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5" alt="">
                                             <span>访问代码</span>
                                         </a>
-                                        <a href="https://water-sci-analyzer.initricky.lol" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()">
-                                            <img src="https://img.icons8.com/color/48/water-element.png" class="h-5 w-5 filter brightness-200">
+                                        <a href="https://water-sci-analyzer.initricky.lol" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition" onclick="event.stopPropagation()" aria-label="View Live Demo">
+                                            <img src="https://img.icons8.com/color/48/water-element.png" class="h-5 w-5 filter brightness-200" alt="">
                                             <span>访问页面</span>
                                         </a>
                                     </div>
