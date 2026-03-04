@@ -42,6 +42,11 @@
                     <div class="absolute -bottom-2 -right-2 bg-gray-800 p-2 rounded-full border border-gray-600 z-20">
                         <img src="https://img.icons8.com/color/48/pubg-helmet.png" class="w-6 h-6 md:w-8 md:h-8 object-contain" alt="Level 3 Helmet">
                     </div>
+
+                    <!-- 语言切换按钮 (左下角，对应三级头) -->
+                    <button onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')" class="absolute -bottom-2 -left-2 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-yellow-500 p-2 rounded-full border border-gray-600 z-20 transition transform hover:scale-110 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 shadow-lg" aria-label="Toggle Language" title="切换语言 / Switch Language">
+                        <i class="fas fa-globe text-sm md:text-lg"></i>
+                    </button>
                 </div>
 
             <!-- 文字信息 -->
@@ -56,15 +61,9 @@
                     <span id="tag-llm" class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">🤖 LLM 指挥官</span>
                 </div>
                 <!-- 你的名字 (带闪烁特效) -->
-                <div class="flex items-center gap-3 mb-2">
-                    <h1 id="header-name" class="text-3xl md:text-5xl font-black text-white glitch-text cursor-pointer truncate" data-text="RICKING_PLAYER">
-                        特种兵_RickinG
-                    </h1>
-                    <!-- 语言切换按钮 (Global Icon) -->
-                    <button onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')" class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-yellow-500 p-2 rounded-full border border-gray-600 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-10 md:h-10" aria-label="Toggle Language" title="切换语言 / Switch Language">
-                        <i class="fas fa-globe text-sm md:text-lg"></i>
-                    </button>
-                </div>
+                <h1 id="header-name" class="text-3xl md:text-5xl font-black text-white mb-2 glitch-text cursor-pointer truncate" data-text="RICKING_PLAYER">
+                    特种兵_RickinG
+                </h1>
                 <p id="header-quote" class="text-gray-400 text-sm md:text-lg mb-2 line-clamp-2 md:line-clamp-none">
                     <i class="fas fa-quote-left text-gray-600 mr-2"></i>
                     落地一把98K，代码一行Bug Free。
