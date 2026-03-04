@@ -61,7 +61,7 @@
                         特种兵_RickinG
                     </h1>
                     <!-- 语言切换按钮 (Global Icon) -->
-                    <button onclick="setLanguage(currentLang === 'zh' ? 'en' : 'zh')" class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-yellow-500 p-2 rounded-full border border-gray-600 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-10 md:h-10" aria-label="Toggle Language" title="切换语言 / Switch Language">
+                    <button onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')" class="bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-yellow-500 p-2 rounded-full border border-gray-600 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-10 md:h-10" aria-label="Toggle Language" title="切换语言 / Switch Language">
                         <i class="fas fa-globe text-sm md:text-lg"></i>
                     </button>
                 </div>

@@ -109,11 +109,15 @@ window.closeGameModal = () => gameManager.closeModal();
 
 
 // --- 4. 多语言支持 ---
-window.currentLang = currentLang;
+    // Remove direct assignment to avoid module variable reassignment issue
+    // window.currentLang = currentLang;
 
 window.setLanguage = function(lang) {
-    setCurrentLang(lang);
+    if (lang !== currentLang) {
+        setCurrentLang(lang);
+    }
     const t = I18N[lang];
+    if (!t) return; // Safety check
 
     document.title = t.title;
     document.querySelector('meta[name="description"]').setAttribute("content", t.metaDesc);
@@ -194,6 +198,9 @@ function detectLanguage() {
         window.setLanguage('zh');
     }
 }
+
+// Expose helper to get current lang from config module
+window.getComputedLang = () => currentLang;
 
 // --- 5. 战力雷达图 ---
 let skillsChart = null;
