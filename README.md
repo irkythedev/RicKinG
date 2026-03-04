@@ -1,37 +1,63 @@
-# 特种兵 RickinG 的战术指挥终端 (RickinG's Tactical Terminal)
-
-![PUBG Theme](https://img.icons8.com/color/96/pubg-helmet.png)
+# 🪖 特种兵 RickinG 的战术基地 | Tactical Base
 
 > **"落地一把98K，代码一行Bug Free。"**
+>
+> *"Study hard, play hard. See you in the final circle!"*
 
-## 🪖 项目介绍 (Mission Briefing)
+---
 
-这是一个基于 **HTML5**, **Tailwind CSS** 和 **Vanilla JS** 打造的沉浸式 **PUBG (绝地求生)** 风格个人主页。
+## 👋 嗨！我是 RickinG (RG)
 
-它不仅是我的代码仓库入口，更是一个全功能的战术指挥终端，包含：
-- **📊 作战数据面板 (Player Stats)**：通过雷达图展示我的全栈技术能力。
-- **📦 军火库 (Warehouse)**：以 3D 翻转卡片形式展示我的核心项目（传说级/史诗级装备）。
-- **🎮 演习任务 (Missions)**：内置射击训练与空投争夺小游戏，磨练反应速度。
-- **📡 信号联络 (Signal)**：全屏信号枪特效，建立战术通讯。
+这里是我的**个人战术指挥终端**，也是我在互联网战场上的**秘密基地**。
 
-## 🛠️ 战术装备 (Tech Stack)
+我是一名热血的**代码特种兵**，也是未来的**AI指挥官**。对我来说，敲代码就像是在海岛地图上搜寻物资——充满了未知的挑战和拿到极品装备（解决Bug）的快感！
 
-- **HTML5**: 坚固的掩体结构
-- **Tailwind CSS**: 灵活的战术迷彩 (样式)
-- **JavaScript (ES6+)**: 致命的武器逻辑
-- **FontAwesome & Icons8**: 战场识别符号 (图标)
-- **Chart.js**: 战局分析雷达
+### 🎯 关于我 (My Profile)
 
-## 🚀 部署行动 (Deployment)
+- **役期时长**: 16年 (正在努力发育中...)
+- **段位**: SS12 赛季王牌 & 代码圈青铜选手 (正在冲刺无敌战神!)
+- **主武器**: `Python` (狙击数据), `JavaScript` (突击交互)
+- **战术装备**: `React`, `Tailwind`, `LLM Prompting`
+- **座右铭**: `好好学习，天天向上 | Good Good Study, Day Day Up`
 
-本项目已部署于 Gitee Pages，随时准备投入战斗。
+---
 
-🔗 **访问地址**: [https://ricking.gitee.io/](https://ricking.gitee.io/)
+## 🏗️ 基地设施 (Base Features)
 
-## 🤝 加入小队 (Contact)
+这个网页不是普通的 `index.html`，它是我用代码搭建的**军事堡垒**！
 
-如果你对本项目感兴趣，或者想组队双排（合作开发），欢迎发射信号弹（提交 Issue 或 PR）！
+### 1. 📊 作战雷达 (Stats Radar)
+在这里，你可以看到我的各项能力值分布：
+- **刚枪 (Code)**: 正面硬刚 Bug 的能力
+- **指挥 (AI Agent)**: 调遣 AI 大模型协同作战
+- **跑图 (Ops)**: 快速部署与运维能力
+
+### 2. 📦 军火库 (Warehouse)
+展示了我开发的**传说级**和**史诗级**项目装备：
+- **特种兵战术终端**: 就是你现在看到的这个酷炫主页！
+- **AquaInsight 水质分析**: 用 AI 守护绿水青山的黑科技。
+- **绝密空投**: 下一个大招正在蓄力中...
+
+### 3. 🎮 演习场 (Training Ground)
+觉得无聊？来一把**射击训练**或者**空投争夺战**！
+- 试试看你的手速能不能比得过我的代码补全速度？
+- *P.S. 手机端也能玩哦！*
+
+### 4. 📡 信号联络 (Signal Flare)
+点击页面上的**信号枪**，向我发射空投请求！
+- 无论是技术交流、组队开黑，还是发现 Bug，都欢迎随时联络。
+- *点击那一刻，千军万马来相见！*
+
+---
+
+## 🚀 部署行动 (Deploy)
+
+本项目已部署在 **Gitee Pages**，欢迎随时空降参观：
+� **[https://ricking.gitee.io/](https://ricking.gitee.io/)**
+
+如果你觉得这个基地还不错，记得在右上角点个 **⭐️ Star** (这对我真的很重要，就像捡到了三级头！)。
 
 ---
 
 *Winner Winner, Chicken Dinner!* 🍗
+*See you on the battlegrounds!*
