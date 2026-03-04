@@ -7,6 +7,15 @@ body {
     touch-action: manipulation; /* 优化移动端触摸 */
 }
 
+/* --- 慢速旋转动画 --- */
+@keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
 /* --- 背景烟雾效果 --- */
 #smoke-canvas {
     position: fixed;
