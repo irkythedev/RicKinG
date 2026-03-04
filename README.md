@@ -37,7 +37,7 @@
 
 ## 🇺🇸 English Version
 
-### � Hey there! I'm RickinG (RG)
+### 👋 Hey there! I'm RickinG (RG)
 
 Welcome to my **Tactical Command Terminal** — my secret base on the internet battlefield.
 
