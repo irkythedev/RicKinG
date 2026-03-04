@@ -165,13 +165,13 @@ const I18N = {
                 title: "Tactical Terminal",
                 desc: "Immersive PUBG-style homepage built with HTML/CSS/JS. Integrated Gitee/GitHub portals and official tactical icons.",
                 btnCode: "Code",
-                btnDemo: "Demo"
+                btnDemo: "Visit"
             },
             aqua: {
                 title: "AquaInsight Analysis",
                 desc: "AI-driven water quality monitoring system. Combining GIS & LLM to uncover meteorological-water coupling mechanisms.",
                 btnCode: "Code",
-                btnDemo: "Demo"
+                btnDemo: "Visit"
             },
             nextDrop: {
                 tag: "NEXT DROP",
