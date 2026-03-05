@@ -1,8 +1,4 @@
-import { BaseGame } from './BaseGame.js';
-import { GAME_CONFIG, I18N, currentLang } from '../config.js';
-import { playSound } from '../audio.js';
-
-export class AimGame extends BaseGame {
+window.AimGame = class AimGame extends BaseGame {
     constructor(containerId, updateUI) {
         super(containerId);
         this.updateUI = updateUI; // Callback to update score/timer UI

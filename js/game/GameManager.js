@@ -1,8 +1,4 @@
-import { AimGame } from './AimGame.js';
-import { DodgeGame } from './DodgeGame.js';
-import { GAME_CONFIG, I18N, currentLang } from '../config.js';
-
-class GameManager {
+window.GameManager = class GameManager {
     constructor() {
         this.games = {
             'aim': AimGame,
@@ -93,4 +89,4 @@ class GameManager {
     }
 }
 
-export const gameManager = new GameManager();
+window.gameManager = new GameManager();

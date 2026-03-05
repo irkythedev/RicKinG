@@ -1,4 +1,4 @@
-export class BaseGame {
+window.BaseGame = class BaseGame {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.gameActive = false;

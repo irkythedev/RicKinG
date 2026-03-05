@@ -1,7 +1,3 @@
-import { GAME_CONFIG, I18N, currentLang, setCurrentLang } from './config.js';
-import { playSound } from './audio.js';
-import { gameManager } from './game/GameManager.js';
-
 // --- 1. 烟雾背景动画 ---
 const canvas = document.getElementById('smoke-canvas');
 const ctx = canvas.getContext('2d');
@@ -110,8 +106,6 @@ window.closeGameModal = () => gameManager.closeModal();
 
 
 // --- 4. 多语言支持 ---
-    // Remove direct assignment to avoid module variable reassignment issue
-    // window.currentLang = currentLang;
 
 window.setLanguage = function(lang) {
     if (lang !== currentLang) {

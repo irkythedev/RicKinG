@@ -1,11 +1,11 @@
-export let currentLang = 'zh';
+window.currentLang = 'zh';
 
-export function setCurrentLang(lang) {
-    currentLang = lang;
+window.setCurrentLang = function(lang) {
+    window.currentLang = lang;
 }
 
 // --- 游戏配置常量 (Game Configuration) ---
-export const GAME_CONFIG = {
+window.GAME_CONFIG = {
     SMOKE: {
         COUNT: 50,
         COLOR: 'rgba(100, 116, 139, ',
@@ -46,7 +46,7 @@ export const GAME_CONFIG = {
 };
 
 // --- 多语言配置 (i18n) ---
-export const I18N = {
+window.I18N = {
     zh: {
         title: "特种兵_RickinG | 个人主页",
         metaDesc: "RickinG 的战术指挥终端。沉浸式 PUBG 风格个人主页，集成作战数据与项目展示。Winner Winner, Chicken Dinner!",

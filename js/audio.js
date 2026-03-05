@@ -1,9 +1,7 @@
-import { GAME_CONFIG } from './config.js';
-
 // --- 3. 音效系统 (Web Audio API) ---
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-export function playSound(type) {
+window.playSound = function(type) {
     if (audioCtx.state === 'suspended') audioCtx.resume();
     const osc = audioCtx.createOscillator();
     const gainNode = audioCtx.createGain();

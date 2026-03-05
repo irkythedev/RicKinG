@@ -1,8 +1,4 @@
-import { BaseGame } from './BaseGame.js';
-import { GAME_CONFIG, I18N, currentLang } from '../config.js';
-import { playSound } from '../audio.js';
-
-export class DodgeGame extends BaseGame {
+window.DodgeGame = class DodgeGame extends BaseGame {
     constructor(containerId, updateUI) {
         super(containerId);
         this.updateUI = updateUI;
