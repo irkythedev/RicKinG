@@ -2,7 +2,8 @@ window.GameManager = class GameManager {
     constructor() {
         this.games = {
             'aim': AimGame,
-            'dodge': DodgeGame
+            'dodge': DodgeGame,
+            'vehicle': VehicleGame
         };
         this.currentGame = null;
         this.modal = document.getElementById('game-modal');
@@ -54,10 +55,11 @@ window.GameManager = class GameManager {
     // ---- Theme & Loading screen helpers ----
 
     _applyTheme(type) {
-        // Color maps: aim = green, dodge = blue
+        // Color maps: aim = green, dodge = blue, vehicle = orange
         const themes = {
             aim: { icon: 'text-green-500', text: 'text-green-400', bar: 'bg-green-500', btn: 'bg-green-600 hover:bg-green-500', iconClass: 'fa-crosshairs' },
-            dodge: { icon: 'text-blue-500', text: 'text-blue-400', bar: 'bg-blue-500', btn: 'bg-blue-600 hover:bg-blue-500', iconClass: 'fa-parachute-box' }
+            dodge: { icon: 'text-blue-500', text: 'text-blue-400', bar: 'bg-blue-500', btn: 'bg-blue-600 hover:bg-blue-500', iconClass: 'fa-parachute-box' },
+            vehicle: { icon: 'text-orange-500', text: 'text-orange-400', bar: 'bg-orange-500', btn: 'bg-orange-600 hover:bg-orange-500', iconClass: 'fa-car' }
         };
         const theme = themes[type] || themes.aim;
         this._currentTheme = theme;
@@ -213,6 +215,7 @@ window.GameManager = class GameManager {
 
         if (type === 'aim') title.innerText = t.aim.title;
         if (type === 'dodge') title.innerText = t.dodge.title;
+        if (type === 'vehicle') title.innerText = t.vehicle.title;
 
         this.startBtn.innerText = I18N[lang].modal.btn;
     }

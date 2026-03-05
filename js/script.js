@@ -63,18 +63,18 @@ function showClickEffect(e) {
 
     const span = document.createElement('span');
     span.className = 'float-text';
-    
+
     // Add random offset to prevent perfect stacking
     const offsetX = (Math.random() - 0.5) * 40; // -20px to +20px
     const offsetY = (Math.random() - 0.5) * 40;
-    
+
     span.style.left = (e.pageX + offsetX) + 'px';
     span.style.top = (e.pageY + offsetY) + 'px';
-    
+
     const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
     const words = GAME_CONFIG.WORDS[lang];
     span.innerText = words[Math.floor(Math.random() * words.length)];
-    
+
     span.style.fontSize = (Math.random() * 10 + 12) + 'px';
     document.body.appendChild(span);
 
@@ -110,7 +110,7 @@ window.closeGameModal = () => gameManager.closeModal();
 
 // --- 4. 多语言支持 ---
 
-window.setLanguage = function(lang) {
+window.setLanguage = function (lang) {
     if (lang !== currentLang) {
         setCurrentLang(lang);
     }
@@ -135,14 +135,14 @@ window.setLanguage = function(lang) {
     safeSetText('tag-python', t.tags.python);
     safeSetText('tag-rust', t.tags.rust);
     safeSetText('tag-llm', t.tags.llm);
-    
+
     safeSetText('header-name', t.name);
     safeSetText('header-quote', `<i class="fas fa-quote-left text-gray-600 mr-2"></i>${t.quote}<i class="fas fa-quote-right text-gray-600 ml-2"></i>`, true);
     safeSetText('header-motto', t.motto, true);
-    
+
     safeSetText('btn-gitee-text', t.giteeBtn);
     safeSetText('btn-github-text', t.githubBtn);
-    
+
     safeSetText('stats-title', t.stats.title);
     safeSetText('stats-time-label', t.stats.timeLabel);
     safeSetText('stats-time-val', t.stats.timeVal);
@@ -153,12 +153,14 @@ window.setLanguage = function(lang) {
     safeSetText('mission-aim-desc', t.missions.aim.desc);
     safeSetText('mission-dodge-title', t.missions.dodge.title);
     safeSetText('mission-dodge-desc', t.missions.dodge.desc);
+    safeSetText('mission-vehicle-title', t.missions.vehicle.title);
+    safeSetText('mission-vehicle-desc', t.missions.vehicle.desc);
     safeSetText('mission-more-title', t.missions.more.title);
     safeSetText('mission-more-desc', t.missions.more.desc);
     safeSetText('mission-more-coming', t.missions.more.coming);
 
     safeSetText('warehouse-title', t.warehouse.title);
-    
+
     safeSetText('card-tactical-tag', t.warehouse.legendary);
     safeSetText('card-tactical-title', t.warehouse.tactical.title);
     safeSetText('card-tactical-desc', t.warehouse.tactical.desc);
@@ -192,7 +194,7 @@ window.setLanguage = function(lang) {
 };
 
 function detectLanguage() {
-    const lang = navigator.language || navigator.userLanguage; 
+    const lang = navigator.language || navigator.userLanguage;
     if (lang.startsWith('en')) {
         window.setLanguage('en');
     } else {
@@ -207,7 +209,7 @@ window.getComputedLang = () => currentLang;
 let skillsChart = null;
 function updateChart(lang) {
     if (skillsChart) skillsChart.destroy();
-    
+
     if (typeof Chart !== 'undefined') {
         const ctxChart = document.getElementById('skillsChart').getContext('2d');
         skillsChart = new Chart(ctxChart, {
@@ -218,7 +220,7 @@ function updateChart(lang) {
                     label: lang === 'zh' ? '能力值' : 'Stats',
                     data: GAME_CONFIG.SKILLS_CHART.DATA,
                     backgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BG,
-                    borderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER, 
+                    borderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
                     borderWidth: 2,
                     pointBackgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
                     pointBorderColor: '#fff',
@@ -235,7 +237,7 @@ function updateChart(lang) {
                         angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
                         grid: { color: 'rgba(255, 255, 255, 0.1)', circular: true },
                         pointLabels: {
-                            color: '#9CA3AF', 
+                            color: '#9CA3AF',
                             font: { size: 11, family: "'Segoe UI', sans-serif", weight: 'bold' }
                         },
                         ticks: { display: false, backdropColor: 'transparent' },
@@ -263,12 +265,12 @@ function updateChart(lang) {
 }
 
 // --- 6. 信号枪逻辑 ---
-window.fireSignal = function() {
+window.fireSignal = function () {
     playSound('shot');
     const overlay = document.createElement('div');
     overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in';
     overlay.onclick = (e) => {
-        if(e.target === overlay) overlay.remove();
+        if (e.target === overlay) overlay.remove();
     };
 
     const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
@@ -295,18 +297,18 @@ window.fireSignal = function() {
 };
 
 // --- 7. 创意提交逻辑 ---
-window.showIdeaModal = function() {
+window.showIdeaModal = function () {
     playSound('shot');
     const overlay = document.createElement('div');
     overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in';
     overlay.onclick = (e) => {
-        if(e.target === overlay) overlay.remove();
+        if (e.target === overlay) overlay.remove();
     };
 
     const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
     const t = I18N[lang].idea;
     const issueLink = "https://gitee.com/K4Ricky2Win/RicKinG/issues/new"; // Update to Gitee
-    
+
     overlay.innerHTML = `
         <div class="bg-gray-800 border-2 border-green-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
             <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
