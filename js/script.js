@@ -337,7 +337,6 @@ function ensureGameManagerReady() {
         if (typeof GameManager !== 'undefined') {
             window.gameManager = new GameManager();
         } else {
-            console.warn('GameManager not yet available. Delaying init...');
             return false;
         }
     }
@@ -347,14 +346,19 @@ function ensureGameManagerReady() {
 // Initialize after DOM is ready to ensure all scripts loaded
 window.addEventListener('DOMContentLoaded', () => {
     detectLanguage();
-    if (ensureGameManagerReady()) {
-        bindGameEntrances();
-    } else {
-        // Retry once after a short delay if GameManager isn't ready yet
-        setTimeout(() => {
-            if (ensureGameManagerReady()) {
-                bindGameEntrances();
-            }
-        }, 50);
-    }
+    let retries = 0;
+    const maxRetries = 20;
+    const tryInit = () => {
+        if (ensureGameManagerReady()) {
+            bindGameEntrances();
+            return;
+        }
+        retries += 1;
+        if (retries < maxRetries) {
+            setTimeout(tryInit, 50);
+            return;
+        }
+        console.error('GameManager init failed after retries');
+    };
+    tryInit();
 });
