@@ -1,6 +1,6 @@
 window.currentLang = 'zh';
 
-window.setCurrentLang = function(lang) {
+window.setCurrentLang = function (lang) {
     window.currentLang = lang;
 }
 
@@ -23,20 +23,22 @@ window.GAME_CONFIG = {
         EXPLOSION: { FREQ: 100, DURATION: 0.5 }, // 新增爆炸音效
         GAMEOVER: { FREQ: 200, DURATION: 1 }
     },
-    // --- 升级版射击游戏配置 ---
+    // --- 升级版射击游戏配置 (v2) ---
     AIM_GAME: {
-        TIME: 30,
-        MAX_AMMO: 7, // 最大弹药数
-        RELOAD_TIME: 1000, // 换弹时间(ms)
+        TIME: 60, // 增加到 60 秒
+        MAX_AMMO: 7,
+        RELOAD_TIME: 1000,
         TARGET_SPEED_MIN: 1,
         TARGET_SPEED_MAX: 3,
         SPAWN_INTERVAL: 600
     },
-    // --- 升级版躲避游戏配置 ---
+    // --- 升级版躲避游戏配置 (v2) ---
     DODGE_GAME: {
+        TIME: 60, // 目标存活 60 秒
+        MAX_HP: 3, // 加入血量机制
         PLAYER_SPEED: 8,
         GRAVITY: 0.2,
-        SPAWN_RATE: 0.03, // 物品生成概率
+        SPAWN_RATE: 0.03,
         ITEM_SPEED_BASE: 2,
         ITEM_SPEED_MAX: 8
     },
@@ -50,6 +52,19 @@ window.GAME_CONFIG = {
         COLOR_BORDER: '#EAB308'
     }
 };
+
+// --- 加载游戏内部使用的吃鸡图标资源 ---
+window.GAME_ASSETS = {
+    helmet: new Image(),
+    grenade: new Image(),
+    medkit: new Image(),
+    energy: new Image()
+};
+// 利用 icons8 提供的一些现成高清小图标
+window.GAME_ASSETS.helmet.src = 'https://img.icons8.com/color/96/pubg-helmet.png';
+window.GAME_ASSETS.grenade.src = 'https://img.icons8.com/color/96/grenade.png';
+window.GAME_ASSETS.medkit.src = 'https://img.icons8.com/color/96/first-aid-kit.png';
+window.GAME_ASSETS.energy.src = 'https://img.icons8.com/color/96/energy-drink.png';
 
 // --- 多语言配置 (i18n) ---
 window.I18N = {
