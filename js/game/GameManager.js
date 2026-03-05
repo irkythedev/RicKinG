@@ -57,7 +57,7 @@ window.GameManager = class GameManager {
     _applyTheme(type) {
         // Color maps: aim = green, dodge = blue, vehicle = orange
         const themes = {
-            aim: { icon: 'text-green-500', text: 'text-green-400', bar: 'bg-green-500', btn: 'bg-green-600 hover:bg-green-500', iconClass: 'fa-crosshairs' },
+            aim: { icon: 'text-yellow-500', text: 'text-yellow-400', bar: 'bg-yellow-500', btn: 'bg-yellow-600 hover:bg-yellow-500', iconClass: 'fa-crosshairs' },
             dodge: { icon: 'text-blue-500', text: 'text-blue-400', bar: 'bg-blue-500', btn: 'bg-blue-600 hover:bg-blue-500', iconClass: 'fa-parachute-box' },
             vehicle: { icon: 'text-orange-500', text: 'text-orange-400', bar: 'bg-orange-500', btn: 'bg-orange-600 hover:bg-orange-500', iconClass: 'fa-car' }
         };
