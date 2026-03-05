@@ -15,7 +15,6 @@ window.GameManager = class GameManager {
     }
 
     openModal(type) {
-        if (this.isOpen) return;
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
@@ -29,6 +28,7 @@ window.GameManager = class GameManager {
         void this.modal.offsetWidth;
         this.modal.classList.remove('opacity-0');
         this.modal.style.opacity = '1';
+        this.modal.style.display = 'flex';
         this.isOpen = true;
         window.addEventListener('keydown', this.handleKeyDown);
         
@@ -64,6 +64,7 @@ window.GameManager = class GameManager {
         if (this.closeTimeout) clearTimeout(this.closeTimeout);
         this.closeTimeout = setTimeout(() => {
             this.modal.classList.add('hidden');
+            this.modal.style.display = 'none';
             this.closeTimeout = null;
         }, 300);
     }
