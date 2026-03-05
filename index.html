@@ -416,16 +416,42 @@
 
                     <!-- 开始遮罩 -->
                     <div id="modal-start-btn-container"
-                        class="absolute inset-0 flex flex-col items-center justify-center bg-black/60 z-10">
-                        <button id="modal-start-btn"
-                            class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110 mb-4"
-                            aria-label="Start Game">
-                            START MISSION
-                        </button>
-                        <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
-                            <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
-                                class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
-                        </p>
+                        class="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
+
+                        <!-- 资源加载层 -->
+                        <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
+                            <!-- 载入动画图标 -->
+                            <div class="relative">
+                                <i class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
+                                <i class="fas fa-spinner fa-spin text-2xl text-yellow-300 absolute inset-0 flex items-center justify-center"
+                                    style="top:50%;left:50%;transform:translate(-50%,-50%)"></i>
+                            </div>
+                            <!-- 加载文字 -->
+                            <p id="modal-loading-text"
+                                class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
+                                ASSETS...</p>
+                            <!-- 进度条外壳 -->
+                            <div class="w-64 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
+                                <div id="modal-loading-bar"
+                                    class="h-full bg-yellow-500 rounded-full transition-all duration-300"
+                                    style="width: 0%"></div>
+                            </div>
+                            <p id="modal-loading-count" class="text-gray-500 font-mono text-xs">0 / 0</p>
+                        </div>
+
+                        <!-- 开始按钒层 (hidden, shown after load) -->
+                        <div id="modal-ready-screen" class="hidden flex-col items-center gap-4">
+                            <button id="modal-start-btn"
+                                class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110"
+                                aria-label="Start Game">
+                                START MISSION
+                            </button>
+                            <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
+                                <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
+                                    class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>
