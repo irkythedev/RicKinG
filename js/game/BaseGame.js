@@ -78,9 +78,6 @@ window.BaseGame = class BaseGame {
     loop(timestamp) {
         if (this.gameState === 'MENU') return;
         
-        // Keep loop running even in GAMEOVER to draw the static screen or simple animations
-        // but logic update should stop
-        
         const deltaTime = timestamp - this.lastTime;
         this.lastTime = timestamp;
 
@@ -122,9 +119,6 @@ window.BaseGame = class BaseGame {
             this.ctx.save();
             this.ctx.translate(dx, dy);
         }
-        
-        // Subclasses should call super.draw() then draw their content
-        // Or handle save/restore themselves if they override completely
     }
     
     postDraw() {
@@ -186,7 +180,6 @@ window.BaseGame = class BaseGame {
 
     end() {
         this.gameState = 'GAMEOVER';
-        // Subclasses should set resultData before calling end or override end to set it
     }
 
     cleanup() {
@@ -202,8 +195,6 @@ window.BaseGame = class BaseGame {
             this.canvas.removeEventListener('touchmove', this.handleTouchMove);
             this.canvas.removeEventListener('mousedown', this.handleClick);
             this.canvas.removeEventListener('touchstart', this.handleClick);
-        }
-        if (this.canvas) {
             this.canvas.remove();
         }
         this.container.innerHTML = '';
@@ -215,7 +206,6 @@ window.BaseGame = class BaseGame {
         this.input.x = e.clientX - rect.left;
         this.input.y = e.clientY - rect.top;
         
-        // Change cursor over replay button in GAMEOVER
         if (this.gameState === 'GAMEOVER' && this.replayBtnRect) {
             if (this.input.x >= this.replayBtnRect.x && this.input.x <= this.replayBtnRect.x + this.replayBtnRect.w &&
                 this.input.y >= this.replayBtnRect.y && this.input.y <= this.replayBtnRect.y + this.replayBtnRect.h) {
@@ -224,7 +214,7 @@ window.BaseGame = class BaseGame {
                 this.canvas.style.cursor = 'default';
             }
         } else {
-            this.canvas.style.cursor = 'default'; // Or crosshair for aim game
+            this.canvas.style.cursor = 'default';
         }
     }
 
@@ -238,7 +228,6 @@ window.BaseGame = class BaseGame {
     handleClick(e) {
         if (e.type === 'touchstart') e.preventDefault();
         
-        // Update position for click/tap
         const rect = this.canvas.getBoundingClientRect();
         let clientX = e.clientX;
         let clientY = e.clientY;
@@ -251,7 +240,6 @@ window.BaseGame = class BaseGame {
         
         this.input.clicked = true;
         
-        // Handle Replay Click
         if (this.gameState === 'GAMEOVER' && this.replayBtnRect) {
             if (this.input.x >= this.replayBtnRect.x && this.input.x <= this.replayBtnRect.x + this.replayBtnRect.w &&
                 this.input.y >= this.replayBtnRect.y && this.input.y <= this.replayBtnRect.y + this.replayBtnRect.h) {
