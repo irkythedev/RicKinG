@@ -24,6 +24,7 @@ window.DodgeGame = class DodgeGame extends BaseGame {
     }
 
     update(deltaTime) {
+        super.update(deltaTime);
         if (!this.gameActive) return;
         
         const dt = deltaTime / 16.67; // Normalize to ~60fps
@@ -202,6 +203,12 @@ window.DodgeGame = class DodgeGame extends BaseGame {
             
             this.ctx.restore();
         });
+        
+        super.postDraw();
+    }
+    
+    get gameActive() {
+        return this.gameState === 'PLAYING';
     }
 
     end() {

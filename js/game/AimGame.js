@@ -18,7 +18,6 @@ window.AimGame = class AimGame extends BaseGame {
     start() {
         super.start();
         this.timeLeft = GAME_CONFIG.AIM_GAME.TIME;
-        this.timeAccu = 0;
         this.ammo = GAME_CONFIG.AIM_GAME.MAX_AMMO;
         this.isReloading = false;
         this.targets = [];
@@ -26,18 +25,24 @@ window.AimGame = class AimGame extends BaseGame {
         
         this.updateUI('timer', this.timeLeft);
         this.updateUI('score', this.score);
+        
+        // Use rAF based timer in update loop instead of setInterval to avoid drift
+        this.timerAccumulator = 0;
     }
 
     update(deltaTime) {
+        super.update(deltaTime);
         if (!this.gameActive) return;
-        this.timeAccu += deltaTime;
-        while (this.timeAccu >= 1000) {
-            this.timeAccu -= 1000;
+
+        // Timer Logic
+        this.timerAccumulator += deltaTime;
+        if (this.timerAccumulator >= 1000) {
             this.timeLeft--;
             this.updateUI('timer', this.timeLeft);
+            this.timerAccumulator -= 1000;
             if (this.timeLeft <= 0) {
                 this.end();
-                break;
+                return;
             }
         }
 
@@ -55,6 +60,7 @@ window.AimGame = class AimGame extends BaseGame {
             t.y += t.vy;
             t.life -= deltaTime;
 
+            // Bounce off walls
             if (t.x < t.radius || t.x > this.width - t.radius) t.vx *= -1;
             if (t.y < t.radius || t.y > this.height - t.radius) t.vy *= -1;
 
@@ -228,6 +234,8 @@ window.AimGame = class AimGame extends BaseGame {
             this.ctx.globalAlpha = 1;
         });
 
+        super.postDraw();
+
         // Draw HUD (Ammo)
         this.drawHUD();
 
@@ -264,6 +272,10 @@ window.AimGame = class AimGame extends BaseGame {
         this.ctx.moveTo(x, y - 20);
         this.ctx.lineTo(x, y + 20);
         this.ctx.stroke();
+    }
+
+    get gameActive() {
+        return this.gameState === 'PLAYING';
     }
 
     end() {
