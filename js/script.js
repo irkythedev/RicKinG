@@ -332,5 +332,29 @@ window.showIdeaModal = function() {
 };
 
 // 初始化
-detectLanguage();
-bindGameEntrances();
+function ensureGameManagerReady() {
+    if (!window.gameManager) {
+        if (typeof GameManager !== 'undefined') {
+            window.gameManager = new GameManager();
+        } else {
+            console.warn('GameManager not yet available. Delaying init...');
+            return false;
+        }
+    }
+    return true;
+}
+
+// Initialize after DOM is ready to ensure all scripts loaded
+window.addEventListener('DOMContentLoaded', () => {
+    detectLanguage();
+    if (ensureGameManagerReady()) {
+        bindGameEntrances();
+    } else {
+        // Retry once after a short delay if GameManager isn't ready yet
+        setTimeout(() => {
+            if (ensureGameManagerReady()) {
+                bindGameEntrances();
+            }
+        }, 50);
+    }
+});
