@@ -156,7 +156,10 @@ window.DodgeGame = class DodgeGame extends BaseGame {
                 this.ctx.arc(0, 0, 15, 0, Math.PI * 2);
                 this.ctx.fill();
                 this.ctx.fillStyle = '#000';
-                this.ctx.fillText('💣', -8, 5);
+                this.ctx.font = '16px serif'; // Ensure font is set for emoji
+                this.ctx.textAlign = 'center';
+                this.ctx.textBaseline = 'middle';
+                this.ctx.fillText('💣', 0, 2); // Center emoji
             } else if (item.type === 'airdrop') {
                 // Draw Box
                 this.ctx.fillRect(-15, -15, 30, 30);

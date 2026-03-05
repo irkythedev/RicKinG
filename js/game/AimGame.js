@@ -225,16 +225,17 @@ window.AimGame = class AimGame extends BaseGame {
 
     drawHUD() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        this.ctx.fillRect(10, this.height - 50, 140, 40);
+        this.ctx.fillRect(10, this.height - 50, 160, 40); // Increased width slightly
         
-        this.ctx.font = '16px monospace';
+        this.ctx.font = '16px monospace, sans-serif';
+        this.ctx.textBaseline = 'middle';
         this.ctx.fillStyle = this.ammo === 0 ? '#ef4444' : '#fbbf24';
         this.ctx.textAlign = 'left';
-        this.ctx.fillText(`AMMO: ${this.ammo} / ${GAME_CONFIG.AIM_GAME.MAX_AMMO}`, 20, this.height - 25);
+        this.ctx.fillText(`AMMO: ${this.ammo} / ${GAME_CONFIG.AIM_GAME.MAX_AMMO}`, 20, this.height - 30);
         
         if (this.isReloading) {
             this.ctx.fillStyle = '#fff';
-            this.ctx.fillText('RELOADING...', 20, this.height - 55);
+            this.ctx.fillText('RELOADING...', 20, this.height - 60);
         }
     }
 
