@@ -9,6 +9,7 @@ window.AimGame = class AimGame extends BaseGame {
         this.ammo = GAME_CONFIG.AIM_GAME.MAX_AMMO;
         this.isReloading = false;
         this.spawnTimer = 0;
+        this.combo = 0; // Combo counter
         
         // Assets (using simple colors/shapes for canvas to ensure performance, or pre-loaded images)
         // We will draw simple shapes for reliability
@@ -123,14 +124,28 @@ window.AimGame = class AimGame extends BaseGame {
 
             if (dist < t.radius) {
                 hit = true;
-                const points = t.type === 'rare' ? 50 : 10;
+                this.combo++;
+                
+                let points = t.type === 'rare' ? 50 : 10;
+                points = Math.floor(points * (1 + this.combo * 0.1)); // Combo bonus
+                
                 this.score += points;
                 this.updateUI('score', this.score);
                 playSound('hit');
+                
+                // Screen shake
+                this.shake = 10;
+                
                 this.createExplosion(t.x, t.y, t.type === 'rare' ? '#fbbf24' : '#ffffff');
+                this.showFloatingText(`+${points} ${this.combo > 1 ? 'x'+this.combo : ''}`, t.x, t.y - 20, '#fbbf24');
+                
                 this.targets.splice(i, 1);
                 break; // Only hit one at a time
             }
+        }
+        
+        if (!hit) {
+            this.combo = 0; // Reset combo on miss
         }
     }
 

@@ -15,6 +15,9 @@ window.BaseGame = class BaseGame {
         this.lastTime = 0;
         this.resultData = {}; // Store result info for display
         
+        // Screen Shake
+        this.shake = 0;
+
         // Input state
         this.input = {
             x: 0,
@@ -52,6 +55,8 @@ window.BaseGame = class BaseGame {
         this.canvas.width = this.width * dpr;
         this.canvas.height = this.height * dpr;
         
+        // Reset transform to identity before scaling
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         // Scale context
         this.ctx.scale(dpr, dpr);
         
@@ -84,6 +89,10 @@ window.BaseGame = class BaseGame {
         
         this.draw();
         
+        if (this.shake > 0) {
+            this.ctx.restore();
+        }
+        
         if (this.gameState === 'GAMEOVER') {
             this.drawGameOver();
         }
@@ -96,12 +105,31 @@ window.BaseGame = class BaseGame {
     }
 
     update(deltaTime) {
-        // Override
+        if (this.shake > 0) {
+            this.shake -= deltaTime * 0.05; // Decay
+            if (this.shake < 0) this.shake = 0;
+        }
     }
 
     draw() {
         this.ctx.clearRect(0, 0, this.width, this.height);
-        // Override
+        
+        // Apply shake
+        if (this.shake > 0) {
+            const dx = (Math.random() - 0.5) * this.shake;
+            const dy = (Math.random() - 0.5) * this.shake;
+            this.ctx.save();
+            this.ctx.translate(dx, dy);
+        }
+        
+        // Subclasses should call super.draw() then draw their content
+        // Or handle save/restore themselves if they override completely
+    }
+    
+    postDraw() {
+        if (this.shake > 0) {
+            this.ctx.restore();
+        }
     }
     
     drawGameOver() {
