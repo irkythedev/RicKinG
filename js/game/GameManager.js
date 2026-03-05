@@ -15,11 +15,19 @@ class GameManager {
     }
 
     openModal(type) {
+        if (this.closeTimeout) {
+            clearTimeout(this.closeTimeout);
+            this.closeTimeout = null;
+        }
         if (this.currentGame) {
             this.cleanup();
         }
         
         this.modal.classList.remove('hidden');
+        // Force reflow to enable transition
+        void this.modal.offsetWidth;
+        this.modal.classList.remove('opacity-0');
+        
         this.resetUI(type);
         
         const GameClass = this.games[type];
@@ -43,7 +51,12 @@ class GameManager {
 
     closeModal() {
         this.cleanup();
-        this.modal.classList.add('hidden');
+        this.modal.classList.add('opacity-0');
+        if (this.closeTimeout) clearTimeout(this.closeTimeout);
+        this.closeTimeout = setTimeout(() => {
+            this.modal.classList.add('hidden');
+            this.closeTimeout = null;
+        }, 300);
     }
 
     cleanup() {
