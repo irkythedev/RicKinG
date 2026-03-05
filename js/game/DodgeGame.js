@@ -87,14 +87,9 @@ window.DodgeGame = class DodgeGame extends BaseGame {
         let moveSpeed = this.player.speed;
         if (this.player.adrenalineTimer > 0) moveSpeed *= 1.6; // Epic speed limit
 
-        // Shield Logic (Space or Right Click / specific input) 
-        // We will map 'Space' or secondary click to Shield
-        if (this.input.keys['Space'] || this.input.clicked) {
-            // Note: input.clicked is consumed each frame. Let's make it work without conflict.
-            // But we don't have separate right click tracking. 
-            // In BaseGame context, clicked is set on mousedown.
-            // Let's just use Space for shield to be safe.
-            if (this.input.keys['Space'] && this.player.shieldCooldown <= 0) {
+        // Shield Logic (Space or Tap bottom HUD)
+        if (this.input.keys['Space'] || (this.input.clicked && this.input.y > this.height - 60)) {
+            if (this.player.shieldCooldown <= 0) {
                 this.player.shieldTimer = 0.6;
                 this.player.shieldCooldown = 5.0;
                 playSound('reload'); // Use some distinct sound
@@ -448,16 +443,17 @@ window.DodgeGame = class DodgeGame extends BaseGame {
     }
 
     drawHUD() {
-        // Modern Unified HUD (Hp, Ammo, Time, Score, Combo, Phase)
+        // Modern Unified HUD optimized for mixed screen sizes (Mobile + PC)
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
         this.ctx.fillRect(0, this.height - 60, this.width, 60);
         this.ctx.fillStyle = '#4b5563';
         this.ctx.fillRect(0, this.height - 60, this.width, 2);
 
-        this.ctx.font = 'bold 20px monospace, "Segoe UI", sans-serif';
+        this.ctx.font = 'bold 15px monospace, "Segoe UI", sans-serif';
         this.ctx.textBaseline = 'middle';
 
-        // Phase Indicator
+        // --- Row 1 (y = height - 40) ---
+        // Phase Indicator (Left)
         let phaseColor = '#22c55e';
         let phaseText = 'TEACHING';
         if (this.gamePhase === 'NORMAL') { phaseColor = '#3b82f6'; phaseText = 'SURVIVAL'; }
@@ -465,31 +461,33 @@ window.DodgeGame = class DodgeGame extends BaseGame {
 
         this.ctx.fillStyle = phaseColor;
         this.ctx.textAlign = 'left';
-        this.ctx.fillText(`[${phaseText}]`, 20, this.height - 30);
+        this.ctx.fillText(`[${phaseText}]`, 15, this.height - 40);
 
-        // Powerups / Shield status
+        // Time Left (Right)
+        this.ctx.fillStyle = this.timeLeft <= 10 ? '#ef4444' : '#fff';
+        this.ctx.textAlign = 'right';
+        this.ctx.fillText(`T-${this.timeLeft}s`, this.width - 15, this.height - 40);
+
+        // --- Row 2 (y = height - 15) ---
+        // Shield Status (Left)
+        this.ctx.textAlign = 'left';
         if (this.player.adrenalineTimer > 0) {
             this.ctx.fillStyle = '#a855f7';
-            this.ctx.fillText(`⚡ ADRENALINE (${this.player.adrenalineTimer.toFixed(1)}s)`, 150, this.height - 30);
+            this.ctx.fillText(`⚡ ADRENALINE (${this.player.adrenalineTimer.toFixed(1)}s)`, 15, this.height - 15);
         } else {
             this.ctx.fillStyle = this.player.shieldCooldown <= 0 ? '#60a5fa' : '#4b5563';
             let cdText = this.player.shieldCooldown <= 0 ? 'READY' : `CD ${this.player.shieldCooldown.toFixed(1)}s`;
-            this.ctx.fillText(`🛡️ SHIELD: ${cdText} [Space]`, 150, this.height - 30);
+            this.ctx.fillText(`🛡️ SHIELD: ${cdText} [TAP HUD]`, 15, this.height - 15);
         }
 
-        // HP
+        // HP (Right) - Hearts representation
         this.ctx.fillStyle = '#ef4444';
-        this.ctx.textAlign = 'center';
+        this.ctx.textAlign = 'right';
         let hpStr = '';
         for (let i = 0; i < GAME_CONFIG.DODGE_GAME.MAX_HP; i++) {
-            hpStr += (i < this.hp) ? '❤️ ' : '🖤 ';
+            hpStr += (i < this.hp) ? '❤️' : '🖤';
         }
-        this.ctx.fillText(`HP: ${hpStr}`, this.width * 0.4, this.height - 30);
-
-        // Time Left
-        this.ctx.fillStyle = this.timeLeft <= 10 ? '#ef4444' : '#fff';
-        this.ctx.textAlign = 'right';
-        this.ctx.fillText(`T-${this.timeLeft}s`, this.width - 20, this.height - 30);
+        this.ctx.fillText(`HP: ${hpStr}`, this.width - 15, this.height - 15);
     }
 
     get gameActive() {

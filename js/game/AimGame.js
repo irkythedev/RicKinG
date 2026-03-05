@@ -131,12 +131,19 @@ window.AimGame = class AimGame extends BaseGame {
             if (p.life <= 0) this.particles.splice(i, 1);
         }
 
-        // Input Handling (Shooting)
+        // Input Handling (Shooting & Reloading Support for Touch)
         if (this.input.clicked) {
-            this.shoot();
+            // If user clicked/tapped inside the bottom HUD area (y > height - 60)
+            if (this.input.y > this.height - 60) {
+                if (!this.isReloading && this.ammo < GAME_CONFIG.AIM_GAME.MAX_AMMO) {
+                    this.reload();
+                }
+            } else {
+                this.shoot();
+            }
         }
 
-        // Reload Input (R key)
+        // Reload Input (R key for desktop)
         if (this.input.keys['KeyR'] && !this.isReloading && this.ammo < GAME_CONFIG.AIM_GAME.MAX_AMMO) {
             this.reload();
         }
@@ -151,9 +158,9 @@ window.AimGame = class AimGame extends BaseGame {
         }
         const angle = Math.random() * Math.PI * 2;
 
-        // Ensure spawn inside Safe Zone if in Poison phase
+        // Ensure spawn strictly inside safe zone and outside HUD (bottom 60px)
         let startX = Math.random() * (this.width - size * 2) + size;
-        let startY = Math.random() * (this.height - size * 2) + size;
+        let startY = Math.random() * (this.height - 65 - size * 2) + size; // Leave buffer for bottom HUD
 
         if (this.gamePhase === 'POISON') {
             const maxR = this.safeZoneRadius * 0.8;
@@ -205,8 +212,8 @@ window.AimGame = class AimGame extends BaseGame {
         if (this.isReloading && this.powerupTimer <= 0) return;
 
         if (this.ammo <= 0 && this.powerupTimer <= 0) {
-            // Play dry fire sound or show message
-            this.showFloatingText(I18N[currentLang].game.noAmmo, this.input.x, this.input.y, '#ef4444');
+            // Auto-reload on dry-fire for mobile friendliness
+            this.reload();
             return;
         }
 
@@ -447,16 +454,17 @@ window.AimGame = class AimGame extends BaseGame {
     }
 
     drawHUD() {
-        // Modern Unified HUD (Hp, Ammo, Time, Score, Combo, Phase)
+        // Modern Unified HUD optimized for mixed screen sizes (Mobile + PC)
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
         this.ctx.fillRect(0, this.height - 60, this.width, 60);
         this.ctx.fillStyle = '#4b5563';
         this.ctx.fillRect(0, this.height - 60, this.width, 2);
 
-        this.ctx.font = 'bold 20px monospace, "Segoe UI", sans-serif';
+        this.ctx.font = 'bold 15px monospace, "Segoe UI", sans-serif'; // Reduced font size for mobile
         this.ctx.textBaseline = 'middle';
 
-        // Phase Indicator
+        // --- Row 1 (y = height - 40) ---
+        // Phase Indicator (Left)
         let phaseColor = '#22c55e';
         let phaseText = 'TEACHING';
         if (this.gamePhase === 'NORMAL') { phaseColor = '#3b82f6'; phaseText = 'COMBAT'; }
@@ -464,29 +472,30 @@ window.AimGame = class AimGame extends BaseGame {
 
         this.ctx.fillStyle = phaseColor;
         this.ctx.textAlign = 'left';
-        this.ctx.fillText(`[${phaseText}]`, 20, this.height - 30);
+        this.ctx.fillText(`[${phaseText}]`, 15, this.height - 40);
 
-        // Ammo
-        if (this.powerupTimer > 0) {
-            this.ctx.fillStyle = '#eab308'; // Gold
-            this.ctx.textAlign = 'center';
-            this.ctx.fillText(`AMMO ∞ (${this.powerupTimer.toFixed(1)}s)`, this.width * 0.3, this.height - 30);
-        } else {
-            this.ctx.fillStyle = this.ammo === 0 ? '#ef4444' : '#fbbf24';
-            this.ctx.textAlign = 'center';
-            this.ctx.fillText(`AMMO ${this.ammo}/${GAME_CONFIG.AIM_GAME.MAX_AMMO}`, this.width * 0.3, this.height - 30);
-        }
-
-        // Combo
-        if (this.combo > 1) {
-            this.ctx.fillStyle = '#a855f7';
-            this.ctx.fillText(`COMBO x${this.combo}`, this.width * 0.5, this.height - 30);
-        }
-
-        // Time Left
+        // Time (Right)
         this.ctx.fillStyle = this.timeLeft <= 10 ? '#ef4444' : '#fff';
         this.ctx.textAlign = 'right';
-        this.ctx.fillText(`T-${this.timeLeft}s`, this.width - 20, this.height - 30);
+        this.ctx.fillText(`T-${this.timeLeft}s`, this.width - 15, this.height - 40);
+
+        // --- Row 2 (y = height - 15) ---
+        // Ammo (Left)
+        this.ctx.textAlign = 'left';
+        if (this.powerupTimer > 0) {
+            this.ctx.fillStyle = '#eab308'; // Gold
+            this.ctx.fillText(`AMMO ∞ (${this.powerupTimer.toFixed(1)}s)`, 15, this.height - 15);
+        } else {
+            this.ctx.fillStyle = this.ammo === 0 ? '#ef4444' : '#fbbf24';
+            this.ctx.fillText(`AMMO ${this.ammo}/${GAME_CONFIG.AIM_GAME.MAX_AMMO} [TAP HUD]`, 15, this.height - 15);
+        }
+
+        // Combo & Score Tracking Display (Right)
+        if (this.combo > 1) {
+            this.ctx.textAlign = 'right';
+            this.ctx.fillStyle = '#a855f7';
+            this.ctx.fillText(`COMBO x${this.combo}`, this.width - 15, this.height - 15);
+        }
 
         // Reload Hint (Centered above HUD)
         if (this.isReloading) {
