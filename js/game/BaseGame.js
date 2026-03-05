@@ -2,6 +2,9 @@ window.BaseGame = class BaseGame {
     constructor(containerId) {
         this.container = document.getElementById(containerId);
         this.canvas = document.createElement('canvas');
+        this.canvas.style.display = 'block';
+        this.canvas.style.width = '100%';
+        this.canvas.style.height = '100%';
         this.ctx = this.canvas.getContext('2d');
         this.container.appendChild(this.canvas);
         
@@ -43,8 +46,15 @@ window.BaseGame = class BaseGame {
         if (!this.container) return;
         this.width = this.container.offsetWidth;
         this.height = this.container.offsetHeight;
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
+        
+        // Use devicePixelRatio for sharp rendering
+        const dpr = window.devicePixelRatio || 1;
+        this.canvas.width = this.width * dpr;
+        this.canvas.height = this.height * dpr;
+        
+        // Scale context
+        this.ctx.scale(dpr, dpr);
+        
         // Redraw if game over to keep result screen correct
         if (this.gameState === 'GAMEOVER') {
             this.drawGameOver();
