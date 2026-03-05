@@ -34,6 +34,7 @@ window.GameManager = class GameManager {
             // Setup start button
             this.startBtn.onclick = () => {
                 this.startBtnContainer.style.display = 'none';
+                this.currentGame.resize(); // Ensure canvas size is correct before starting
                 this.currentGame.start();
             };
             

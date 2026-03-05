@@ -135,24 +135,36 @@
                     </h2>
                     
                     <div class="grid grid-cols-2 gap-4">
-                        <!-- 射击训练入口 -->
+                        <!-- 任务 1: 特种射击 (Sniper Ops) -->
                         <div data-game="aim" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Aim Training Game">
-                            <div class="absolute inset-0 bg-green-900 opacity-0 group-hover:opacity-20 transition pointer-events-none"></div>
-                            <div class="h-16 mb-2 flex items-center justify-center pointer-events-none">
-                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_HK416_C.png" alt="M416" class="h-full object-contain drop-shadow-lg">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-gray-900 p-3 rounded-full border border-yellow-500/50 group-hover:border-yellow-400 transition">
+                                    <i class="fas fa-crosshairs text-yellow-500 text-2xl group-hover:animate-pulse"></i>
+                                </div>
+                                <div>
+                                    <h3 id="mission-aim-title" class="font-bold text-lg text-gray-100 group-hover:text-yellow-400 transition">特种射击 (Sniper)</h3>
+                                    <p id="mission-aim-desc" class="text-sm text-gray-400">移动靶 / 换弹机制</p>
+                                </div>
                             </div>
-                            <h3 id="mission-aim-title" class="text-center font-bold text-white text-sm pointer-events-none">射击训练场</h3>
-                            <p id="mission-aim-desc" class="text-xs text-gray-400 text-center mt-1 pointer-events-none">反应速度测试</p>
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
+                                <i class="fas fa-chevron-right text-yellow-500"></i>
+                            </div>
                         </div>
 
-                        <!-- 空投争夺入口 -->
-                        <div data-game="dodge" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Airdrop Dodge Game">
-                            <div class="absolute inset-0 bg-blue-900 opacity-0 group-hover:opacity-20 transition pointer-events-none"></div>
-                            <div class="h-16 mb-2 flex items-center justify-center pointer-events-none">
-                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/CarePackage/CarePackage_Normal.png" alt="Airdrop" class="h-full object-contain drop-shadow-lg">
+                        <!-- 任务 2: 物资突围 (Supply Rush) -->
+                        <div data-game="dodge" class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-4 cursor-pointer transition transform hover:scale-105 group relative overflow-hidden" role="button" tabindex="0" aria-label="Start Dodge Game">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-gray-900 p-3 rounded-full border border-blue-500/50 group-hover:border-blue-400 transition">
+                                    <i class="fas fa-parachute-box text-blue-500 text-2xl group-hover:animate-bounce"></i>
+                                </div>
+                                <div>
+                                    <h3 id="mission-dodge-title" class="font-bold text-lg text-gray-100 group-hover:text-blue-400 transition">物资突围 (Supply)</h3>
+                                    <p id="mission-dodge-desc" class="text-sm text-gray-400">拾取空投 / 躲避轰炸</p>
+                                </div>
                             </div>
-                            <h3 id="mission-dodge-title" class="text-center font-bold text-white text-sm pointer-events-none">空投争夺战</h3>
-                            <p id="mission-dodge-desc" class="text-xs text-gray-400 text-center mt-1 pointer-events-none">极限闪避挑战</p>
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition duration-300">
+                                <i class="fas fa-chevron-right text-blue-500"></i>
+                            </div>
                         </div>
                     </div>
                 </section>
