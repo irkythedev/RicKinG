@@ -32,18 +32,12 @@ window.GameManager = class GameManager {
         window.addEventListener('keydown', this.handleKeyDown);
 
         this.resetUI(type);
+        this._applyTheme(type);
         this._showLoadingScreen();
 
         const GameClass = this.games[type];
         if (GameClass) {
             this.currentGame = new GameClass('modal-game-content', this.updateUI.bind(this));
-
-            // Customize button style based on game type
-            if (type === 'aim') {
-                this.startBtn.className = "bg-green-600 hover:bg-green-500 text-white font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110";
-            } else {
-                this.startBtn.className = "bg-blue-600 hover:bg-blue-500 text-white font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110";
-            }
 
             // Preload all assets, then reveal start button
             this._preloadAssets().then(() => {
@@ -57,7 +51,38 @@ window.GameManager = class GameManager {
         }
     }
 
-    // ---- Loading screen helpers ----
+    // ---- Theme & Loading screen helpers ----
+
+    _applyTheme(type) {
+        // Color maps: aim = green, dodge = blue
+        const themes = {
+            aim: { icon: 'text-green-500', text: 'text-green-400', bar: 'bg-green-500', btn: 'bg-green-600 hover:bg-green-500', iconClass: 'fa-crosshairs' },
+            dodge: { icon: 'text-blue-500', text: 'text-blue-400', bar: 'bg-blue-500', btn: 'bg-blue-600 hover:bg-blue-500', iconClass: 'fa-parachute-box' }
+        };
+        const theme = themes[type] || themes.aim;
+        this._currentTheme = theme;
+
+        // Apply to loading icon
+        const icon = document.getElementById('modal-loading-icon');
+        if (icon) {
+            icon.className = `fas ${theme.iconClass} text-6xl ${theme.icon} animate-spin-slow`;
+        }
+
+        // Apply to loading text
+        const text = document.getElementById('modal-loading-text');
+        if (text) {
+            text.className = `${theme.text} font-mono text-base tracking-widest animate-pulse`;
+        }
+
+        // Apply to progress bar
+        const bar = document.getElementById('modal-loading-bar');
+        if (bar) {
+            bar.className = `h-full ${theme.bar} rounded-full transition-all duration-300`;
+        }
+
+        // Apply to start button
+        this.startBtn.className = `${theme.btn} text-white font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110`;
+    }
 
     _showLoadingScreen() {
         const loadingScreen = document.getElementById('modal-loading-screen');
