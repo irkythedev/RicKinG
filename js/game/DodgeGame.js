@@ -62,8 +62,9 @@ window.DodgeGame = class DodgeGame extends BaseGame {
         }
 
         // Clamp player
-        if (this.player.x < 20) this.player.x = 20;
-        if (this.player.x > this.width - 20) this.player.x = this.width - 20;
+        const half = this.player.width / 2;
+        if (this.player.x < half) this.player.x = half;
+        if (this.player.x > this.width - half) this.player.x = this.width - half;
 
         // 3. Spawn Items
         if (Math.random() < GAME_CONFIG.DODGE_GAME.SPAWN_RATE * this.difficultyMultiplier) {

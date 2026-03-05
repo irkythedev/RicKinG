@@ -146,7 +146,7 @@ window.I18N = {
         idea: {
             title: "NEW MISSION REQUEST!",
             desc: "指挥官，请指示下一个任务目标！🫡<br><span class=\"text-xs text-gray-500\">Tell us what game you want to play next.</span>",
-            action: "前往 Issue 提交创意 / Submit Idea"
+            action: "前往 Gitee Issue 提交创意"
         }
     },
     en: {
@@ -242,7 +242,7 @@ window.I18N = {
         idea: {
             title: "NEW MISSION REQUEST!",
             desc: "Commander, awaiting your orders for the next mission! 🫡",
-            action: "Submit Idea on Issue"
+            action: "Submit Idea on Gitee Issue"
         }
     }
 };

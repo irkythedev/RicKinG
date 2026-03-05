@@ -27,7 +27,8 @@ window.BaseGame = class BaseGame {
         };
 
         this.resize();
-        window.addEventListener('resize', this.resize.bind(this));
+        this.handleResize = this.resize.bind(this);
+        window.addEventListener('resize', this.handleResize);
         
         // Bind input handlers
         this.handleMouseMove = this.handleMouseMove.bind(this);
@@ -192,10 +193,16 @@ window.BaseGame = class BaseGame {
         this.gameState = 'MENU';
         if (this.loopFrame) cancelAnimationFrame(this.loopFrame);
         
-        window.removeEventListener('resize', this.resize);
+        window.removeEventListener('resize', this.handleResize);
         window.removeEventListener('keydown', this.handleKeyDown);
         window.removeEventListener('keyup', this.handleKeyUp);
         
+        if (this.canvas) {
+            this.canvas.removeEventListener('mousemove', this.handleMouseMove);
+            this.canvas.removeEventListener('touchmove', this.handleTouchMove);
+            this.canvas.removeEventListener('mousedown', this.handleClick);
+            this.canvas.removeEventListener('touchstart', this.handleClick);
+        }
         if (this.canvas) {
             this.canvas.remove();
         }
