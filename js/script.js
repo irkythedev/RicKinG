@@ -63,8 +63,13 @@ function showClickEffect(e) {
 
     const span = document.createElement('span');
     span.className = 'float-text';
-    span.style.left = e.pageX + 'px';
-    span.style.top = e.pageY + 'px';
+    
+    // Add random offset to prevent perfect stacking
+    const offsetX = (Math.random() - 0.5) * 40; // -20px to +20px
+    const offsetY = (Math.random() - 0.5) * 40;
+    
+    span.style.left = (e.pageX + offsetX) + 'px';
+    span.style.top = (e.pageY + offsetY) + 'px';
     
     const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
     const words = GAME_CONFIG.WORDS[lang];

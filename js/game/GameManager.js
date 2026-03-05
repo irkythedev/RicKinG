@@ -23,6 +23,7 @@ window.GameManager = class GameManager {
         // Force reflow to enable transition
         void this.modal.offsetWidth;
         this.modal.classList.remove('opacity-0');
+        this.modal.style.opacity = '1'; // Explicitly set style
         
         this.resetUI(type);
         
@@ -48,6 +49,7 @@ window.GameManager = class GameManager {
     closeModal() {
         this.cleanup();
         this.modal.classList.add('opacity-0');
+        this.modal.style.opacity = '0'; // Explicitly set style
         if (this.closeTimeout) clearTimeout(this.closeTimeout);
         this.closeTimeout = setTimeout(() => {
             this.modal.classList.add('hidden');
