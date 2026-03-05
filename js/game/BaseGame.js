@@ -72,13 +72,18 @@ window.BaseGame = class BaseGame {
         this.score = 0;
         this.resize(); // Ensure size is correct on start
         this.lastTime = performance.now();
-        this.loop();
+        this.loopFrame = requestAnimationFrame(this.loop.bind(this));
     }
 
     loop(timestamp) {
         if (this.gameState === 'MENU') return;
-        
-        const deltaTime = timestamp - this.lastTime;
+
+        if (typeof timestamp !== 'number') {
+            this.loopFrame = requestAnimationFrame(this.loop.bind(this));
+            return;
+        }
+
+        const deltaTime = Math.max(0, timestamp - this.lastTime);
         this.lastTime = timestamp;
 
         if (this.gameState === 'PLAYING') {
@@ -86,10 +91,6 @@ window.BaseGame = class BaseGame {
         }
         
         this.draw();
-        
-        if (this.shake > 0) {
-            this.ctx.restore();
-        }
         
         if (this.gameState === 'GAMEOVER') {
             this.drawGameOver();
