@@ -175,10 +175,16 @@ window.DodgeGame = class DodgeGame extends BaseGame {
     }
 
     end() {
-        super.end();
         playSound('gameover');
         const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
         const t = I18N[lang].game;
-        alert(`${t.crash}\n${t.survive} ${this.survivalTime.toFixed(2)}${t.seconds}`);
+        
+        this.resultData = {
+            title: t.crash,
+            desc: `${t.survive} ${this.survivalTime.toFixed(2)}${t.seconds}`,
+            rank: null
+        };
+        
+        super.end();
     }
 }
