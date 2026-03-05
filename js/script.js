@@ -87,24 +87,22 @@ window.addEventListener('click', showClickEffect);
 
 
 // --- 3. 游戏入口绑定 (Event Delegation) ---
-document.addEventListener('click', (e) => {
-    const gameBtn = e.target.closest('[data-game]');
-    if (gameBtn) {
-        const gameType = gameBtn.dataset.game;
-        gameManager.openModal(gameType);
-    }
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-        const gameBtn = e.target.closest('[data-game]');
-        if (gameBtn) {
-            e.preventDefault(); // Prevent scroll
-            const gameType = gameBtn.dataset.game;
-            gameManager.openModal(gameType);
-        }
-    }
-});
+function bindGameEntrances() {
+    const cards = document.querySelectorAll('[data-game]');
+    cards.forEach(card => {
+        card.addEventListener('click', () => {
+            const type = card.dataset.game;
+            if (type) gameManager.openModal(type);
+        });
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const type = card.dataset.game;
+                if (type) gameManager.openModal(type);
+            }
+        });
+    });
+}
 
 // Expose closeGameModal globally for the close button in HTML
 window.closeGameModal = () => gameManager.closeModal();
@@ -335,3 +333,4 @@ window.showIdeaModal = function() {
 
 // 初始化
 detectLanguage();
+bindGameEntrances();
