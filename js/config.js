@@ -42,6 +42,16 @@ window.GAME_CONFIG = {
         ITEM_SPEED_BASE: 2,
         ITEM_SPEED_MAX: 8
     },
+    // --- 载具狂飙 (Vehicle Rush) ---
+    VEHICLE_GAME: {
+        TIME: 60,
+        MAX_HP: 3,
+        PLAYER_SPEED: 6,
+        ROAD_SPEED_BASE: 3,
+        ROAD_SPEED_MAX: 10,
+        SPAWN_RATE: 0.04,
+        LANE_COUNT: 5
+    },
     SKILLS_CHART: {
         LABELS: {
             zh: ['刚枪 (Code)', '指挥 (Plan)', 'AI Agent', 'Prompt', '跑图 (Ops)', '投掷 (Idea)'],
@@ -65,6 +75,8 @@ window.GAME_ASSETS.helmet.src = 'https://img.icons8.com/color/96/pubg-helmet.png
 window.GAME_ASSETS.grenade.src = 'https://img.icons8.com/color/96/grenade.png';
 window.GAME_ASSETS.medkit.src = 'https://img.icons8.com/color/96/first-aid-kit.png';
 window.GAME_ASSETS.energy.src = 'https://img.icons8.com/color/96/energy-drink.png';
+window.GAME_ASSETS.fuel = new Image();
+window.GAME_ASSETS.fuel.src = 'https://img.icons8.com/color/96/gas-station.png';
 
 // --- 多语言配置 (i18n) ---
 window.I18N = {
@@ -96,6 +108,7 @@ window.I18N = {
             title: "MISSIONS",
             aim: { title: "特种射击 (Sniper)", desc: "移动靶 / 换弹机制" },
             dodge: { title: "物资突围 (Supply)", desc: "拾取空投 / 躲避轰炸" },
+            vehicle: { title: "载具狂飙 (Vehicle)", desc: "俯视飙车 / 蓝圈追击" },
             more: { title: "更多任务 (More)", desc: "提交你的战略创意", coming: "COMING SOON" }
         },
         warehouse: {
@@ -149,7 +162,9 @@ window.I18N = {
             crash: "被轰炸区击中！",
             survive: "生存时间:",
             seconds: "秒",
-            replay: "重新开始"
+            replay: "重新开始",
+            wrecked: "载具损毁！",
+            extraction: "成功撤离！"
         },
         signal: {
             title: "SIGNAL FLARE FIRED!",
@@ -192,6 +207,7 @@ window.I18N = {
             title: "MISSIONS",
             aim: { title: "Sniper Ops", desc: "Moving Targets / Reload" },
             dodge: { title: "Supply Rush", desc: "Loot Drops / Dodge Bombs" },
+            vehicle: { title: "Vehicle Rush", desc: "Top-Down Driving / Blue Zone" },
             more: { title: "More Missions", desc: "Submit your game ideas", coming: "COMING SOON" }
         },
         warehouse: {
@@ -245,7 +261,9 @@ window.I18N = {
             crash: "Hit by Bomb!",
             survive: "Time Survived:",
             seconds: "s",
-            replay: "PLAY AGAIN"
+            replay: "PLAY AGAIN",
+            wrecked: "VEHICLE WRECKED!",
+            extraction: "EXTRACTION COMPLETE!"
         },
         signal: {
             title: "SIGNAL FLARE FIRED!",

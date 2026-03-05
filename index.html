@@ -209,6 +209,25 @@
                             </div>
                         </div>
 
+                        <!-- 任务 3: 载具狂飙 (Vehicle Rush) -->
+                        <div data-game="vehicle"
+                            class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
+                            role="button" tabindex="0" aria-label="Start Vehicle Game">
+                            <div
+                                class="bg-gray-900 p-3 rounded-full border border-orange-500/50 group-hover:border-orange-400 transition flex-shrink-0">
+                                <i class="fas fa-car text-orange-500 text-xl group-hover:animate-bounce"></i>
+                            </div>
+                            <div class="flex-grow min-w-0">
+                                <h3 id="mission-vehicle-title"
+                                    class="font-bold text-base text-gray-100 group-hover:text-orange-400 transition truncate">
+                                    载具狂飙 (Vehicle)</h3>
+                                <p id="mission-vehicle-desc" class="text-xs text-gray-400 truncate">俯视飙车 / 蓝圈追击</p>
+                            </div>
+                            <div class="opacity-0 group-hover:opacity-100 transition duration-300 flex-shrink-0">
+                                <i class="fas fa-chevron-right text-orange-500"></i>
+                            </div>
+                        </div>
+
                         <!-- 更多任务 (Idea Submission) -->
                         <div onclick="showIdeaModal()"
                             class="bg-gray-800/50 hover:bg-gray-800 border border-dashed border-gray-600 hover:border-green-500 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
@@ -462,6 +481,7 @@
     <script src="js/game/BaseGame.js?v=20260305a"></script>
     <script src="js/game/AimGame.js?v=20260305a"></script>
     <script src="js/game/DodgeGame.js?v=20260305a"></script>
+    <script src="js/game/VehicleGame.js?v=20260305a"></script>
     <script src="js/game/GameManager.js?v=20260305a"></script>
     <script src="js/script.js?v=20260305a"></script>
 </body>
