@@ -307,7 +307,7 @@ window.showIdeaModal = function() {
 
     const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
     const t = I18N[lang].idea;
-    const issueLink = "https://github.com/K4Ricky2Win/RicKinG/issues/new"; // Update with actual repo URL if different
+    const issueLink = "https://gitee.com/K4Ricky2Win/RicKinG/issues/new"; // Update to Gitee
     
     overlay.innerHTML = `
         <div class="bg-gray-800 border-2 border-green-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
@@ -320,8 +320,8 @@ window.showIdeaModal = function() {
             <p class="text-gray-300 mb-6 leading-relaxed">
                 ${t.desc}
             </p>
-            <a href="${issueLink}" target="_blank" onclick="this.closest('.fixed').remove()" class="inline-block bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded clip-path-polygon transition transform hover:scale-105 no-underline">
-                <i class="fab fa-github mr-2"></i> ${t.action}
+            <a href="${issueLink}" target="_blank" onclick="this.closest('.fixed').remove()" class="inline-block bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded clip-path-polygon transition transform hover:scale-105 no-underline flex items-center justify-center gap-2">
+                <img src="https://gitee.com/favicon.ico" class="h-5 w-5 rounded-full bg-white p-0.5" alt=""> ${t.action}
             </a>
             <div class="mt-4">
                 <button onclick="this.closest('.fixed').remove()" class="text-sm text-gray-500 hover:text-gray-300 transition underline">

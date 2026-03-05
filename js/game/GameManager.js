@@ -8,9 +8,14 @@ window.GameManager = class GameManager {
         this.modal = document.getElementById('game-modal');
         this.startBtnContainer = document.getElementById('modal-start-btn-container');
         this.startBtn = document.getElementById('modal-start-btn');
+        this.isOpen = false;
+        this.handleKeyDown = (e) => {
+            if (e.key === 'Escape' && this.isOpen) this.closeModal();
+        };
     }
 
     openModal(type) {
+        if (this.isOpen) return;
         if (this.closeTimeout) {
             clearTimeout(this.closeTimeout);
             this.closeTimeout = null;
@@ -23,7 +28,9 @@ window.GameManager = class GameManager {
         // Force reflow to enable transition
         void this.modal.offsetWidth;
         this.modal.classList.remove('opacity-0');
-        this.modal.style.opacity = '1'; // Explicitly set style
+        this.modal.style.opacity = '1';
+        this.isOpen = true;
+        window.addEventListener('keydown', this.handleKeyDown);
         
         this.resetUI(type);
         
@@ -34,7 +41,8 @@ window.GameManager = class GameManager {
             // Setup start button
             this.startBtn.onclick = () => {
                 this.startBtnContainer.style.display = 'none';
-                this.currentGame.resize(); // Ensure canvas size is correct before starting
+                this.startBtnContainer.style.pointerEvents = 'none';
+                this.currentGame.resize();
                 this.currentGame.start();
             };
             
@@ -50,7 +58,9 @@ window.GameManager = class GameManager {
     closeModal() {
         this.cleanup();
         this.modal.classList.add('opacity-0');
-        this.modal.style.opacity = '0'; // Explicitly set style
+        this.modal.style.opacity = '0';
+        this.isOpen = false;
+        window.removeEventListener('keydown', this.handleKeyDown);
         if (this.closeTimeout) clearTimeout(this.closeTimeout);
         this.closeTimeout = setTimeout(() => {
             this.modal.classList.add('hidden');
@@ -64,6 +74,7 @@ window.GameManager = class GameManager {
             this.currentGame = null;
         }
         this.startBtnContainer.style.display = 'flex';
+        this.startBtnContainer.style.pointerEvents = 'auto';
     }
 
     resetUI(type) {

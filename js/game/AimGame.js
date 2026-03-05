@@ -18,6 +18,7 @@ window.AimGame = class AimGame extends BaseGame {
     start() {
         super.start();
         this.timeLeft = GAME_CONFIG.AIM_GAME.TIME;
+        this.timeAccu = 0;
         this.ammo = GAME_CONFIG.AIM_GAME.MAX_AMMO;
         this.isReloading = false;
         this.targets = [];
@@ -25,23 +26,20 @@ window.AimGame = class AimGame extends BaseGame {
         
         this.updateUI('timer', this.timeLeft);
         this.updateUI('score', this.score);
-        
-        // Timer countdown
-        this.gameTimer = setInterval(() => {
-            if (!this.gameActive) {
-                clearInterval(this.gameTimer);
-                return;
-            }
-            this.timeLeft--;
-            this.updateUI('timer', this.timeLeft);
-            if (this.timeLeft <= 0) {
-                this.end();
-            }
-        }, 1000);
     }
 
     update(deltaTime) {
         if (!this.gameActive) return;
+        this.timeAccu += deltaTime;
+        while (this.timeAccu >= 1000) {
+            this.timeAccu -= 1000;
+            this.timeLeft--;
+            this.updateUI('timer', this.timeLeft);
+            if (this.timeLeft <= 0) {
+                this.end();
+                break;
+            }
+        }
 
         // Spawn Targets
         this.spawnTimer += deltaTime;
@@ -57,9 +55,8 @@ window.AimGame = class AimGame extends BaseGame {
             t.y += t.vy;
             t.life -= deltaTime;
 
-            // Bounce off walls
-            if (t.x < 0 || t.x > this.width) t.vx *= -1;
-            if (t.y < 0 || t.y > this.height) t.vy *= -1;
+            if (t.x < t.radius || t.x > this.width - t.radius) t.vx *= -1;
+            if (t.y < t.radius || t.y > this.height - t.radius) t.vy *= -1;
 
             if (t.life <= 0) {
                 this.targets.splice(i, 1);
@@ -270,7 +267,6 @@ window.AimGame = class AimGame extends BaseGame {
     }
 
     end() {
-        clearInterval(this.gameTimer);
         playSound('gameover');
         const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
         const t = I18N[lang].game;
