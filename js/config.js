@@ -19,20 +19,26 @@ window.GAME_CONFIG = {
     AUDIO: {
         SHOT: { FREQ: 150, DURATION: 0.1 },
         HIT: { FREQ: 800, DURATION: 0.1 },
+        RELOAD: { FREQ: 400, DURATION: 0.3 }, // 新增换弹音效
+        EXPLOSION: { FREQ: 100, DURATION: 0.5 }, // 新增爆炸音效
         GAMEOVER: { FREQ: 200, DURATION: 1 }
     },
+    // --- 升级版射击游戏配置 ---
     AIM_GAME: {
-        TIME: 15,
-        SPAWN_DELAY_MIN: 300,
-        SPAWN_DELAY_MAX: 800,
-        SCORE_NORMAL: 10,
-        SCORE_RARE: 50
+        TIME: 30,
+        MAX_AMMO: 7, // 最大弹药数
+        RELOAD_TIME: 1000, // 换弹时间(ms)
+        TARGET_SPEED_MIN: 1,
+        TARGET_SPEED_MAX: 3,
+        SPAWN_INTERVAL: 600
     },
+    // --- 升级版躲避游戏配置 ---
     DODGE_GAME: {
-        SPEED_BASE: 3,
-        SPEED_INC: 0.2,
-        SPAWN_RATE_BASE: 0.05,
-        SPAWN_RATE_INC: 0.002
+        PLAYER_SPEED: 8,
+        GRAVITY: 0.2,
+        SPAWN_RATE: 0.03, // 物品生成概率
+        ITEM_SPEED_BASE: 2,
+        ITEM_SPEED_MAX: 8
     },
     SKILLS_CHART: {
         LABELS: {
@@ -73,8 +79,8 @@ window.I18N = {
         },
         missions: {
             title: "MISSIONS",
-            aim: { title: "射击训练场", desc: "反应速度测试" },
-            dodge: { title: "空投争夺战", desc: "极限闪避挑战" }
+            aim: { title: "特种射击 (Sniper)", desc: "移动靶 / 换弹机制" },
+            dodge: { title: "物资突围 (Supply)", desc: "拾取空投 / 躲避轰炸" }
         },
         warehouse: {
             title: "WAREHOUSE",
@@ -105,25 +111,27 @@ window.I18N = {
             slogan: "Winner Winner, Chicken Dinner!"
         },
         modal: {
-            start: "训练开始",
+            start: "任务开始",
             score: "得分:",
             time: "时间:",
             btn: "START MISSION",
             tip: "<i class=\"fas fa-mouse-pointer mr-1\"></i> 点击/触摸屏幕操作 <span class=\"hidden md:inline mx-2\">|</span> <i class=\"fas fa-volume-up mr-1\"></i> 包含音效"
         },
         game: {
-            hit: "HIT!",
-            over: "训练结束！",
+            hit: "命中!",
+            reload: "换弹中...",
+            noAmmo: "没子弹了! (按 R 换弹)",
+            over: "任务结束！",
             score: "最终得分:",
             rank: "评价:",
             ranks: {
-                conqueror: "战神 (Conqueror)",
-                ace: "王牌 (Ace)",
-                crown: "皇冠 (Crown)",
-                bronze: "青铜 (Bronze)"
+                conqueror: "无敌战神 (Conqueror)",
+                ace: "超级王牌 (Ace)",
+                crown: "荣耀皇冠 (Crown)",
+                bronze: "热血青铜 (Bronze)"
             },
-            crash: "空投坠毁！",
-            survive: "坚持时间:",
+            crash: "被轰炸区击中！",
+            survive: "生存时间:",
             seconds: "秒"
         },
         signal: {
@@ -160,8 +168,8 @@ window.I18N = {
         },
         missions: {
             title: "MISSIONS",
-            aim: { title: "Shooting Range", desc: "Reaction Test" },
-            dodge: { title: "Airdrop Scramble", desc: "Extreme Evasion" }
+            aim: { title: "Sniper Ops", desc: "Moving Targets / Reload" },
+            dodge: { title: "Supply Rush", desc: "Loot Drops / Dodge Bombs" }
         },
         warehouse: {
             title: "WAREHOUSE",
@@ -200,6 +208,8 @@ window.I18N = {
         },
         game: {
             hit: "HIT!",
+            reload: "RELOADING...",
+            noAmmo: "NO AMMO! (Press R)",
             over: "Mission Complete!",
             score: "Final Score:",
             rank: "Rank:",
@@ -209,7 +219,7 @@ window.I18N = {
                 crown: "Crown",
                 bronze: "Bronze"
             },
-            crash: "Airdrop Crashed!",
+            crash: "Hit by Bomb!",
             survive: "Time Survived:",
             seconds: "s"
         },
