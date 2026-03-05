@@ -9,9 +9,9 @@
     <!-- 引入 Tailwind CSS (样式库) -->
     <script src="https://cdn.tailwindcss.com" onerror="console.error('Tailwind CSS failed to load'); document.body.innerHTML += '<div style=\'color:red;padding:20px\'>Error: Tailwind CSS failed to load. Please check your connection.</div>'"></script>
     <!-- 引入 FontAwesome (图标库) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" onerror="console.error('FontAwesome failed to load')">
+    <link rel="stylesheet" href="css/font-awesome/css/all.min.css" onerror="console.error('FontAwesome failed to load')">
     <!-- 引入 Chart.js (图表库) -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="console.error('Chart.js failed to load')"></script>
+    <script src="js/chart.min.js" onerror="console.error('Chart.js failed to load')"></script>
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -310,7 +310,13 @@
     </div>
 
     <!-- --- JavaScript 逻辑区域 --- -->
-    <!-- 引入自定义脚本 (模块化) -->
-    <script type="module" src="js/script.js"></script>
+    <!-- 引入自定义脚本 (按顺序) -->
+    <script src="js/config.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/game/BaseGame.js"></script>
+    <script src="js/game/AimGame.js"></script>
+    <script src="js/game/DodgeGame.js"></script>
+    <script src="js/game/GameManager.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
