@@ -80,7 +80,8 @@ window.I18N = {
         missions: {
             title: "MISSIONS",
             aim: { title: "特种射击 (Sniper)", desc: "移动靶 / 换弹机制" },
-            dodge: { title: "物资突围 (Supply)", desc: "拾取空投 / 躲避轰炸" }
+            dodge: { title: "物资突围 (Supply)", desc: "拾取空投 / 躲避轰炸" },
+            more: { title: "更多任务 (More)", desc: "提交你的游戏创意", coming: "敬请期待 / COMING SOON" }
         },
         warehouse: {
             title: "WAREHOUSE",
@@ -132,7 +133,8 @@ window.I18N = {
             },
             crash: "被轰炸区击中！",
             survive: "生存时间:",
-            seconds: "秒"
+            seconds: "秒",
+            replay: "重新开始"
         },
         signal: {
             title: "SIGNAL FLARE FIRED!",
@@ -140,6 +142,11 @@ window.I18N = {
             pr: "欢迎前往项目仓库提交 <span class=\"text-green-400 font-bold\">Pull Request</span>",
             issue: "或建立 <span class=\"text-yellow-400 font-bold\">Issue</span> 留下您的联系方式",
             copy: "收到 / COPY THAT"
+        },
+        idea: {
+            title: "NEW MISSION REQUEST!",
+            desc: "指挥官，请指示下一个任务目标！🫡<br><span class=\"text-xs text-gray-500\">Tell us what game you want to play next.</span>",
+            action: "前往 Issue 提交创意 / Submit Idea"
         }
     },
     en: {
@@ -169,7 +176,8 @@ window.I18N = {
         missions: {
             title: "MISSIONS",
             aim: { title: "Sniper Ops", desc: "Moving Targets / Reload" },
-            dodge: { title: "Supply Rush", desc: "Loot Drops / Dodge Bombs" }
+            dodge: { title: "Supply Rush", desc: "Loot Drops / Dodge Bombs" },
+            more: { title: "More Missions", desc: "Submit your game ideas", coming: "COMING SOON" }
         },
         warehouse: {
             title: "WAREHOUSE",
@@ -221,7 +229,8 @@ window.I18N = {
             },
             crash: "Hit by Bomb!",
             survive: "Time Survived:",
-            seconds: "s"
+            seconds: "s",
+            replay: "PLAY AGAIN"
         },
         signal: {
             title: "SIGNAL FLARE FIRED!",
@@ -229,6 +238,11 @@ window.I18N = {
             pr: "Submit a <span class=\"text-green-400 font-bold\">Pull Request</span> to the repo",
             issue: "Or open an <span class=\"text-yellow-400 font-bold\">Issue</span> to leave contact info",
             copy: "COPY THAT"
+        },
+        idea: {
+            title: "NEW MISSION REQUEST!",
+            desc: "Commander, awaiting your orders for the next mission! 🫡",
+            action: "Submit Idea on Issue"
         }
     }
 };

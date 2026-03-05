@@ -254,12 +254,18 @@ window.AimGame = class AimGame extends BaseGame {
     }
 
     end() {
-        super.end();
         clearInterval(this.gameTimer);
         playSound('gameover');
         const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
         const t = I18N[lang].game;
-        alert(`${t.over}\n${t.score} ${this.score}\n${t.rank} ${this.getRank(this.score)}`);
+        
+        this.resultData = {
+            title: t.over,
+            desc: `${t.score} ${this.score}`,
+            rank: this.getRank(this.score)
+        };
+        
+        super.end();
     }
 
     getRank(score) {

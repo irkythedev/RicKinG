@@ -155,6 +155,9 @@ window.setLanguage = function(lang) {
     safeSetText('mission-aim-desc', t.missions.aim.desc);
     safeSetText('mission-dodge-title', t.missions.dodge.title);
     safeSetText('mission-dodge-desc', t.missions.dodge.desc);
+    safeSetText('mission-more-title', t.missions.more.title);
+    safeSetText('mission-more-desc', t.missions.more.desc);
+    safeSetText('mission-more-coming', t.missions.more.coming);
 
     safeSetText('warehouse-title', t.warehouse.title);
     
@@ -288,6 +291,43 @@ window.fireSignal = function() {
             <button onclick="this.closest('.fixed').remove()" class="bg-yellow-600 hover:bg-yellow-500 text-black font-bold py-2 px-8 rounded clip-path-polygon transition transform hover:scale-105" aria-label="Close Signal">
                 ${t.copy}
             </button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+};
+
+// --- 7. 创意提交逻辑 ---
+window.showIdeaModal = function() {
+    playSound('shot');
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in';
+    overlay.onclick = (e) => {
+        if(e.target === overlay) overlay.remove();
+    };
+
+    const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+    const t = I18N[lang].idea;
+    const issueLink = "https://github.com/K4Ricky2Win/RicKinG/issues/new"; // Update with actual repo URL if different
+    
+    overlay.innerHTML = `
+        <div class="bg-gray-800 border-2 border-green-500 rounded-lg p-8 max-w-md text-center relative shadow-2xl transform scale-100 transition-transform">
+            <div class="absolute -top-10 left-1/2 transform -translate-x-1/2">
+                <div class="w-20 h-20 bg-gray-900 rounded-full flex items-center justify-center border-4 border-green-500 shadow-lg">
+                    <i class="fas fa-lightbulb text-green-400 text-4xl animate-pulse"></i>
+                </div>
+            </div>
+            <h3 class="text-2xl font-black text-green-400 mt-8 mb-4">${t.title}</h3>
+            <p class="text-gray-300 mb-6 leading-relaxed">
+                ${t.desc}
+            </p>
+            <a href="${issueLink}" target="_blank" onclick="this.closest('.fixed').remove()" class="inline-block bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-8 rounded clip-path-polygon transition transform hover:scale-105 no-underline">
+                <i class="fab fa-github mr-2"></i> ${t.action}
+            </a>
+            <div class="mt-4">
+                <button onclick="this.closest('.fixed').remove()" class="text-sm text-gray-500 hover:text-gray-300 transition underline">
+                    Cancel / 取消
+                </button>
+            </div>
         </div>
     `;
     document.body.appendChild(overlay);
