@@ -18,6 +18,7 @@ window.DodgeGame = class DodgeGame extends BaseGame {
         this.player.x = this.width / 2;
         this.player.y = this.height - 60;
         this.player.speed = GAME_CONFIG.DODGE_GAME.PLAYER_SPEED;
+        this.player.dash = false;
         
         playSound('shot'); // Start sound
     }
@@ -37,10 +38,20 @@ window.DodgeGame = class DodgeGame extends BaseGame {
         // 2. Player Movement (Mouse/Touch follows x, Keyboard uses arrow keys)
         // Hybrid control: if mouse moved recently, follow mouse. If keys pressed, use keys.
         
+        let moveSpeed = this.player.speed;
+        
+        // Dash (Shift or double tap logic could be added)
+        if (this.input.keys['ShiftLeft'] || this.input.keys['ShiftRight']) {
+            moveSpeed *= 2;
+            this.player.dash = true;
+        } else {
+            this.player.dash = false;
+        }
+
         if (this.input.keys['ArrowLeft'] || this.input.keys['KeyA']) {
-            this.player.x -= this.player.speed * dt;
+            this.player.x -= moveSpeed * dt;
         } else if (this.input.keys['ArrowRight'] || this.input.keys['KeyD']) {
-            this.player.x += this.player.speed * dt;
+            this.player.x += moveSpeed * dt;
         } else {
             // Smooth follow mouse/touch x
             const targetX = this.input.x;
@@ -65,6 +76,12 @@ window.DodgeGame = class DodgeGame extends BaseGame {
             item.y += item.speed * this.difficultyMultiplier * dt;
             item.angle += 0.05;
 
+            // Tracking logic
+            if (item.tracking) {
+                const diffX = this.player.x - item.x;
+                item.x += Math.sign(diffX) * 1 * dt; // Slow tracking
+            }
+
             // Collision
             if (this.checkCollision(this.player, item)) {
                 this.handleCollision(item);
@@ -84,13 +101,21 @@ window.DodgeGame = class DodgeGame extends BaseGame {
         let type = 'bomb';
         let color = '#ef4444'; // Red
         let speed = GAME_CONFIG.DODGE_GAME.ITEM_SPEED_BASE + Math.random() * 2;
+        let tracking = false;
         
-        if (rand > 0.8) {
+        if (rand > 0.85) { // Adjusted rates
             type = 'airdrop'; // Good
             color = '#3b82f6'; // Blue
-        } else if (rand > 0.95) {
+        } else if (rand > 0.96) {
             type = 'medkit'; // Very Good
             color = '#22c55e'; // Green
+        } else {
+            // Bomb variant: Homing Missile (Rarely appears after 20s)
+            if (this.survivalTime > 20 && Math.random() > 0.7) {
+                tracking = true;
+                color = '#7f1d1d'; // Dark Red
+                speed *= 0.8; // Slower but tracks
+            }
         }
 
         this.items.push({
@@ -101,7 +126,8 @@ window.DodgeGame = class DodgeGame extends BaseGame {
             type: type,
             color: color,
             speed: speed,
-            angle: 0
+            angle: 0,
+            tracking: tracking
         });
     }
 
