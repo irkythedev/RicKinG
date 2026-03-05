@@ -420,12 +420,9 @@
 
                         <!-- 资源加载层 -->
                         <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
-                            <!-- 载入动画图标 -->
-                            <div class="relative">
-                                <i class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
-                                <i class="fas fa-spinner fa-spin text-2xl text-yellow-300 absolute inset-0 flex items-center justify-center"
-                                    style="top:50%;left:50%;transform:translate(-50%,-50%)"></i>
-                            </div>
+                            <!-- 载入动画图标 (单图标) -->
+                            <i id="modal-loading-icon"
+                                class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
                             <!-- 加载文字 -->
                             <p id="modal-loading-text"
                                 class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
