@@ -106,10 +106,10 @@ window.I18N = {
         },
         missions: {
             title: "MISSIONS",
-            aim: { title: "特种射击 (Sniper)", desc: "移动靶 / 换弹机制" },
-            dodge: { title: "物资突围 (Supply)", desc: "拾取空投 / 躲避轰炸" },
-            vehicle: { title: "载具狂飙 (Vehicle)", desc: "俯视飙车 / 蓝圈追击" },
-            more: { title: "更多任务 (More)", desc: "提交你的战略创意", coming: "COMING SOON" }
+            aim: { title: "特种射击", desc: "移动靶 / 换弹机制" },
+            dodge: { title: "物资突围", desc: "拾取空投 / 躲避轰炸" },
+            vehicle: { title: "载具狂飙", desc: "俯视飙车 / 蓝圈追击" },
+            more: { title: "更多任务", desc: "提交你的战略创意", coming: "COMING SOON" }
         },
         warehouse: {
             title: "WAREHOUSE",
