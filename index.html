@@ -170,78 +170,110 @@
                         <span id="missions-title" class="text-red-500">MISSIONS</span>
                     </h2>
 
-                    <div class="flex flex-col gap-4">
+                    <div class="flex flex-row gap-2 h-20 md:h-24 w-full">
                         <!-- 任务 1: 特种射击 (Sniper Ops) -->
                         <div data-game="aim"
-                            class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
+                            class="group bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl cursor-pointer transition-all duration-500 ease-out flex items-center relative flex-1 hover:flex-[4] overflow-hidden"
                             role="button" tabindex="0" aria-label="Start Aim Training Game">
+
                             <div
-                                class="bg-gray-900 p-3 rounded-full border border-yellow-500/50 group-hover:border-yellow-400 transition flex-shrink-0">
-                                <i class="fas fa-crosshairs text-yellow-500 text-xl group-hover:animate-pulse"></i>
+                                class="absolute inset-y-0 left-0 w-full group-hover:w-16 md:group-hover:w-20 flex items-center justify-center transition-all duration-500">
+                                <div
+                                    class="bg-gray-900 w-10 h-10 md:w-12 md:h-12 rounded-full border border-yellow-500/50 group-hover:border-yellow-400 transition flex items-center justify-center flex-shrink-0">
+                                    <i
+                                        class="fas fa-crosshairs text-yellow-500 text-lg md:text-xl group-hover:animate-pulse"></i>
+                                </div>
                             </div>
-                            <div class="flex-grow min-w-0">
+                            <div
+                                class="absolute left-16 md:left-20 right-6 md:right-8 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 pointer-events-none whitespace-nowrap">
                                 <h3 id="mission-aim-title"
-                                    class="font-bold text-base text-gray-100 group-hover:text-yellow-400 transition truncate">
+                                    class="font-bold text-sm md:text-base text-gray-100 group-hover:text-yellow-400 transition truncate">
                                     特种射击 (Sniper)</h3>
-                                <p id="mission-aim-desc" class="text-xs text-gray-400 truncate">移动靶 / 换弹机制</p>
+                                <p id="mission-aim-desc" class="text-xs text-gray-400 truncate mt-0.5">移动靶 / 换弹机制</p>
                             </div>
-                            <div class="opacity-0 group-hover:opacity-100 transition duration-300 flex-shrink-0">
-                                <i class="fas fa-chevron-right text-yellow-500"></i>
+                            <div
+                                class="absolute right-2 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 flex items-center h-full">
+                                <i class="fas fa-chevron-right text-yellow-500 text-sm md:text-base"></i>
                             </div>
                         </div>
 
                         <!-- 任务 2: 物资突围 (Supply Rush) -->
                         <div data-game="dodge"
-                            class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
+                            class="group bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl cursor-pointer transition-all duration-500 ease-out flex items-center relative flex-1 hover:flex-[4] overflow-hidden"
                             role="button" tabindex="0" aria-label="Start Dodge Game">
+
                             <div
-                                class="bg-gray-900 p-3 rounded-full border border-blue-500/50 group-hover:border-blue-400 transition flex-shrink-0">
-                                <i class="fas fa-parachute-box text-blue-500 text-xl group-hover:animate-bounce"></i>
+                                class="absolute inset-y-0 left-0 w-full group-hover:w-16 md:group-hover:w-20 flex items-center justify-center transition-all duration-500">
+                                <div
+                                    class="bg-gray-900 w-10 h-10 md:w-12 md:h-12 rounded-full border border-blue-500/50 group-hover:border-blue-400 transition flex items-center justify-center flex-shrink-0">
+                                    <i
+                                        class="fas fa-parachute-box text-blue-500 text-lg md:text-xl group-hover:animate-bounce"></i>
+                                </div>
                             </div>
-                            <div class="flex-grow min-w-0">
+                            <div
+                                class="absolute left-16 md:left-20 right-6 md:right-8 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 pointer-events-none whitespace-nowrap">
                                 <h3 id="mission-dodge-title"
-                                    class="font-bold text-base text-gray-100 group-hover:text-blue-400 transition truncate">
+                                    class="font-bold text-sm md:text-base text-gray-100 group-hover:text-blue-400 transition truncate">
                                     物资突围 (Supply)</h3>
-                                <p id="mission-dodge-desc" class="text-xs text-gray-400 truncate">拾取空投 / 躲避轰炸</p>
+                                <p id="mission-dodge-desc" class="text-xs text-gray-400 truncate mt-0.5">拾取空投 / 躲避轰炸</p>
                             </div>
-                            <div class="opacity-0 group-hover:opacity-100 transition duration-300 flex-shrink-0">
-                                <i class="fas fa-chevron-right text-blue-500"></i>
+                            <div
+                                class="absolute right-2 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 flex items-center h-full">
+                                <i class="fas fa-chevron-right text-blue-500 text-sm md:text-base"></i>
                             </div>
                         </div>
 
                         <!-- 任务 3: 载具狂飙 (Vehicle Rush) -->
                         <div data-game="vehicle"
-                            class="bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
+                            class="group bg-gray-800 hover:bg-gray-700 border border-gray-600 rounded-xl cursor-pointer transition-all duration-500 ease-out flex items-center relative flex-1 hover:flex-[4] overflow-hidden"
                             role="button" tabindex="0" aria-label="Start Vehicle Game">
+
                             <div
-                                class="bg-gray-900 p-3 rounded-full border border-orange-500/50 group-hover:border-orange-400 transition flex-shrink-0">
-                                <i class="fas fa-car text-orange-500 text-xl group-hover:animate-bounce"></i>
+                                class="absolute inset-y-0 left-0 w-full group-hover:w-16 md:group-hover:w-20 flex items-center justify-center transition-all duration-500">
+                                <div
+                                    class="bg-gray-900 w-10 h-10 md:w-12 md:h-12 rounded-full border border-orange-500/50 group-hover:border-orange-400 transition flex items-center justify-center flex-shrink-0">
+                                    <i
+                                        class="fas fa-car text-orange-500 text-lg md:text-xl group-hover:animate-bounce"></i>
+                                </div>
                             </div>
-                            <div class="flex-grow min-w-0">
+                            <div
+                                class="absolute left-16 md:left-20 right-6 md:right-8 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 pointer-events-none whitespace-nowrap">
                                 <h3 id="mission-vehicle-title"
-                                    class="font-bold text-base text-gray-100 group-hover:text-orange-400 transition truncate">
+                                    class="font-bold text-sm md:text-base text-gray-100 group-hover:text-orange-400 transition truncate">
                                     载具狂飙 (Vehicle)</h3>
-                                <p id="mission-vehicle-desc" class="text-xs text-gray-400 truncate">俯视飙车 / 蓝圈追击</p>
+                                <p id="mission-vehicle-desc" class="text-xs text-gray-400 truncate mt-0.5">俯视飙车 / 蓝圈追击
+                                </p>
                             </div>
-                            <div class="opacity-0 group-hover:opacity-100 transition duration-300 flex-shrink-0">
-                                <i class="fas fa-chevron-right text-orange-500"></i>
+                            <div
+                                class="absolute right-2 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 flex items-center h-full">
+                                <i class="fas fa-chevron-right text-orange-500 text-sm md:text-base"></i>
                             </div>
                         </div>
 
                         <!-- 更多任务 (Idea Submission) -->
                         <div onclick="showIdeaModal()"
-                            class="bg-gray-800/50 hover:bg-gray-800 border border-dashed border-gray-600 hover:border-green-500 rounded-lg p-3 cursor-pointer transition transform hover:scale-[1.02] group relative overflow-hidden flex items-center gap-4"
+                            class="group bg-gray-800/50 hover:bg-gray-800 border-2 border-dashed border-gray-600 hover:border-green-500 rounded-xl cursor-pointer transition-all duration-500 ease-out flex items-center relative flex-1 hover:flex-[4] overflow-hidden"
                             role="button" tabindex="0" aria-label="Submit Game Idea">
+
                             <div
-                                class="bg-gray-900/50 p-3 rounded-full border border-gray-600 group-hover:border-green-500/50 transition flex-shrink-0">
-                                <i class="fas fa-plus text-gray-500 group-hover:text-green-500 text-xl transition"></i>
+                                class="absolute inset-y-0 left-0 w-full group-hover:w-16 md:group-hover:w-20 flex items-center justify-center transition-all duration-500">
+                                <div
+                                    class="bg-gray-900/50 w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-600 group-hover:border-green-500/50 transition flex items-center justify-center flex-shrink-0">
+                                    <i
+                                        class="fas fa-plus text-gray-500 group-hover:text-green-500 text-lg md:text-xl transition"></i>
+                                </div>
                             </div>
-                            <div class="flex-grow min-w-0">
+                            <div
+                                class="absolute left-16 md:left-20 right-6 md:right-8 flex flex-col justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 pointer-events-none whitespace-nowrap">
                                 <h3 id="mission-more-title"
-                                    class="font-bold text-base text-gray-400 group-hover:text-green-400 transition truncate">
+                                    class="font-bold text-sm md:text-base text-gray-400 group-hover:text-green-400 transition truncate">
                                     更多任务 (More)</h3>
                                 <p id="mission-more-desc"
-                                    class="text-xs text-gray-500 group-hover:text-gray-400 truncate">提交你的游戏创意</p>
+                                    class="text-xs text-gray-500 group-hover:text-gray-400 truncate mt-0.5">提交你的游戏创意</p>
+                            </div>
+                            <div
+                                class="absolute right-2 md:right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-150 flex items-center h-full">
+                                <i class="fas fa-chevron-right text-green-500 text-sm md:text-base"></i>
                             </div>
                         </div>
                     </div>
