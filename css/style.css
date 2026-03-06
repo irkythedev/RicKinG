@@ -335,27 +335,24 @@ body {
 
 /* ============================================
    任务卡片手风琴 (Mission Card Accordion)
+   GPU-accelerated, single-property transition
    ============================================ */
 
-/* 外层容器 */
 .mission-list {
     display: flex;
     flex-direction: row;
     gap: 6px;
     height: 5rem;
-    /* h-20 */
     width: 100%;
+    contain: layout style;
 }
 
 @media (min-width: 768px) {
     .mission-list {
         height: 6rem;
     }
-
-    /* md:h-24 */
 }
 
-/* 单张卡片 - 默认态 */
 .mission-card {
     position: relative;
     display: flex;
@@ -363,19 +360,14 @@ body {
     flex: 1 1 0%;
     min-width: 0;
     background: rgb(31, 41, 55);
-    /* bg-gray-800 */
     border: 1px solid rgb(75, 85, 99);
-    /* border-gray-600 */
     border-radius: 0.75rem;
     cursor: pointer;
     overflow: hidden;
-    /* 核心：只过渡 flex-grow，用最丝滑的缓动 */
-    transition:
-        flex-grow 600ms cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 400ms cubic-bezier(0.4, 0, 0.2, 1),
-        background 200ms ease,
-        border-color 200ms ease,
-        box-shadow 300ms ease;
+    transform: translateZ(0);
+    will-change: flex-grow;
+    transition: flex-grow 500ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        background 150ms ease;
 }
 
 .mission-card-more {
@@ -383,35 +375,28 @@ body {
     border: 2px dashed rgb(75, 85, 99);
 }
 
-/* 卡片悬停自身 */
 .mission-card:hover {
     background: rgb(55, 65, 81);
-    /* bg-gray-700 */
 }
 
-/* ---- 容器被悬停时：所有子卡片先缩 ---- */
 .mission-list:hover .mission-card {
     flex-grow: 0;
-    opacity: 0;
 }
 
-/* ---- 被悬停的那张：独占 ---- */
 .mission-list:hover .mission-card:hover {
     flex-grow: 100;
-    opacity: 1;
 }
 
-/* === 图标区域 === */
+/* === 图标 === */
 .mission-icon {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition:
-        width 500ms cubic-bezier(0.4, 0, 0.2, 1),
-        left 500ms cubic-bezier(0.4, 0, 0.2, 1),
-        opacity 400ms ease;
+    transform: translateZ(0);
+    transition: transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        opacity 300ms ease;
 }
 
 .mission-icon-circle {
@@ -419,14 +404,13 @@ body {
     height: 2.5rem;
     border-radius: 50%;
     background: rgb(17, 24, 39);
-    /* bg-gray-900 */
     border-width: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     font-size: 1.125rem;
-    transition: border-color 300ms ease, transform 300ms ease;
+    transition: transform 250ms ease;
 }
 
 @media (min-width: 768px) {
@@ -437,19 +421,16 @@ body {
     }
 }
 
-/* 悬停中 - 图标滑到左侧 */
 .mission-card:hover .mission-icon {
-    width: 4rem;
-    justify-content: center;
+    transform: translateX(calc(-50% + 2rem)) translateZ(0);
 }
 
 @media (min-width: 768px) {
     .mission-card:hover .mission-icon {
-        width: 5rem;
+        transform: translateX(calc(-50% + 2.5rem)) translateZ(0);
     }
 }
 
-/* 容器悬停但自己没被悬停 → 隐藏 */
 .mission-list:hover .mission-card:not(:hover) .mission-icon {
     opacity: 0;
 }
@@ -458,7 +439,7 @@ body {
     transform: scale(1.1);
 }
 
-/* === 文字信息 === */
+/* === 文字 === */
 .mission-info {
     position: absolute;
     left: 4rem;
@@ -467,10 +448,9 @@ body {
     flex-direction: column;
     justify-content: center;
     opacity: 0;
-    transform: translateX(8px);
-    transition:
-        opacity 350ms cubic-bezier(0.4, 0, 0.2, 1) 120ms,
-        transform 350ms cubic-bezier(0.4, 0, 0.2, 1) 120ms;
+    transform: translateX(10px) translateZ(0);
+    transition: opacity 250ms ease 100ms,
+        transform 250ms ease 100ms;
     pointer-events: none;
     white-space: nowrap;
 }
@@ -498,16 +478,14 @@ body {
 .mission-desc {
     font-size: 0.75rem;
     color: rgb(156, 163, 175);
-    /* text-gray-400 */
     overflow: hidden;
     text-overflow: ellipsis;
     margin-top: 2px;
 }
 
-/* 悬停展开 → 显示文字 */
 .mission-card:hover .mission-info {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
 }
 
 /* === 箭头 === */
@@ -518,10 +496,9 @@ body {
     align-items: center;
     height: 100%;
     opacity: 0;
-    transform: translateX(4px);
-    transition:
-        opacity 300ms ease 180ms,
-        transform 300ms ease 180ms;
+    transform: translateX(6px) translateZ(0);
+    transition: opacity 200ms ease 150ms,
+        transform 200ms ease 150ms;
     font-size: 0.875rem;
 }
 
@@ -534,7 +511,7 @@ body {
 
 .mission-card:hover .mission-arrow {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateX(0) translateZ(0);
 }
 
 /* --- 滚动入场动画 --- */
