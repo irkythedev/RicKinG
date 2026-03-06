@@ -1,6 +1,7 @@
 window.VehicleGame = class VehicleGame extends BaseGame {
     constructor(containerId, updateUI) {
         super(containerId);
+        this._gameType = 'vehicle';
         this.updateUI = updateUI;
         this.player = { x: 0, y: 0, width: 36, height: 60, speed: 0 };
         this.obstacles = [];
