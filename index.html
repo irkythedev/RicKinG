@@ -163,8 +163,10 @@
 
                     <!-- 六边形战力图 (Radar Chart) -->
                     <div
-                        class="w-full relative h-72 flex justify-center items-center radar-container group/radar cursor-crosshair">
-                        <canvas id="skillsChart"></canvas>
+                        class="w-full relative h-72 flex justify-center items-center radar-container p-4 cursor-crosshair">
+                        <!-- 雷达装饰圆环 (扫描线 + 脉冲) -->
+                        <div class="radar-ring"></div>
+                        <canvas id="skillsChart" class="relative z-[2]"></canvas>
                     </div>
 
                     <!-- 综合评分 -->
