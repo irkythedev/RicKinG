@@ -295,73 +295,8 @@ body {
         0 0 30px rgba(234, 179, 8, 0.12);
 }
 
-/* 内部雷达装饰圆环 (不影响文字) */
-.radar-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 75%;
-    height: 0;
-    padding-bottom: 75%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    border: 1px solid rgba(234, 179, 8, 0.1);
-    pointer-events: none;
-    z-index: 0;
-}
 
-.radar-ring::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50%;
-    height: 2px;
-    background: linear-gradient(90deg, rgba(234, 179, 8, 0.5), transparent);
-    transform-origin: left center;
-    animation: radar-sweep 4s linear infinite;
-    filter: blur(1px);
-}
 
-.radar-ring::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(234, 179, 8, 0.25);
-    transform: translate(-50%, -50%);
-    animation: radar-ping 3s ease-out infinite;
-}
-
-@keyframes radar-sweep {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* 雷达脉冲圈 */
-@keyframes radar-ping {
-    0% {
-        width: 0;
-        height: 0;
-        opacity: 0.7;
-        border-width: 2px;
-    }
-
-    100% {
-        width: 120%;
-        height: 120%;
-        opacity: 0;
-        border-width: 1px;
-    }
-}
 
 /* ============================================
    任务卡片手风琴 (Mission Card Accordion)

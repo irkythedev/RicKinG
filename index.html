@@ -63,7 +63,7 @@
 
             <!-- 文字信息 -->
             <div class="text-center md:text-left flex-1 min-w-0">
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3 min-h-[3.5rem]">
                     <span id="header-rank"
                         class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS12
                         王牌</span>
@@ -184,10 +184,8 @@
                     </h2>
 
                     <!-- 六边形战力图 (Radar Chart) -->
-                    <div
-                        class="w-full relative h-72 flex justify-center items-center radar-container p-4 cursor-crosshair">
-                        <!-- 雷达装饰圆环 (扫描线 + 脉冲) -->
-                        <div class="radar-ring"></div>
+                    <div class="w-full relative flex justify-center items-center radar-container p-4 cursor-crosshair"
+                        style="height: 288px;">
                         <canvas id="skillsChart" class="relative z-[2]"></canvas>
                     </div>
 
@@ -198,7 +196,7 @@
                                 class="inline-block w-3 h-3 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500/30"></span>
                             <span class="text-gray-400 font-mono" id="stats-avg-label">综合评分</span>
                         </div>
-                        <span class="text-yellow-400 font-bold font-mono text-lg" id="stats-avg-val">88.3</span>
+                        <span class="text-yellow-400 font-bold font-mono text-lg" id="stats-avg-val">53.3</span>
                     </div>
                 </section>
 
@@ -391,14 +389,15 @@
                                             class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Code on Gitee">
                                             <img src="https://gitee.com/favicon.ico"
-                                                class="h-4 w-4 rounded bg-white p-0.5" alt="">
+                                                class="h-4 w-4 rounded-full bg-white p-0.5" alt="">
                                             <span id="card-tactical-btn-code">访问代码</span>
                                         </a>
                                         <a href="https://initricky.lol" target="_blank"
                                             class="bg-blue-700 hover:bg-blue-600 text-white py-2.5 rounded-lg border border-blue-500 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Live Demo">
-                                            <img src="https://www.google.com/s2/favicons?domain=initricky.lol&sz=32"
-                                                class="h-4 w-4 rounded" alt="">
+                                            <img src="https://initricky.lol/favicon.ico" class="h-4 w-4 rounded-full"
+                                                alt=""
+                                                onerror="this.src='https://icons.duckduckgo.com/ip3/initricky.lol.ico'">
                                             <span id="card-tactical-btn-demo">访问页面</span>
                                         </a>
                                     </div>
@@ -473,14 +472,15 @@
                                             class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Code on Gitee">
                                             <img src="https://gitee.com/favicon.ico"
-                                                class="h-4 w-4 rounded bg-white p-0.5" alt="">
+                                                class="h-4 w-4 rounded-full bg-white p-0.5" alt="">
                                             <span id="card-aqua-btn-code">访问代码</span>
                                         </a>
                                         <a href="https://water-sci-analyzer.initricky.lol" target="_blank"
                                             class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 rounded-lg border border-purple-500 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Live Demo">
-                                            <img src="https://www.google.com/s2/favicons?domain=water-sci-analyzer.initricky.lol&sz=32"
-                                                class="h-4 w-4 rounded" alt="">
+                                            <img src="https://water-sci-analyzer.initricky.lol/favicon.ico"
+                                                class="h-4 w-4 rounded-full" alt=""
+                                                onerror="this.src='https://icons.duckduckgo.com/ip3/water-sci-analyzer.initricky.lol.ico'">
                                             <span id="card-aqua-btn-demo">访问页面</span>
                                         </a>
                                     </div>
@@ -518,86 +518,87 @@
             </div>
         </div>
 
-    <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
-        <!-- 技术栈图标条 -->
-        <div class="tech-stack-bar mb-4">
-            <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
-            <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
-            <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
-            <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
-            <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
-            <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
-        </div>
-        <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
-        <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
-        <p class="mt-2 text-xs opacity-30">Built with 🎮 & 🔥 by RickinG</p>
-    </footer>
-
-    <!-- 全屏游戏 Modal -->
-    <div id="game-modal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden opacity-0 transition-opacity duration-300"
-        role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
-        <div class="relative w-full max-w-4xl h-full md:h-[80vh] flex flex-col p-4">
-            <!-- 顶部栏 -->
-            <div class="flex justify-between items-center mb-4">
-                <h2 id="modal-game-title" class="text-2xl font-black text-white italic">TRAINING GROUND</h2>
-                <div class="flex gap-4 text-xl font-mono">
-                    <div id="modal-score-label" class="text-white">得分: <span id="modal-score-val"
-                            class="text-yellow-400">0</span></div>
-                    <div id="modal-timer-label" class="text-white">时间: <span id="modal-timer-val"
-                            class="text-red-400">00</span></div>
-                </div>
-                <button onclick="closeGameModal()" class="text-gray-400 hover:text-white transition"
-                    aria-label="Close Game">
-                    <i class="fas fa-times text-3xl"></i>
-                </button>
+        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <!-- 技术栈图标条 -->
+            <div class="tech-stack-bar mb-4">
+                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
+                <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
+                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
+                <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
+                <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
+                <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
             </div>
+            <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
+            <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
+            <p class="mt-2 text-xs opacity-30">Built with 🎮 & 🔥 by RickinG</p>
+        </footer>
 
-            <!-- 游戏区域 -->
-            <div id="game-canvas-container"
-                class="flex-grow bg-gray-900/50 border-2 border-yellow-600/50 rounded-lg relative overflow-hidden cursor-crosshair">
-                <!-- 游戏内容将通过 JS 动态插入 -->
-                <div id="modal-game-content" class="absolute inset-0"></div>
+        <!-- 全屏游戏 Modal -->
+        <div id="game-modal"
+            class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden opacity-0 transition-opacity duration-300"
+            role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
+            <div class="relative w-full max-w-4xl h-full md:h-[80vh] flex flex-col p-4">
+                <!-- 顶部栏 -->
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="modal-game-title" class="text-2xl font-black text-white italic">TRAINING GROUND</h2>
+                    <div class="flex gap-4 text-xl font-mono">
+                        <div id="modal-score-label" class="text-white">得分: <span id="modal-score-val"
+                                class="text-yellow-400">0</span></div>
+                        <div id="modal-timer-label" class="text-white">时间: <span id="modal-timer-val"
+                                class="text-red-400">00</span></div>
+                    </div>
+                    <button onclick="closeGameModal()" class="text-gray-400 hover:text-white transition"
+                        aria-label="Close Game">
+                        <i class="fas fa-times text-3xl"></i>
+                    </button>
+                </div>
 
-                <!-- 开始遮罩 -->
-                <div id="modal-start-btn-container"
-                    class="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
+                <!-- 游戏区域 -->
+                <div id="game-canvas-container"
+                    class="flex-grow bg-gray-900/50 border-2 border-yellow-600/50 rounded-lg relative overflow-hidden cursor-crosshair">
+                    <!-- 游戏内容将通过 JS 动态插入 -->
+                    <div id="modal-game-content" class="absolute inset-0"></div>
 
-                    <!-- 资源加载层 -->
-                    <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
-                        <!-- 载入动画图标 (单图标) -->
-                        <i id="modal-loading-icon"
-                            class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
-                        <!-- 加载文字 -->
-                        <p id="modal-loading-text"
-                            class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
-                            ASSETS...</p>
-                        <!-- 进度条外壳 -->
-                        <div class="w-64 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
-                            <div id="modal-loading-bar"
-                                class="h-full bg-yellow-500 rounded-full transition-all duration-300" style="width: 0%">
+                    <!-- 开始遮罩 -->
+                    <div id="modal-start-btn-container"
+                        class="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
+
+                        <!-- 资源加载层 -->
+                        <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
+                            <!-- 载入动画图标 (单图标) -->
+                            <i id="modal-loading-icon"
+                                class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
+                            <!-- 加载文字 -->
+                            <p id="modal-loading-text"
+                                class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
+                                ASSETS...</p>
+                            <!-- 进度条外壳 -->
+                            <div class="w-64 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
+                                <div id="modal-loading-bar"
+                                    class="h-full bg-yellow-500 rounded-full transition-all duration-300"
+                                    style="width: 0%">
+                                </div>
                             </div>
+                            <p id="modal-loading-count" class="text-gray-500 font-mono text-xs">0 / 0</p>
                         </div>
-                        <p id="modal-loading-count" class="text-gray-500 font-mono text-xs">0 / 0</p>
-                    </div>
 
-                    <!-- 开始按钒层 (hidden, shown after load) -->
-                    <div id="modal-ready-screen" class="hidden flex-col items-center gap-4">
-                        <button id="modal-start-btn"
-                            class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110"
-                            aria-label="Start Game">
-                            START MISSION
-                        </button>
-                        <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
-                            <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
-                                class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
-                        </p>
-                    </div>
+                        <!-- 开始按钒层 (hidden, shown after load) -->
+                        <div id="modal-ready-screen" class="hidden flex-col items-center gap-4">
+                            <button id="modal-start-btn"
+                                class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110"
+                                aria-label="Start Game">
+                                START MISSION
+                            </button>
+                            <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
+                                <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
+                                    class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
+                            </p>
+                        </div>
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- --- JavaScript 逻辑区域 --- -->
