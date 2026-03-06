@@ -86,11 +86,11 @@ window.I18N = {
         rank: "SS12 王牌",
         role: "前端突击手",
         tags: {
-            react: "⚛️ React 爱好者",
-            tailwind: "🌬️ Tailwind 战术",
-            python: "🐍 Python 猎手",
-            rust: "🦀 Rust 先锋",
-            llm: "🤖 LLM 指挥官"
+            react: "React 爱好者",
+            tailwind: "Tailwind 战术",
+            python: "Python 猎手",
+            rust: "Rust 先锋",
+            llm: "LLM 指挥官"
         },
         name: "特种兵_RickinG",
         quote: "落地一把98K，代码一行Bug Free。",
@@ -196,11 +196,11 @@ window.I18N = {
         rank: "SS12 Ace",
         role: "Frontend Assault",
         tags: {
-            react: "⚛️ React Enthusiast",
-            tailwind: "🌬️ Tailwind Tactics",
-            python: "🐍 Python Hunter",
-            rust: "🦀 Rust Pioneer",
-            llm: "🤖 LLM Commander"
+            react: "React Enthusiast",
+            tailwind: "Tailwind Tactics",
+            python: "Python Hunter",
+            rust: "Rust Pioneer",
+            llm: "LLM Commander"
         },
         name: "Commando_RickinG",
         quote: "Drop with a Kar98k, code with zero bugs.",
