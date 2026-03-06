@@ -102,7 +102,8 @@ window.I18N = {
             timeLabel: "役期时长",
             timeVal: "16年",
             killLabel: "代码击杀数",
-            killVal: "ERROR_0"
+            killVal: "ERROR_0",
+            avgLabel: "综合评分"
         },
         missions: {
             title: "MISSIONS",
@@ -201,7 +202,8 @@ window.I18N = {
             timeLabel: "Service Time",
             timeVal: "16 Yrs",
             killLabel: "Code Kills",
-            killVal: "ERROR_0"
+            killVal: "ERROR_0",
+            avgLabel: "Overall Score"
         },
         missions: {
             title: "MISSIONS",

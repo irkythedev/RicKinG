@@ -65,10 +65,12 @@ body {
     pointer-events: none;
     animation: floatUp 1s ease-out forwards;
     z-index: 9999;
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
 }
 @keyframes floatUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-50px); opacity: 0; }
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    50% { transform: translateY(-25px) scale(1.15); opacity: 0.8; }
+    100% { transform: translateY(-60px) scale(0.8); opacity: 0; }
 }
 
 /* --- 游戏准星装饰 --- */
@@ -78,6 +80,11 @@ body {
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     pointer-events: none;
+    transition: all 0.3s ease;
+}
+.glass-panel:hover .crosshair-decor {
+    border-color: rgba(234, 179, 8, 0.6);
+    filter: drop-shadow(0 0 3px rgba(234, 179, 8, 0.4));
 }
 .crosshair-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
 .crosshair-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
@@ -145,12 +152,182 @@ body {
     animation: flare-pulse 2s infinite ease-in-out;
 }
 
-/* --- 六边形雷达图容器 --- */
+/* --- 六边形雷达图容器 (全新升级) --- */
 .radar-container {
-    background: 
-        repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.05) 20px),
-        repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(255,255,255,0.05) 20px);
-    border-radius: 50%; /* 圆形背景模拟雷达扫描区域 */
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+    position: relative;
+    background: radial-gradient(circle at center, rgba(234, 179, 8, 0.03) 0%, transparent 70%);
+    border-radius: 50%;
+    border: 2px solid rgba(234, 179, 8, 0.15);
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.6),
+        inset 0 0 60px rgba(234, 179, 8, 0.05),
+        0 0 20px rgba(234, 179, 8, 0.08);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.radar-container:hover {
+    border-color: rgba(234, 179, 8, 0.35);
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.4),
+        inset 0 0 80px rgba(234, 179, 8, 0.08),
+        0 0 40px rgba(234, 179, 8, 0.15);
+}
+
+/* 雷达扫描线动画 */
+.radar-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(234, 179, 8, 0.6), transparent);
+    transform-origin: left center;
+    animation: radar-sweep 4s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+    filter: blur(1px);
+}
+@keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 雷达脉冲圈 */
+.radar-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+    transform: translate(-50%, -50%);
+    animation: radar-ping 3s ease-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+@keyframes radar-ping {
+    0% { width: 0; height: 0; opacity: 0.8; border-width: 2px; }
+    100% { width: 100%; height: 100%; opacity: 0; border-width: 1px; }
+}
+
+/* --- 滚动入场动画 --- */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 标签悬浮闪光效果 --- */
+@keyframes tag-shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+header span[id^="tag-"],
+header span[id="header-rank"],
+header span[id="header-role"] {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+header span[id^="tag-"]:hover,
+header span[id="header-rank"]:hover,
+header span[id="header-role"]:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+header span[id^="tag-"]::after,
+header span[id="header-rank"]::after,
+header span[id="header-role"]::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: skewX(-25deg);
+    pointer-events: none;
+}
+header span[id^="tag-"]:hover::after,
+header span[id="header-rank"]:hover::after,
+header span[id="header-role"]:hover::after {
+    animation: tag-shine 0.6s ease-out forwards;
+}
+
+/* --- 数字跳动 countdown 效果 --- */
+@keyframes countPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+.count-pulse {
+    animation: countPulse 0.3s ease;
+}
+
+/* --- 头像呼吸光圈 --- */
+@keyframes avatar-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.3), 0 0 30px rgba(234, 179, 8, 0.1); }
+    50% { box-shadow: 0 0 25px rgba(234, 179, 8, 0.5), 0 0 50px rgba(234, 179, 8, 0.2); }
+}
+.avatar-glow {
+    animation: avatar-glow 3s ease-in-out infinite;
+}
+
+/* --- 鼠标追踪光斑 --- */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 179, 8, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+}
+
+/* --- 卡片 tilt 3D 效果 --- */
+.tilt-card {
+    transition: transform 0.15s ease;
+    transform-style: preserve-3d;
+}
+.tilt-card:hover {
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 0 20px rgba(234, 179, 8, 0.08);
+}
+
+/* --- 进度条闪光 --- */
+@keyframes progress-shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+.progress-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: progress-shimmer 2s infinite;
+}
+
+/* --- 页脚 Easter egg 样式 --- */
+.footer-konami {
+    transition: all 0.5s;
+}
+.footer-konami.activated {
+    color: #EAB308 !important;
+    text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+    opacity: 1 !important;
 }
