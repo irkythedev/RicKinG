@@ -1,6 +1,7 @@
 window.DodgeGame = class DodgeGame extends BaseGame {
     constructor(containerId, updateUI) {
         super(containerId);
+        this._gameType = 'dodge';
         this.updateUI = updateUI;
         this.player = { x: 0, y: 0, width: 40, height: 40, speed: 0 };
         this.items = []; // Falling items

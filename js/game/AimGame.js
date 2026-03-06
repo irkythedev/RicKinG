@@ -1,6 +1,7 @@
 window.AimGame = class AimGame extends BaseGame {
     constructor(containerId, updateUI) {
         super(containerId);
+        this._gameType = 'aim';
         this.updateUI = updateUI;
 
         // Game State
