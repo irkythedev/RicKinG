@@ -120,6 +120,12 @@ window.setLanguage = function (lang) {
     document.title = t.title;
     document.querySelector('meta[name="description"]').setAttribute("content", t.metaDesc);
 
+    // Update language switch button label (show target language)
+    const langLabel = document.getElementById('lang-switch-label');
+    if (langLabel) {
+        langLabel.textContent = lang === 'zh' ? 'EN' : '中';
+    }
+
     const safeSetText = (id, text, isHTML = false) => {
         const el = document.getElementById(id);
         if (el) {
