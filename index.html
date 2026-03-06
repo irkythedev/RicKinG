@@ -70,20 +70,29 @@
                     <span id="header-role"
                         class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
                     <span id="tag-react"
-                        class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">⚛️ React
-                        爱好者</span>
+                        class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                            class="h-3 w-3 inline-block" alt="React">
+                        <span id="tag-react-text">React 爱好者</span></span>
                     <span id="tag-tailwind"
-                        class="bg-cyan-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">🌬️ Tailwind
-                        战术</span>
+                        class="bg-cyan-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                            class="h-3 w-3 inline-block" alt="Tailwind">
+                        <span id="tag-tailwind-text">Tailwind 战术</span></span>
                     <span id="tag-python"
-                        class="bg-yellow-500/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">🐍 Python
-                        猎手</span>
+                        class="bg-yellow-500/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                            class="h-3 w-3 inline-block" alt="Python">
+                        <span id="tag-python-text">Python 猎手</span></span>
                     <span id="tag-rust"
-                        class="bg-orange-700/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">🦀 Rust
-                        先锋</span>
+                        class="bg-orange-700/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg"
+                            class="h-3 w-3 inline-block brightness-0 invert" alt="Rust">
+                        <span id="tag-rust-text">Rust 先锋</span></span>
                     <span id="tag-llm"
-                        class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">🤖 LLM
-                        指挥官</span>
+                        class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
+                        <span id="tag-llm-text">LLM 指挥官</span></span>
                 </div>
                 <!-- 你的名字 (带闪烁特效) -->
                 <h1 id="header-name"
@@ -156,7 +165,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
             <!-- 左侧栏：个人属性 + 演习任务 -->
-            <div class="lg:col-span-1 space-y-8">
+            <div class="lg:col-span-1 flex flex-col gap-8">
 
                 <!-- 1. 个人战绩详情 (数值面板) -->
                 <section class="glass-panel rounded-xl p-6 relative group/stats">
@@ -273,7 +282,7 @@
                 </section>
 
                 <!-- 3. 成就勋章 (Achievement Wall) -->
-                <section class="glass-panel rounded-xl p-6">
+                <section class="glass-panel rounded-xl p-6 flex flex-col flex-grow">
                     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3 flex-nowrap whitespace-nowrap">
                         <span class="text-2xl">🎖️</span>
                         <span id="achievement-title" class="text-yellow-500">成就勋章</span>
@@ -287,7 +296,7 @@
             </div>
 
             <!-- 右侧栏 -->
-            <div class="lg:col-span-2 space-y-8">
+            <div class="lg:col-span-2 flex flex-col gap-8">
 
                 <!-- 4. 战场日志 (Battle Log) -->
                 <section class="glass-panel rounded-xl p-8">
@@ -307,7 +316,7 @@
                 </section>
 
                 <!-- 装备仓库 (Warehouse) -->
-                <section class="glass-panel rounded-xl p-8">
+                <section class="glass-panel rounded-xl p-8 flex-grow">
                     <h2
                         class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
                         <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png"
@@ -318,227 +327,277 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <!-- 传说级武器 (已上线项目) -->
-                        <div class="block group relative h-52 flip-card cursor-pointer"
+                        <div class="block group relative h-72 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
                             role="button" tabindex="0" aria-label="Toggle Project Card: Tactical Terminal">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
-                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
+                                <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
                                     aria-hidden="false">
                                     <div id="card-tactical-tag"
                                         class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                         传说级</div>
 
-                                    <div class="h-12 mb-2 flex items-center justify-center">
+                                    <!-- 武器图标区 -->
+                                    <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
                                         <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]"
                                             alt="AWM Sniper">
                                     </div>
-                                    <h3 id="card-tactical-title" class="text-lg font-bold text-white mb-1">特种兵战术终端</h3>
-                                    <p id="card-tactical-desc"
-                                        class="text-gray-400 text-xs mb-3 flex-grow text-left line-clamp-2">
-                                        基于原生 HTML/CSS/JS 打造的沉浸式个人主页。集成 Gitee/GitHub 双战区入口，全套 PUBG 官方战术图标。
-                                    </p>
-                                    <div class="flex gap-2 mt-auto">
-                                        <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">HTML</span>
+
+                                    <!-- 标题 + 简介 -->
+                                    <div class="px-5 flex flex-col flex-grow min-h-0">
+                                        <h3 id="card-tactical-title"
+                                            class="text-base font-bold text-white mb-1 leading-tight">特种兵战术终端</h3>
+                                        <p id="card-tactical-desc"
+                                            class="text-gray-400 text-xs text-left leading-relaxed line-clamp-3 flex-grow">
+                                            基于原生 HTML/CSS/JS 打造的沉浸式个人主页。集成 Gitee/GitHub 双战区入口，全套 PUBG 官方战术图标。
+                                        </p>
+                                    </div>
+
+                                    <!-- 技术标签 (固定在底部) -->
+                                    <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
                                         <span
-                                            class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">Tailwind</span>
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                                                class="h-3 w-3" alt="">HTML
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                                                class="h-3 w-3" alt="">CSS
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                                class="h-3 w-3" alt="">JS
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                                                class="h-3 w-3" alt="">Tailwind
+                                        </span>
                                     </div>
                                 </div>
 
-                                <!-- 背面 (翻转后显示) -->
+                                <!-- 背面 -->
                                 <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0"
                                     aria-hidden="true">
-                                    <h3 id="card-tactical-action" class="text-xl font-bold text-yellow-500 mb-6">SELECT
+                                    <h3 id="card-tactical-action" class="text-lg font-bold text-yellow-500 mb-5">SELECT
                                         ACTION</h3>
-                                    <div class="flex flex-col gap-4 w-full px-4">
+                                    <div class="flex flex-col gap-3 w-full px-5">
                                         <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank"
-                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Code on Gitee">
                                             <img src="https://gitee.com/favicon.ico"
-                                                class="h-5 w-5 rounded-full bg-white p-0.5" alt="">
+                                                class="h-4 w-4 rounded bg-white p-0.5" alt="">
                                             <span id="card-tactical-btn-code">访问代码</span>
                                         </a>
                                         <a href="https://initricky.lol" target="_blank"
-                                            class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition"
+                                            class="bg-blue-700 hover:bg-blue-600 text-white py-2.5 rounded-lg border border-blue-500 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Live Demo">
-                                            <i class="fas fa-globe" aria-hidden="true"></i>
+                                            <img src="https://www.google.com/s2/favicons?domain=initricky.lol&sz=32"
+                                                class="h-4 w-4 rounded" alt="">
                                             <span id="card-tactical-btn-demo">访问页面</span>
                                         </a>
                                     </div>
-                                    <p id="card-tactical-back-tip" class="text-xs text-gray-500 mt-4">点击空白处返回</p>
+                                    <p id="card-tactical-back-tip" class="text-xs text-gray-600 mt-5">点击空白处返回</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="block group relative h-52 flip-card cursor-pointer"
+                        <!-- 史诗级武器 (AquaInsight) -->
+                        <div class="block group relative h-72 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
                             role="button" tabindex="0" aria-label="Toggle Project Card: AquaInsight">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
-                                <div class="flip-card-front glass-panel p-5 rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
+                                <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
                                     aria-hidden="false">
                                     <div id="card-aqua-tag"
                                         class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                         史诗级</div>
 
-                                    <div class="h-12 mb-2 flex items-center justify-center">
+                                    <!-- 武器图标区 -->
+                                    <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
                                         <img src="https://img.icons8.com/color/48/energy-drink.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]"
                                             alt="Energy Drink">
                                     </div>
-                                    <h3 id="card-aqua-title" class="text-lg font-bold text-white mb-1">AquaInsight 水质分析
-                                    </h3>
-                                    <p id="card-aqua-desc"
-                                        class="text-gray-400 text-xs mb-3 flex-grow text-left line-clamp-2">
-                                        AI 驱动的地表水环境监测系统。结合 GIS 与 LLM 技术，深度挖掘气象-水质耦合机理。
-                                    </p>
-                                    <div class="flex gap-2 mt-auto">
-                                        <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">React</span>
-                                        <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">TS</span>
-                                        <span class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded">AI</span>
+
+                                    <!-- 标题 + 简介 -->
+                                    <div class="px-5 flex flex-col flex-grow min-h-0">
+                                        <h3 id="card-aqua-title"
+                                            class="text-base font-bold text-white mb-1 leading-tight">AquaInsight 水质分析
+                                        </h3>
+                                        <p id="card-aqua-desc"
+                                            class="text-gray-400 text-xs text-left leading-relaxed line-clamp-3 flex-grow">
+                                            AI 驱动的地表水环境监测系统。结合 GIS 与 LLM 技术，深度挖掘气象-水质耦合机理。
+                                        </p>
+                                    </div>
+
+                                    <!-- 技术标签 (固定在底部) -->
+                                    <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                                class="h-3 w-3" alt="">React
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                                                class="h-3 w-3" alt="">TypeScript
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3"
+                                                alt="">AI
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                                                class="h-3 w-3" alt="">Python
+                                        </span>
                                     </div>
                                 </div>
 
-                                <!-- 背面 (翻转后显示) -->
+                                <!-- 背面 -->
                                 <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0"
                                     aria-hidden="true">
-                                    <h3 id="card-aqua-action" class="text-xl font-bold text-purple-400 mb-6">SELECT
+                                    <h3 id="card-aqua-action" class="text-lg font-bold text-purple-400 mb-5">SELECT
                                         ACTION</h3>
-                                    <div class="flex flex-col gap-4 w-full px-4">
+                                    <div class="flex flex-col gap-3 w-full px-5">
                                         <a href="https://gitee.com/K4Ricky2Win/water-sci-analyzer" target="_blank"
-                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2 rounded border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Code on Gitee">
                                             <img src="https://gitee.com/favicon.ico"
-                                                class="h-5 w-5 rounded-full bg-white p-0.5" alt="">
+                                                class="h-4 w-4 rounded bg-white p-0.5" alt="">
                                             <span id="card-aqua-btn-code">访问代码</span>
                                         </a>
                                         <a href="https://water-sci-analyzer.initricky.lol" target="_blank"
-                                            class="bg-blue-600 hover:bg-blue-500 text-white py-2 rounded border border-blue-400 flex items-center justify-center gap-2 transition"
+                                            class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 rounded-lg border border-purple-500 flex items-center justify-center gap-2 transition"
                                             onclick="event.stopPropagation()" aria-label="View Live Demo">
-                                            <img src="https://img.icons8.com/color/48/water-element.png"
-                                                class="h-5 w-5 filter brightness-200" alt="">
+                                            <img src="https://www.google.com/s2/favicons?domain=water-sci-analyzer.initricky.lol&sz=32"
+                                                class="h-4 w-4 rounded" alt="">
                                             <span id="card-aqua-btn-demo">访问页面</span>
                                         </a>
                                     </div>
-                                    <p id="card-aqua-back-tip" class="text-xs text-gray-500 mt-4">点击空白处返回</p>
+                                    <p id="card-aqua-back-tip" class="text-xs text-gray-600 mt-5">点击空白处返回</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 待解锁空投 (待开发项目) -->
                         <div
-                            class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-52 flex flex-col relative opacity-70 hover:opacity-100 transition">
+                            class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-72 flex flex-col relative opacity-70 hover:opacity-100 transition">
                             <div id="card-next-tag"
                                 class="absolute top-0 right-0 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                 NEXT DROP</div>
 
-                            <div class="h-12 mb-2 flex items-center justify-center">
+                            <div class="h-16 pt-3 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AK47_C.png"
                                     class="h-full object-contain filter grayscale opacity-50">
                             </div>
-                            <h3 id="card-next-title" class="text-xl font-bold text-gray-300 mb-2">绝密空投物资</h3>
-                            <p id="card-next-desc" class="text-gray-500 text-sm mb-4 flex-grow line-clamp-3">
+                            <h3 id="card-next-title" class="text-base font-bold text-gray-300 mb-1 mt-2">绝密空投物资</h3>
+                            <p id="card-next-desc" class="text-gray-500 text-xs flex-grow leading-relaxed line-clamp-3">
                                 下一波信号圈缩圈后投放。包含全新战术装备与功能模块，敬请期待。
                             </p>
                             <!-- 进度条 -->
-                            <div class="w-full bg-gray-800 rounded-full h-2 mt-auto group cursor-help"
+                            <div class="w-full bg-gray-800 rounded-full h-1.5 mt-auto group cursor-help"
                                 title="投放进度: 30%">
                                 <div
-                                    class="bg-red-600 h-2 rounded-full w-[30%] relative overflow-hidden progress-shimmer">
+                                    class="bg-red-600 h-1.5 rounded-full w-[30%] relative overflow-hidden progress-shimmer">
                                     <div class="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
 
-                    </div>
                 </section>
             </div>
         </div>
 
-        <!-- 页脚 -->
-        <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
-            <!-- 技术栈图标条 -->
-            <div class="tech-stack-bar mb-4">
-                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
-                <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
-                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
-                <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
-                <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
-                <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
-            </div>
-            <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
-            <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
-            <p class="mt-2 text-xs opacity-30">Built with 🎮 & 🔥 by RickinG</p>
-        </footer>
+    <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+        <!-- 技术栈图标条 -->
+        <div class="tech-stack-bar mb-4">
+            <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
+            <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
+            <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
+            <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
+            <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
+            <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
+        </div>
+        <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
+        <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
+        <p class="mt-2 text-xs opacity-30">Built with 🎮 & 🔥 by RickinG</p>
+    </footer>
 
-        <!-- 全屏游戏 Modal -->
-        <div id="game-modal"
-            class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden opacity-0 transition-opacity duration-300"
-            role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
-            <div class="relative w-full max-w-4xl h-full md:h-[80vh] flex flex-col p-4">
-                <!-- 顶部栏 -->
-                <div class="flex justify-between items-center mb-4">
-                    <h2 id="modal-game-title" class="text-2xl font-black text-white italic">TRAINING GROUND</h2>
-                    <div class="flex gap-4 text-xl font-mono">
-                        <div id="modal-score-label" class="text-white">得分: <span id="modal-score-val"
-                                class="text-yellow-400">0</span></div>
-                        <div id="modal-timer-label" class="text-white">时间: <span id="modal-timer-val"
-                                class="text-red-400">00</span></div>
-                    </div>
-                    <button onclick="closeGameModal()" class="text-gray-400 hover:text-white transition"
-                        aria-label="Close Game">
-                        <i class="fas fa-times text-3xl"></i>
-                    </button>
+    <!-- 全屏游戏 Modal -->
+    <div id="game-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden opacity-0 transition-opacity duration-300"
+        role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
+        <div class="relative w-full max-w-4xl h-full md:h-[80vh] flex flex-col p-4">
+            <!-- 顶部栏 -->
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="modal-game-title" class="text-2xl font-black text-white italic">TRAINING GROUND</h2>
+                <div class="flex gap-4 text-xl font-mono">
+                    <div id="modal-score-label" class="text-white">得分: <span id="modal-score-val"
+                            class="text-yellow-400">0</span></div>
+                    <div id="modal-timer-label" class="text-white">时间: <span id="modal-timer-val"
+                            class="text-red-400">00</span></div>
                 </div>
+                <button onclick="closeGameModal()" class="text-gray-400 hover:text-white transition"
+                    aria-label="Close Game">
+                    <i class="fas fa-times text-3xl"></i>
+                </button>
+            </div>
 
-                <!-- 游戏区域 -->
-                <div id="game-canvas-container"
-                    class="flex-grow bg-gray-900/50 border-2 border-yellow-600/50 rounded-lg relative overflow-hidden cursor-crosshair">
-                    <!-- 游戏内容将通过 JS 动态插入 -->
-                    <div id="modal-game-content" class="absolute inset-0"></div>
+            <!-- 游戏区域 -->
+            <div id="game-canvas-container"
+                class="flex-grow bg-gray-900/50 border-2 border-yellow-600/50 rounded-lg relative overflow-hidden cursor-crosshair">
+                <!-- 游戏内容将通过 JS 动态插入 -->
+                <div id="modal-game-content" class="absolute inset-0"></div>
 
-                    <!-- 开始遮罩 -->
-                    <div id="modal-start-btn-container"
-                        class="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
+                <!-- 开始遮罩 -->
+                <div id="modal-start-btn-container"
+                    class="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-10">
 
-                        <!-- 资源加载层 -->
-                        <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
-                            <!-- 载入动画图标 (单图标) -->
-                            <i id="modal-loading-icon"
-                                class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
-                            <!-- 加载文字 -->
-                            <p id="modal-loading-text"
-                                class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
-                                ASSETS...</p>
-                            <!-- 进度条外壳 -->
-                            <div class="w-64 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
-                                <div id="modal-loading-bar"
-                                    class="h-full bg-yellow-500 rounded-full transition-all duration-300"
-                                    style="width: 0%"></div>
+                    <!-- 资源加载层 -->
+                    <div id="modal-loading-screen" class="flex flex-col items-center gap-5">
+                        <!-- 载入动画图标 (单图标) -->
+                        <i id="modal-loading-icon"
+                            class="fas fa-crosshairs text-6xl text-yellow-500 animate-spin-slow"></i>
+                        <!-- 加载文字 -->
+                        <p id="modal-loading-text"
+                            class="text-yellow-400 font-mono text-base tracking-widest animate-pulse">LOADING
+                            ASSETS...</p>
+                        <!-- 进度条外壳 -->
+                        <div class="w-64 h-2 bg-gray-700 rounded-full overflow-hidden border border-gray-600">
+                            <div id="modal-loading-bar"
+                                class="h-full bg-yellow-500 rounded-full transition-all duration-300" style="width: 0%">
                             </div>
-                            <p id="modal-loading-count" class="text-gray-500 font-mono text-xs">0 / 0</p>
                         </div>
-
-                        <!-- 开始按钒层 (hidden, shown after load) -->
-                        <div id="modal-ready-screen" class="hidden flex-col items-center gap-4">
-                            <button id="modal-start-btn"
-                                class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110"
-                                aria-label="Start Game">
-                                START MISSION
-                            </button>
-                            <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
-                                <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
-                                    class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
-                            </p>
-                        </div>
-
+                        <p id="modal-loading-count" class="text-gray-500 font-mono text-xs">0 / 0</p>
                     </div>
+
+                    <!-- 开始按钒层 (hidden, shown after load) -->
+                    <div id="modal-ready-screen" class="hidden flex-col items-center gap-4">
+                        <button id="modal-start-btn"
+                            class="bg-yellow-500 hover:bg-yellow-400 text-black font-black text-xl px-8 py-3 rounded clip-path-polygon transition transform hover:scale-110"
+                            aria-label="Start Game">
+                            START MISSION
+                        </button>
+                        <p id="modal-tip" class="text-gray-300 text-sm animate-pulse">
+                            <i class="fas fa-mouse-pointer mr-1"></i> 点击/触摸屏幕操作 <span
+                                class="hidden md:inline mx-2">|</span> <i class="fas fa-volume-up mr-1"></i> 包含音效
+                        </p>
+                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- --- JavaScript 逻辑区域 --- -->

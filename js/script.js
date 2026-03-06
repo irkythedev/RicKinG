@@ -136,11 +136,11 @@ window.setLanguage = function (lang) {
 
     safeSetText('header-rank', t.rank);
     safeSetText('header-role', t.role);
-    safeSetText('tag-react', t.tags.react);
-    safeSetText('tag-tailwind', t.tags.tailwind);
-    safeSetText('tag-python', t.tags.python);
-    safeSetText('tag-rust', t.tags.rust);
-    safeSetText('tag-llm', t.tags.llm);
+    safeSetText('tag-react-text', t.tags.react);
+    safeSetText('tag-tailwind-text', t.tags.tailwind);
+    safeSetText('tag-python-text', t.tags.python);
+    safeSetText('tag-rust-text', t.tags.rust);
+    safeSetText('tag-llm-text', t.tags.llm);
 
     safeSetText('header-name', t.name);
     safeSetText('header-quote', `<i class="fas fa-quote-left text-gray-600 mr-2"></i>${t.quote}<i class="fas fa-quote-right text-gray-600 ml-2"></i>`, true);
