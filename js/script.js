@@ -230,135 +230,230 @@ function detectLanguage() {
 // Expose helper to get current lang from config module
 window.getComputedLang = () => currentLang;
 
-// --- 5. 战力雷达图 (增强版) ---
+// --- 5. 战力雷达图 (双数据集: 当前 vs 目标) ---
 let skillsChart = null;
 function updateChart(lang) {
-    if (skillsChart) skillsChart.destroy();
+    const cfg = GAME_CONFIG.SKILLS_CHART;
+    const currentData = cfg.DATA_CURRENT;
+    const targetData = cfg.DATA_TARGET;
 
-    if (typeof Chart !== 'undefined') {
-        const ctxChart = document.getElementById('skillsChart').getContext('2d');
-        const data = GAME_CONFIG.SKILLS_CHART.DATA;
-        const maxVal = 100;
+    // Language switch: only update labels, no destroy (avoids size jitter)
+    if (skillsChart) {
+        skillsChart.data.labels = cfg.LABELS[lang];
+        skillsChart.data.datasets[0].label = lang === 'zh' ? '当前水平' : 'Current';
+        skillsChart.data.datasets[1].label = lang === 'zh' ? '目标水平' : 'Target';
+        skillsChart.update('none');
+        return;
+    }
 
-        // Custom plugin: animated glow on data points
-        const glowPlugin = {
-            id: 'pointGlow',
-            afterDatasetsDraw(chart) {
-                const meta = chart.getDatasetMeta(0);
-                const ctx = chart.ctx;
-                meta.data.forEach((point, i) => {
-                    ctx.save();
-                    ctx.beginPath();
-                    ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
-                    const grad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 12);
-                    grad.addColorStop(0, 'rgba(234, 179, 8, 0.6)');
-                    grad.addColorStop(1, 'rgba(234, 179, 8, 0)');
-                    ctx.fillStyle = grad;
-                    ctx.fill();
-                    ctx.restore();
-                });
+    if (typeof Chart === 'undefined') return;
+
+    const ctxChart = document.getElementById('skillsChart').getContext('2d');
+
+    // Glow plugin for current-level data points only
+    const glowPlugin = {
+        id: 'pointGlow',
+        afterDatasetsDraw(chart) {
+            const meta = chart.getDatasetMeta(0);
+            const ctx = chart.ctx;
+            meta.data.forEach((point) => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
+                const grad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 14);
+                grad.addColorStop(0, 'rgba(234, 179, 8, 0.55)');
+                grad.addColorStop(1, 'rgba(234, 179, 8, 0)');
+                ctx.fillStyle = grad;
+                ctx.fill();
+                ctx.restore();
+            });
+        }
+    };
+
+    // Radar sweep plugin — draws directly on chart canvas, aligned to chart center/radius
+    let sweepAngle = -Math.PI / 2; // start at top (12 o'clock)
+    let sweepRaf = null;
+    const sweepPlugin = {
+        id: 'radarSweep',
+        afterDraw(chart) {
+            const ctx = chart.ctx;
+            const scale = chart.scales.r;
+            const cx = scale.xCenter;
+            const cy = scale.yCenter;
+            const r = scale.drawingArea; // exact outer radius of the chart grid
+
+            // Draw sweep trail (fading arc behind the leading edge)
+            const trailSpan = Math.PI / 3; // 60° trail
+            const trailGrad = ctx.createConicalGradient
+                ? null // not widely supported, use manual approach
+                : null;
+
+            ctx.save();
+            ctx.globalCompositeOperation = 'source-over';
+
+            // Draw trail arc as a filled sector with gradient opacity
+            const steps = 24;
+            for (let i = 0; i < steps; i++) {
+                const a0 = sweepAngle - trailSpan * (i / steps);
+                const a1 = sweepAngle - trailSpan * ((i + 1) / steps);
+                const opacity = (1 - i / steps) * 0.18;
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.arc(cx, cy, r, a0, a1, true);
+                ctx.closePath();
+                ctx.fillStyle = `rgba(234, 179, 8, ${opacity})`;
+                ctx.fill();
             }
-        };
 
-        skillsChart = new Chart(ctxChart, {
-            type: 'radar',
-            data: {
-                labels: GAME_CONFIG.SKILLS_CHART.LABELS[lang],
-                datasets: [{
-                    label: lang === 'zh' ? '能力值' : 'Stats',
-                    data: data,
-                    backgroundColor: 'rgba(234, 179, 8, 0.15)',
+            // Leading edge — bright glowing line
+            const edgeX = cx + r * Math.cos(sweepAngle);
+            const edgeY = cy + r * Math.sin(sweepAngle);
+            const lineGrad = ctx.createLinearGradient(cx, cy, edgeX, edgeY);
+            lineGrad.addColorStop(0, 'rgba(234, 179, 8, 0)');
+            lineGrad.addColorStop(0.6, 'rgba(234, 179, 8, 0.4)');
+            lineGrad.addColorStop(1, 'rgba(253, 224, 71, 0.9)');
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(edgeX, edgeY);
+            ctx.strokeStyle = lineGrad;
+            ctx.lineWidth = 1.5;
+            ctx.shadowColor = 'rgba(234, 179, 8, 0.8)';
+            ctx.shadowBlur = 6;
+            ctx.stroke();
+
+            // Center dot pulse
+            ctx.beginPath();
+            ctx.arc(cx, cy, 3, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(234, 179, 8, 0.7)';
+            ctx.shadowBlur = 8;
+            ctx.fill();
+
+            ctx.restore();
+
+            // Advance angle and request next frame
+            sweepAngle = (sweepAngle + 0.012) % (Math.PI * 2);
+            cancelAnimationFrame(sweepRaf);
+            sweepRaf = requestAnimationFrame(() => {
+                if (chart && chart.canvas) chart.draw();
+            });
+        },
+        destroy() {
+            cancelAnimationFrame(sweepRaf);
+        }
+    };
+
+    skillsChart = new Chart(ctxChart, {
+        type: 'radar',
+        data: {
+            labels: cfg.LABELS[lang],
+            datasets: [
+                // Dataset 0: Current level
+                {
+                    label: lang === 'zh' ? '当前水平' : 'Current',
+                    data: currentData,
+                    backgroundColor: 'rgba(234, 179, 8, 0.18)',
                     borderColor: '#EAB308',
                     borderWidth: 2.5,
                     pointBackgroundColor: '#EAB308',
                     pointBorderColor: '#1F2937',
                     pointBorderWidth: 2,
                     pointHoverBackgroundColor: '#FDE047',
-                    pointHoverBorderColor: '#EAB308',
-                    pointHoverBorderWidth: 3,
-                    pointRadius: 5,
-                    pointHoverRadius: 8,
+                    pointHoverRadius: 7,
+                    pointRadius: 4,
                     fill: true,
                     tension: 0.1
-                }]
+                },
+                // Dataset 1: Target level (dashed outline, no fill)
+                {
+                    label: lang === 'zh' ? '目标水平' : 'Target',
+                    data: targetData,
+                    backgroundColor: 'rgba(99, 179, 237, 0.06)',
+                    borderColor: 'rgba(99, 179, 237, 0.6)',
+                    borderWidth: 1.5,
+                    borderDash: [5, 4],
+                    pointBackgroundColor: 'rgba(99, 179, 237, 0.7)',
+                    pointBorderColor: 'transparent',
+                    pointBorderWidth: 0,
+                    pointHoverBackgroundColor: '#90CDF4',
+                    pointHoverRadius: 6,
+                    pointRadius: 3,
+                    fill: false,
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 4, bottom: 4, left: 8, right: 8 } },
+            animation: {
+                duration: 1200,
+                easing: 'easeOutQuart',
+                delay: (ctx) => ctx.dataIndex * 80
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                layout: {
-                    padding: { top: 8, bottom: 8, left: 8, right: 8 }
-                },
-                animation: {
-                    duration: 1500,
-                    easing: 'easeOutQuart',
-                    delay: (ctx) => ctx.dataIndex * 100
-                },
-                scales: {
-                    r: {
-                        angleLines: {
-                            color: 'rgba(234, 179, 8, 0.08)',
-                            lineWidth: 1
-                        },
-                        grid: {
-                            color: 'rgba(234, 179, 8, 0.1)',
-                            circular: true,
-                            lineWidth: 1
-                        },
-                        pointLabels: {
-                            color: (ctx) => {
-                                const val = data[ctx.index];
-                                if (val >= 92) return '#FDE047';
-                                if (val >= 85) return '#EAB308';
-                                return '#9CA3AF';
-                            },
-                            font: {
-                                size: 10,
-                                family: "'Segoe UI', sans-serif",
-                                weight: 'bold'
-                            },
-                            padding: 18
-                        },
-                        ticks: { display: false, backdropColor: 'transparent' },
-                        suggestedMin: 20,
-                        suggestedMax: 100
-                    }
-                },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                        titleColor: '#EAB308',
-                        bodyColor: '#F3F4F6',
-                        titleFont: { size: 14, weight: 'bold' },
-                        bodyFont: { size: 13 },
-                        padding: 12,
-                        cornerRadius: 8,
-                        displayColors: false,
-                        borderColor: 'rgba(234, 179, 8, 0.3)',
-                        borderWidth: 1,
-                        callbacks: {
-                            title: (items) => `⚡ ${items[0].label}`,
-                            label: (item) => {
-                                const val = item.raw;
-                                const bar = '█'.repeat(Math.floor(val / 10)) + '░'.repeat(10 - Math.floor(val / 10));
-                                const rank = val >= 92 ? '🏆 S+' : val >= 85 ? '⭐ A+' : val >= 75 ? '✦ A' : '◆ B';
-                                return [`${bar}  ${val}/100`, `${lang === 'zh' ? '评级' : 'Rank'}: ${rank}`];
-                            }
-                        }
-                    }
-                },
-                interaction: {
-                    mode: 'point',
-                    intersect: true
-                },
-                onHover: (event, elements) => {
-                    event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(234, 179, 8, 0.08)', lineWidth: 1 },
+                    grid: { color: 'rgba(234, 179, 8, 0.1)', circular: true, lineWidth: 1 },
+                    pointLabels: {
+                        color: '#9CA3AF',
+                        font: { size: 10, family: "'Segoe UI', sans-serif", weight: 'bold' },
+                        padding: 16
+                    },
+                    ticks: { display: false, backdropColor: 'transparent' },
+                    suggestedMin: 0,
+                    suggestedMax: 100
                 }
             },
-            plugins: [glowPlugin]
-        });
-    }
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        color: '#9CA3AF',
+                        font: { size: 10, family: "'Segoe UI', sans-serif" },
+                        padding: 12,
+                        usePointStyle: true,
+                        pointStyleWidth: 8,
+                        boxHeight: 6
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
+                    titleColor: '#EAB308',
+                    bodyColor: '#F3F4F6',
+                    titleFont: { size: 13, weight: 'bold' },
+                    bodyFont: { size: 12 },
+                    padding: 12,
+                    cornerRadius: 8,
+                    displayColors: true,
+                    borderColor: 'rgba(234, 179, 8, 0.3)',
+                    borderWidth: 1,
+                    callbacks: {
+                        title: (items) => `⚡ ${items[0].label}`,
+                        label: (item) => {
+                            const val = item.raw;
+                            const currentLang = window.getComputedLang ? window.getComputedLang() : 'zh';
+                            const isTarget = item.datasetIndex === 1;
+                            const prefix = isTarget
+                                ? (currentLang === 'zh' ? '目标' : 'Target')
+                                : (currentLang === 'zh' ? '当前' : 'Current');
+                            const bar = '█'.repeat(Math.floor(val / 10)) + '░'.repeat(10 - Math.floor(val / 10));
+                            return ` ${prefix}: ${val}/100  ${bar}`;
+                        }
+                    }
+                }
+            },
+            interaction: { mode: 'index', intersect: false },
+            onHover: (event, elements) => {
+                if (event.native) event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+            }
+        },
+        plugins: [glowPlugin, sweepPlugin]
+    });
 }
+
+
 
 // --- 6. 信号枪逻辑 ---
 window.fireSignal = function () {

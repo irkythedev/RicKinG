@@ -54,10 +54,13 @@ window.GAME_CONFIG = {
     },
     SKILLS_CHART: {
         LABELS: {
-            zh: ['刚枪 (Code)', '指挥 (Plan)', 'AI Agent', 'Prompt', '跑图 (Ops)', '投掷 (Idea)'],
-            en: ['Code', 'Plan', 'AI Agent', 'Prompt', 'Ops', 'Idea']
+            zh: ['代码', '架构', 'AI', 'Prompt', '运维', '创意'],
+            en: ['Code', 'Arch', 'AI', 'Prompt', 'Ops', 'Idea']
         },
-        DATA: [95, 85, 92, 90, 88, 80],
+        // 当前实际水平 (初学者如实填写)
+        DATA_CURRENT: [55, 38, 65, 60, 32, 70],
+        // 目标水平 (努力方向)
+        DATA_TARGET: [88, 72, 90, 85, 70, 82],
         COLOR_BG: 'rgba(234, 179, 8, 0.4)',
         COLOR_BORDER: '#EAB308'
     }
