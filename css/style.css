@@ -77,6 +77,36 @@ body {
     /* 鼠标悬停时触发闪烁 */
 }
 
+/* 自动循环故障特效 */
+.glitch-auto {
+    animation: glitch-loop 3s infinite;
+}
+
+@keyframes glitch-loop {
+
+    0%,
+    90%,
+    100% {
+        text-shadow: none;
+    }
+
+    92% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
+
+    94% {
+        text-shadow: -2px 2px #0000ff, 2px -2px #ffff00;
+    }
+
+    96% {
+        text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;
+    }
+
+    98% {
+        text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+    }
+}
+
 /* --- 传说级装备光效 --- */
 .legendary-glow {
     box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);

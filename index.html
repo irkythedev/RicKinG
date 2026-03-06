@@ -54,10 +54,10 @@
                 </div>
 
                 <!-- 语言切换按钮 (左下角，对应三级头) -->
-                <button onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')"
-                    class="absolute -bottom-1 -left-1 bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-yellow-500 p-1.5 rounded-full border border-gray-600 z-20 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 shadow-lg"
+                <button id="lang-switch-btn" onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')"
+                    class="absolute -bottom-1 -left-1 bg-gray-800 hover:bg-gray-700 p-1.5 rounded-full border border-gray-600 z-20 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 shadow-lg"
                     aria-label="Toggle Language" title="切换语言 / Switch Language">
-                    <i class="fas fa-globe text-xs md:text-sm"></i>
+                    <span id="lang-switch-label" class="text-xs font-black tracking-tight text-yellow-500">EN</span>
                 </button>
             </div>
 
@@ -87,7 +87,7 @@
                 </div>
                 <!-- 你的名字 (带闪烁特效) -->
                 <h1 id="header-name"
-                    class="text-3xl md:text-5xl font-black text-white mb-2 glitch-text cursor-pointer truncate"
+                    class="text-3xl md:text-5xl font-black text-white mb-2 glitch-auto cursor-pointer truncate"
                     data-text="RICKING_PLAYER">
                     特种兵_RickinG
                 </h1>
@@ -134,7 +134,7 @@
                 <div id="stats-time-label" class="text-sm text-gray-400">役期时长</div>
                 <div id="stats-time-val" class="text-3xl font-mono text-yellow-400 font-bold">16年</div>
                 <div id="stats-kill-label" class="text-sm text-gray-400 mt-2">代码击杀数</div>
-                <div id="stats-kill-val" class="text-3xl font-mono text-red-500 font-bold glitch-text">ERROR_0</div>
+                <div id="stats-kill-val" class="text-3xl font-mono text-red-500 font-bold glitch-auto">ERROR_0</div>
             </div>
         </header>
 
