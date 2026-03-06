@@ -3,15 +3,23 @@ body {
     /* 鼠标样式改为 Kar98k (使用官方 ICON) */
     cursor: url('https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_Kar98k_C.png') 32 32, crosshair;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden; /* 防止左右滚动条出现 */
-    touch-action: manipulation; /* 优化移动端触摸 */
+    overflow-x: hidden;
+    /* 防止左右滚动条出现 */
+    touch-action: manipulation;
+    /* 优化移动端触摸 */
 }
 
 /* --- 慢速旋转动画 --- */
 @keyframes spin-slow {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 .animate-spin-slow {
     animation: spin-slow 8s linear infinite;
 }
@@ -23,54 +31,92 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* 放在最底层 */
-    pointer-events: none; /* 让鼠标点击可以穿透画布 */
+    z-index: -1;
+    /* 放在最底层 */
+    pointer-events: none;
+    /* 让鼠标点击可以穿透画布 */
 }
 
 /* --- 玻璃拟态效果 (Glassmorphism) --- */
 .glass-panel {
-    background: rgba(30, 41, 59, 0.7); /* 深蓝灰色半透明 */
-    backdrop-filter: blur(10px); /* 背景模糊 */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* 微弱的白边框 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* 阴影 */
+    background: rgba(30, 41, 59, 0.7);
+    /* 深蓝灰色半透明 */
+    backdrop-filter: blur(10px);
+    /* 背景模糊 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* 微弱的白边框 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* 阴影 */
 }
 
 /* --- 名字闪烁特效 (模拟信号接收) --- */
 @keyframes glitch {
-    0% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
-    25% { text-shadow: -2px 2px #0000ff, 2px -2px #ffff00; }
-    50% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff; }
-    75% { text-shadow: -2px -2px #ff0000, 2px 2px #00ff00; }
-    100% { text-shadow: 2px 2px #ff0000, -2px -2px #00ff00; }
+    0% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
+
+    25% {
+        text-shadow: -2px 2px #0000ff, 2px -2px #ffff00;
+    }
+
+    50% {
+        text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;
+    }
+
+    75% {
+        text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+    }
+
+    100% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
 }
+
 .glitch-text:hover {
-    animation: glitch 0.3s infinite; /* 鼠标悬停时触发闪烁 */
+    animation: glitch 0.3s infinite;
+    /* 鼠标悬停时触发闪烁 */
 }
 
 /* --- 传说级装备光效 --- */
 .legendary-glow {
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6); /* 金色光晕 */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    /* 金色光晕 */
     border: 1px solid rgba(255, 215, 0, 0.8);
     transition: transform 0.3s;
 }
+
 .legendary-glow:hover {
-    transform: scale(1.02); /* 鼠标悬停放大，幅度减小防止溢出 */
+    transform: scale(1.02);
+    /* 鼠标悬停放大，幅度减小防止溢出 */
 }
 
 /* --- 点击出现的漂浮文字动画 --- */
 .float-text {
     position: absolute;
-    color: #fbbf24; /* 金黄色 */
+    color: #fbbf24;
+    /* 金黄色 */
     font-weight: bold;
     pointer-events: none;
     animation: floatUp 1s ease-out forwards;
     z-index: 9999;
     text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
 }
+
 @keyframes floatUp {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    50% { transform: translateY(-25px) scale(1.15); opacity: 0.8; }
-    100% { transform: translateY(-60px) scale(0.8); opacity: 0; }
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-25px) scale(1.15);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-60px) scale(0.8);
+        opacity: 0;
+    }
 }
 
 /* --- 游戏准星装饰 --- */
@@ -82,25 +128,52 @@ body {
     pointer-events: none;
     transition: all 0.3s ease;
 }
+
 .glass-panel:hover .crosshair-decor {
     border-color: rgba(234, 179, 8, 0.6);
     filter: drop-shadow(0 0 3px rgba(234, 179, 8, 0.4));
 }
-.crosshair-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
-.crosshair-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
-.crosshair-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
-.crosshair-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+.crosshair-tl {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.crosshair-tr {
+    top: 10px;
+    right: 10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.crosshair-bl {
+    bottom: 10px;
+    left: 10px;
+    border-right: none;
+    border-top: none;
+}
+
+.crosshair-br {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
 
 /* --- 进度条动画 --- */
 .progress-fill {
     transition: width 1.5s ease-out;
-    width: 0; /* 初始宽度为0，JS加载后变长 */
+    width: 0;
+    /* 初始宽度为0，JS加载后变长 */
 }
 
 /* --- 3D 翻转卡片 (Flip Card) --- */
 .flip-card {
     perspective: 1000px;
 }
+
 .flip-card-inner {
     position: relative;
     width: 100%;
@@ -109,25 +182,31 @@ body {
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
+
 /* 点击或添加 .flipped 类时翻转 */
 .flip-card.flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
-.flip-card-front, .flip-card-back {
+
+.flip-card-front,
+.flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 0.5rem; /* rounded-lg */
+    border-radius: 0.5rem;
+    /* rounded-lg */
 }
+
 .flip-card-back {
     transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(15, 23, 42, 0.95); /* 更深的背景以便阅读 */
+    background: rgba(15, 23, 42, 0.95);
+    /* 更深的背景以便阅读 */
     border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 1.5rem;
     z-index: 2;
@@ -138,16 +217,30 @@ body {
     transition: opacity 0.3s;
     background: rgba(0, 0, 0, 0.9);
 }
+
 #game-canvas-container {
-    touch-action: none; /* 防止游戏时触发滚动 */
+    touch-action: none;
+    /* 防止游戏时触发滚动 */
 }
 
 /* --- 信号枪呼吸动画 --- */
 @keyframes flare-pulse {
-    0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5)); }
-    50% { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.8)); }
-    100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5)); }
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5));
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.8));
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5));
+    }
 }
+
 .flare-anim {
     animation: flare-pulse 2s infinite ease-in-out;
 }
@@ -156,45 +249,51 @@ body {
 .radar-container {
     position: relative;
     background: radial-gradient(circle at center, rgba(234, 179, 8, 0.03) 0%, transparent 70%);
-    border-radius: 50%;
-    border: 2px solid rgba(234, 179, 8, 0.15);
-    box-shadow: 
-        inset 0 0 30px rgba(0, 0, 0, 0.6),
-        inset 0 0 60px rgba(234, 179, 8, 0.05),
-        0 0 20px rgba(234, 179, 8, 0.08);
-    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(234, 179, 8, 0.12);
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(234, 179, 8, 0.06);
+    overflow: visible;
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .radar-container:hover {
-    border-color: rgba(234, 179, 8, 0.35);
-    box-shadow: 
-        inset 0 0 30px rgba(0, 0, 0, 0.4),
-        inset 0 0 80px rgba(234, 179, 8, 0.08),
-        0 0 40px rgba(234, 179, 8, 0.15);
+    border-color: rgba(234, 179, 8, 0.3);
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(234, 179, 8, 0.12);
 }
 
-/* 雷达扫描线动画 */
-.radar-container::before {
+/* 内部雷达装饰圆环 (不影响文字) */
+.radar-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    height: 0;
+    padding-bottom: 75%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(234, 179, 8, 0.1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.radar-ring::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 50%;
     height: 2px;
-    background: linear-gradient(90deg, rgba(234, 179, 8, 0.6), transparent);
+    background: linear-gradient(90deg, rgba(234, 179, 8, 0.5), transparent);
     transform-origin: left center;
     animation: radar-sweep 4s linear infinite;
-    z-index: 1;
-    pointer-events: none;
     filter: blur(1px);
 }
-@keyframes radar-sweep {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
 
-/* 雷达脉冲圈 */
-.radar-container::after {
+.radar-ring::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -202,27 +301,57 @@ body {
     width: 0;
     height: 0;
     border-radius: 50%;
-    border: 1px solid rgba(234, 179, 8, 0.3);
+    border: 1px solid rgba(234, 179, 8, 0.25);
     transform: translate(-50%, -50%);
     animation: radar-ping 3s ease-out infinite;
-    pointer-events: none;
-    z-index: 1;
 }
+
+@keyframes radar-sweep {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 雷达脉冲圈 */
 @keyframes radar-ping {
-    0% { width: 0; height: 0; opacity: 0.8; border-width: 2px; }
-    100% { width: 100%; height: 100%; opacity: 0; border-width: 1px; }
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.7;
+        border-width: 2px;
+    }
+
+    100% {
+        width: 120%;
+        height: 120%;
+        opacity: 0;
+        border-width: 1px;
+    }
 }
 
 /* --- 滚动入场动画 --- */
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
 .reveal-on-scroll {
     opacity: 0;
     transform: translateY(30px);
     transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .reveal-on-scroll.revealed {
     opacity: 1;
     transform: translateY(0);
@@ -230,9 +359,15 @@ body {
 
 /* --- 标签悬浮闪光效果 --- */
 @keyframes tag-shine {
-    0% { left: -100%; }
-    100% { left: 200%; }
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
 }
+
 header span[id^="tag-"],
 header span[id="header-rank"],
 header span[id="header-role"] {
@@ -240,12 +375,14 @@ header span[id="header-role"] {
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 header span[id^="tag-"]:hover,
 header span[id="header-rank"]:hover,
 header span[id="header-role"]:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
+
 header span[id^="tag-"]::after,
 header span[id="header-rank"]::after,
 header span[id="header-role"]::after {
@@ -255,10 +392,11 @@ header span[id="header-role"]::after {
     left: -100%;
     width: 50%;
     height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transform: skewX(-25deg);
     pointer-events: none;
 }
+
 header span[id^="tag-"]:hover::after,
 header span[id="header-rank"]:hover::after,
 header span[id="header-role"]:hover::after {
@@ -267,19 +405,36 @@ header span[id="header-role"]:hover::after {
 
 /* --- 数字跳动 countdown 效果 --- */
 @keyframes countPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
+
 .count-pulse {
     animation: countPulse 0.3s ease;
 }
 
 /* --- 头像呼吸光圈 --- */
 @keyframes avatar-glow {
-    0%, 100% { box-shadow: 0 0 15px rgba(234, 179, 8, 0.3), 0 0 30px rgba(234, 179, 8, 0.1); }
-    50% { box-shadow: 0 0 25px rgba(234, 179, 8, 0.5), 0 0 50px rgba(234, 179, 8, 0.2); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(234, 179, 8, 0.3), 0 0 30px rgba(234, 179, 8, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(234, 179, 8, 0.5), 0 0 50px rgba(234, 179, 8, 0.2);
+    }
 }
+
 .avatar-glow {
     animation: avatar-glow 3s ease-in-out infinite;
 }
@@ -302,15 +457,22 @@ header span[id="header-role"]:hover::after {
     transition: transform 0.15s ease;
     transform-style: preserve-3d;
 }
+
 .tilt-card:hover {
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3), 0 0 20px rgba(234, 179, 8, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(234, 179, 8, 0.08);
 }
 
 /* --- 进度条闪光 --- */
 @keyframes progress-shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(200%); }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
 }
+
 .progress-shimmer::after {
     content: '';
     position: absolute;
@@ -318,7 +480,7 @@ header span[id="header-role"]:hover::after {
     left: 0;
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     animation: progress-shimmer 2s infinite;
 }
 
@@ -326,6 +488,7 @@ header span[id="header-role"]:hover::after {
 .footer-konami {
     transition: all 0.5s;
 }
+
 .footer-konami.activated {
     color: #EAB308 !important;
     text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);

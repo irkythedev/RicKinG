@@ -261,6 +261,9 @@ function updateChart(lang) {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                layout: {
+                    padding: { top: 8, bottom: 8, left: 8, right: 8 }
+                },
                 animation: {
                     duration: 1500,
                     easing: 'easeOutQuart',
@@ -285,11 +288,11 @@ function updateChart(lang) {
                                 return '#9CA3AF';
                             },
                             font: {
-                                size: 11,
+                                size: 10,
                                 family: "'Segoe UI', sans-serif",
                                 weight: 'bold'
                             },
-                            padding: 15
+                            padding: 18
                         },
                         ticks: { display: false, backdropColor: 'transparent' },
                         suggestedMin: 20,
