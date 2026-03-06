@@ -144,7 +144,7 @@ window.setLanguage = function (lang) {
 
     safeSetText('header-name', t.name);
     safeSetText('header-quote', `<i class="fas fa-quote-left text-gray-600 mr-2"></i>${t.quote}<i class="fas fa-quote-right text-gray-600 ml-2"></i>`, true);
-    safeSetText('header-motto', t.motto, true);
+    safeSetText('header-motto-text', t.motto);
 
     safeSetText('btn-gitee-text', t.giteeBtn);
     safeSetText('btn-github-text', t.githubBtn);
@@ -190,6 +190,24 @@ window.setLanguage = function (lang) {
 
     safeSetText('footer-operational', `&copy; 2026 RickinG. ${t.footer.operational}`, true);
     safeSetText('footer-slogan', t.footer.slogan);
+
+    // New section i18n
+    safeSetText('stats-proj-label', t.stats.projLabel);
+    safeSetText('stats-ach-label', t.stats.achLabel);
+    safeSetText('achievement-title', t.achievements.title);
+    safeSetText('battlelog-title', t.battlelog.title);
+    safeSetText('battlelog-empty-title', t.battlelog.emptyTitle);
+    safeSetText('battlelog-empty-desc', t.battlelog.emptyDesc, true);
+
+    // Render achievements
+    if (typeof Achievements !== 'undefined') {
+        Achievements.checkGameAchievements();
+        Achievements.render('achievement-grid', lang);
+        // Unlock bilingual achievement on language switch
+        if (lang !== (window._initialLang || 'zh')) {
+            Achievements.tryUnlock('bilingual', lang);
+        }
+    }
 
     safeSetText('modal-game-title', t.modal.start);
     safeSetText('modal-score-label', `${t.modal.score} <span id="modal-score-val" class="text-yellow-400">0</span>`, true);
@@ -567,6 +585,11 @@ function triggerChickenDinner() {
     // Activate footer easter egg
     const slogan = document.getElementById('footer-slogan');
     if (slogan) { slogan.classList.add('footer-konami', 'activated'); }
+    // Unlock chicken dinner achievement
+    if (typeof Achievements !== 'undefined') {
+        const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+        Achievements.tryUnlock('chicken', lang);
+    }
 }
 
 // --- 13. 头像 呼吸光效 ---
@@ -601,4 +624,12 @@ window.addEventListener('DOMContentLoaded', () => {
     animateKillCounter();
     initKonamiCode();
     initAvatarGlow();
+
+    // Initialize achievements
+    if (typeof Achievements !== 'undefined') {
+        Achievements.init();
+        const initLang = window.getComputedLang ? window.getComputedLang() : 'zh';
+        window._initialLang = initLang;
+        Achievements.render('achievement-grid', initLang);
+    }
 });

@@ -97,8 +97,7 @@
                     <i class="fas fa-quote-right text-gray-600 ml-2"></i>
                 </p>
                 <div id="header-motto" class="text-xs md:text-sm font-mono text-gray-500 mb-4 tracking-wide">
-                    <span class="text-green-500 mr-2">//</span>好好学习，天天向上 <span class="mx-1 text-gray-700">|</span> Good
-                    Good Study, Day Day Up
+                    <span class="text-green-500 mr-2">//</span><span id="header-motto-text">好好学习，天天向上</span>
                 </div>
 
                 <!-- 社交链接按钮 -->
@@ -131,10 +130,25 @@
 
             <!-- 右上角 K/D 数据牌 -->
             <div class="hidden md:block text-right border-l border-gray-600 pl-8 flex-shrink-0">
-                <div id="stats-time-label" class="text-sm text-gray-400">役期时长</div>
-                <div id="stats-time-val" class="text-3xl font-mono text-yellow-400 font-bold">16年</div>
-                <div id="stats-kill-label" class="text-sm text-gray-400 mt-2">代码击杀数</div>
-                <div id="stats-kill-val" class="text-3xl font-mono text-red-500 font-bold glitch-auto">ERROR_0</div>
+                <div class="grid grid-cols-2 gap-x-6 gap-y-3">
+                    <div>
+                        <div id="stats-time-label" class="text-xs text-gray-400">役期时长</div>
+                        <div id="stats-time-val" class="text-2xl font-mono text-yellow-400 font-bold">16年</div>
+                    </div>
+                    <div>
+                        <div id="stats-kill-label" class="text-xs text-gray-400">代码击杀数</div>
+                        <div id="stats-kill-val" class="text-2xl font-mono text-red-500 font-bold glitch-auto">ERROR_0
+                        </div>
+                    </div>
+                    <div>
+                        <div id="stats-proj-label" class="text-xs text-gray-400">项目数</div>
+                        <div id="stats-proj-val" class="text-2xl font-mono text-green-400 font-bold">3</div>
+                    </div>
+                    <div>
+                        <div id="stats-ach-label" class="text-xs text-gray-400">成就</div>
+                        <div id="stats-ach-val" class="text-2xl font-mono text-purple-400 font-bold">0/7</div>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -258,11 +272,42 @@
                     </div>
                 </section>
 
+                <!-- 3. 成就勋章 (Achievement Wall) -->
+                <section class="glass-panel rounded-xl p-6">
+                    <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3 flex-nowrap whitespace-nowrap">
+                        <span class="text-2xl">🎖️</span>
+                        <span id="achievement-title" class="text-yellow-500">成就勋章</span>
+                        <span class="ml-auto text-xs font-mono text-gray-500 flex-shrink-0">
+                            <span id="achievement-progress">0/7</span>
+                        </span>
+                    </h2>
+                    <div id="achievement-grid" class="achievement-grid"></div>
+                </section>
+
             </div>
 
-            <!-- 右侧栏：装备仓库 (项目展示) -->
-            <div class="lg:col-span-2">
-                <section class="glass-panel rounded-xl p-8 h-full">
+            <!-- 右侧栏 -->
+            <div class="lg:col-span-2 space-y-8">
+
+                <!-- 4. 战场日志 (Battle Log) -->
+                <section class="glass-panel rounded-xl p-8">
+                    <h2
+                        class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
+                        <span class="text-2xl">📡</span>
+                        <span id="battlelog-title" class="text-yellow-500">BATTLE LOG</span>
+                    </h2>
+                    <div class="battlelog-empty">
+                        <div class="battlelog-empty-icon">📻</div>
+                        <div id="battlelog-empty-title" class="battlelog-empty-title">通讯频道建设中...</div>
+                        <div id="battlelog-empty-desc" class="battlelog-empty-desc">
+                            情报正在收集中，战术笔记即将发布。<br>
+                            [ 空投区即将开放 ]
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 装备仓库 (Warehouse) -->
+                <section class="glass-panel rounded-xl p-8">
                     <h2
                         class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
                         <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png"
@@ -273,7 +318,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                         <!-- 传说级武器 (已上线项目) -->
-                        <div class="block group relative h-64 flip-card cursor-pointer"
+                        <div class="block group relative h-52 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
                             role="button" tabindex="0" aria-label="Toggle Project Card: Tactical Terminal">
@@ -285,14 +330,14 @@
                                         class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                         传说级</div>
 
-                                    <div class="h-16 mb-3 flex items-center justify-center">
+                                    <div class="h-12 mb-2 flex items-center justify-center">
                                         <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]"
                                             alt="AWM Sniper">
                                     </div>
-                                    <h3 id="card-tactical-title" class="text-xl font-bold text-white mb-2">特种兵战术终端</h3>
+                                    <h3 id="card-tactical-title" class="text-lg font-bold text-white mb-1">特种兵战术终端</h3>
                                     <p id="card-tactical-desc"
-                                        class="text-gray-400 text-sm mb-4 flex-grow text-left line-clamp-3">
+                                        class="text-gray-400 text-xs mb-3 flex-grow text-left line-clamp-2">
                                         基于原生 HTML/CSS/JS 打造的沉浸式个人主页。集成 Gitee/GitHub 双战区入口，全套 PUBG 官方战术图标。
                                     </p>
                                     <div class="flex gap-2 mt-auto">
@@ -327,7 +372,7 @@
                             </div>
                         </div>
 
-                        <div class="block group relative h-64 flip-card cursor-pointer"
+                        <div class="block group relative h-52 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
                             role="button" tabindex="0" aria-label="Toggle Project Card: AquaInsight">
@@ -339,15 +384,15 @@
                                         class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                         史诗级</div>
 
-                                    <div class="h-16 mb-3 flex items-center justify-center">
+                                    <div class="h-12 mb-2 flex items-center justify-center">
                                         <img src="https://img.icons8.com/color/48/energy-drink.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]"
                                             alt="Energy Drink">
                                     </div>
-                                    <h3 id="card-aqua-title" class="text-xl font-bold text-white mb-2">AquaInsight 水质分析
+                                    <h3 id="card-aqua-title" class="text-lg font-bold text-white mb-1">AquaInsight 水质分析
                                     </h3>
                                     <p id="card-aqua-desc"
-                                        class="text-gray-400 text-sm mb-4 flex-grow text-left line-clamp-3">
+                                        class="text-gray-400 text-xs mb-3 flex-grow text-left line-clamp-2">
                                         AI 驱动的地表水环境监测系统。结合 GIS 与 LLM 技术，深度挖掘气象-水质耦合机理。
                                     </p>
                                     <div class="flex gap-2 mt-auto">
@@ -385,12 +430,12 @@
 
                         <!-- 待解锁空投 (待开发项目) -->
                         <div
-                            class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-64 flex flex-col relative opacity-70 hover:opacity-100 transition">
+                            class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-52 flex flex-col relative opacity-70 hover:opacity-100 transition">
                             <div id="card-next-tag"
                                 class="absolute top-0 right-0 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
                                 NEXT DROP</div>
 
-                            <div class="h-16 mb-3 flex items-center justify-center">
+                            <div class="h-12 mb-2 flex items-center justify-center">
                                 <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AK47_C.png"
                                     class="h-full object-contain filter grayscale opacity-50">
                             </div>
@@ -415,8 +460,18 @@
 
         <!-- 页脚 -->
         <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
+            <!-- 技术栈图标条 -->
+            <div class="tech-stack-bar mb-4">
+                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
+                <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
+                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
+                <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
+                <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
+                <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
+            </div>
             <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
             <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
+            <p class="mt-2 text-xs opacity-30">Built with 🎮 & 🔥 by RickinG</p>
         </footer>
 
         <!-- 全屏游戏 Modal -->
@@ -488,15 +543,16 @@
 
     <!-- --- JavaScript 逻辑区域 --- -->
     <!-- 引入自定义脚本 (按顺序) -->
-    <script src="js/config.js?v=20260306b"></script>
-    <script src="js/audio.js?v=20260306b"></script>
-    <script src="js/game/Leaderboard.js?v=20260306b"></script>
-    <script src="js/game/BaseGame.js?v=20260306b"></script>
-    <script src="js/game/AimGame.js?v=20260306b"></script>
-    <script src="js/game/DodgeGame.js?v=20260306b"></script>
-    <script src="js/game/VehicleGame.js?v=20260306b"></script>
-    <script src="js/game/GameManager.js?v=20260306b"></script>
-    <script src="js/script.js?v=20260306b"></script>
+    <script src="js/config.js?v=20260306c"></script>
+    <script src="js/audio.js?v=20260306c"></script>
+    <script src="js/achievements.js?v=20260306c"></script>
+    <script src="js/game/Leaderboard.js?v=20260306c"></script>
+    <script src="js/game/BaseGame.js?v=20260306c"></script>
+    <script src="js/game/AimGame.js?v=20260306c"></script>
+    <script src="js/game/DodgeGame.js?v=20260306c"></script>
+    <script src="js/game/VehicleGame.js?v=20260306c"></script>
+    <script src="js/game/GameManager.js?v=20260306c"></script>
+    <script src="js/script.js?v=20260306c"></script>
 </body>
 
 </html>
