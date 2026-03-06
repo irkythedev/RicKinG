@@ -383,6 +383,7 @@ body {
     }
 }
 
+
 .mission-card {
     position: relative;
     display: flex;
@@ -558,6 +559,24 @@ body {
     transform: translateX(0) translateZ(0);
 }
 
+@media (max-width: 639px) {
+    .mission-list {
+        flex-wrap: wrap;
+        height: auto;
+        gap: 6px;
+    }
+
+    .mission-card {
+        flex: 0 0 calc(50% - 3px);
+        height: 4rem;
+    }
+
+    .mission-list:hover .mission-card:not(:hover) {
+        visibility: visible;
+        flex-grow: 0;
+    }
+}
+
 /* --- 滚动入场动画 --- */
 @keyframes slideUp {
     from {
@@ -718,4 +737,178 @@ header span[id="header-role"]:hover::after {
     color: #EAB308 !important;
     text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
     opacity: 1 !important;
+}
+
+/* ============================================
+   成就勋章网格 (Achievement Grid)
+   ============================================ */
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.achievement-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.5);
+    text-align: center;
+    cursor: default;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-badge.unlocked {
+    border-color: rgba(234, 179, 8, 0.25);
+    background: rgba(234, 179, 8, 0.06);
+}
+
+.achievement-badge.unlocked:hover {
+    border-color: rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
+    transform: translateY(-2px);
+}
+
+.achievement-badge.locked {
+    opacity: 0.35;
+    filter: grayscale(100%);
+}
+
+.achievement-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.achievement-name {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: #9CA3AF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.achievement-badge.unlocked .achievement-name {
+    color: #EAB308;
+}
+
+/* ============================================
+   成就解锁 Toast 通知
+   ============================================ */
+.achievement-toast {
+    position: fixed;
+    top: 20px;
+    right: -320px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(17, 24, 39, 0.95);
+    border: 1px solid rgba(234, 179, 8, 0.4);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 179, 8, 0.1);
+    z-index: 9999;
+    transition: right 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    backdrop-filter: blur(10px);
+}
+
+.achievement-toast.show {
+    right: 20px;
+}
+
+.achievement-toast-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.achievement-toast-title {
+    font-size: 0.7rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.achievement-toast-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #EAB308;
+    margin-top: 2px;
+}
+
+/* ============================================
+   战场日志 空状态 (Battle Log Empty State)
+   ============================================ */
+.battlelog-empty {
+    border: 1px dashed rgba(234, 179, 8, 0.15);
+    border-radius: 0.5rem;
+    padding: 24px 16px;
+    text-align: center;
+    background: rgba(234, 179, 8, 0.02);
+}
+
+.battlelog-empty-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    animation: radar-sweep-inline 3s linear infinite;
+}
+
+@keyframes radar-sweep-inline {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.battlelog-empty-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #EAB308;
+    margin-bottom: 4px;
+    font-family: 'Segoe UI', monospace;
+}
+
+.battlelog-empty-desc {
+    font-size: 0.75rem;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+/* ============================================
+   页脚技术栈图标条
+   ============================================ */
+.tech-stack-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+}
+
+.tech-stack-bar img {
+    height: 22px;
+    width: auto;
+    opacity: 0.4;
+    filter: grayscale(50%);
+    transition: all 0.3s ease;
+}
+
+.tech-stack-bar img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: translateY(-2px);
 }

@@ -194,6 +194,12 @@ window.GameManager = class GameManager {
             this.modal.style.display = 'none';
             this.closeTimeout = null;
         }, 300);
+        // Refresh achievements after game
+        if (typeof Achievements !== 'undefined') {
+            const lang = window.getComputedLang ? window.getComputedLang() : currentLang;
+            Achievements.checkGameAchievements();
+            Achievements.render('achievement-grid', lang);
+        }
     }
 
     cleanup() {

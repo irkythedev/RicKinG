@@ -94,7 +94,7 @@ window.I18N = {
         },
         name: "特种兵_RickinG",
         quote: "落地一把98K，代码一行Bug Free。",
-        motto: "<span class=\"text-green-500 mr-2\">//</span>好好学习，天天向上 <span class=\"mx-1 text-gray-700\">|</span> Good Good Study, Day Day Up",
+        motto: "好好学习，天天向上",
         giteeBtn: "Gitee 仓库",
         githubBtn: "GitHub",
         stats: {
@@ -103,7 +103,9 @@ window.I18N = {
             timeVal: "16年",
             killLabel: "代码击杀数",
             killVal: "ERROR_0",
-            avgLabel: "综合评分"
+            avgLabel: "综合评分",
+            projLabel: "项目数",
+            achLabel: "成就"
         },
         missions: {
             title: "MISSIONS",
@@ -139,6 +141,14 @@ window.I18N = {
         footer: {
             operational: "All Systems Operational.",
             slogan: "Winner Winner, Chicken Dinner!"
+        },
+        achievements: {
+            title: "成就勋章"
+        },
+        battlelog: {
+            title: "BATTLE LOG",
+            emptyTitle: "通讯频道建设中...",
+            emptyDesc: "情报正在收集中，战术笔记即将发布。<br>[ 空投区即将开放 ]"
         },
         modal: {
             start: "任务开始",
@@ -194,7 +204,7 @@ window.I18N = {
         },
         name: "Commando_RickinG",
         quote: "Drop with a Kar98k, code with zero bugs.",
-        motto: "<span class=\"text-green-500 mr-2\">//</span>Study hard, play hard <span class=\"mx-1 text-gray-700\">|</span> See you in the final circle",
+        motto: "Good Good Study, Day Day Up",
         giteeBtn: "Gitee Repo",
         githubBtn: "GitHub",
         stats: {
@@ -203,7 +213,9 @@ window.I18N = {
             timeVal: "16 Yrs",
             killLabel: "Code Kills",
             killVal: "ERROR_0",
-            avgLabel: "Overall Score"
+            avgLabel: "Overall Score",
+            projLabel: "Projects",
+            achLabel: "Badges"
         },
         missions: {
             title: "MISSIONS",
@@ -239,6 +251,14 @@ window.I18N = {
         footer: {
             operational: "All Systems Operational.",
             slogan: "Winner Winner, Chicken Dinner!"
+        },
+        achievements: {
+            title: "ACHIEVEMENTS"
+        },
+        battlelog: {
+            title: "BATTLE LOG",
+            emptyTitle: "Channel Initializing...",
+            emptyDesc: "Intel is being gathered, tactical notes incoming.<br>[ Drop Zone Opening Soon ]"
         },
         modal: {
             start: "MISSION START",
