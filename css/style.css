@@ -367,7 +367,9 @@ body {
     transform: translateZ(0);
     will-change: flex-grow;
     transition: flex-grow 500ms cubic-bezier(0.25, 0.1, 0.25, 1),
-        background 150ms ease;
+        background 150ms ease,
+        border-color 200ms ease,
+        visibility 0ms linear 500ms;
 }
 
 .mission-card-more {
@@ -379,12 +381,24 @@ body {
     background: rgb(55, 65, 81);
 }
 
+.mission-list:hover {
+    gap: 0;
+}
+
 .mission-list:hover .mission-card {
     flex-grow: 0;
+    border-color: transparent;
+    visibility: hidden;
+    transition: flex-grow 500ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        background 150ms ease,
+        border-color 200ms ease,
+        visibility 0ms linear 0ms;
 }
 
 .mission-list:hover .mission-card:hover {
     flex-grow: 100;
+    border-color: rgb(75, 85, 99);
+    visibility: visible;
 }
 
 /* === 图标 === */
