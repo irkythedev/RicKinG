@@ -1,4 +1,4 @@
-# 🪖 特种兵 RickinG 的战术基地 | Tactical Base
+# 🪖 特种兵 RickinG 的战术基地 | Tactical Command Terminal
 
 > **"落地一把98K，代码一行Bug Free。"**
 >
@@ -11,27 +11,39 @@
 ### 👋 嗨！我是 RickinG (RG)
 
 这里是我的**个人战术指挥终端**，也是我在互联网战场上的**秘密基地**。
+从过去的像素风迷宫实验，全面进化为沉浸式的绝地求生（PUBG）风格主页。
 
 我是一名热血的**代码特种兵**，也是未来的**AI指挥官**。对我来说，敲代码就像是在海岛地图上搜寻物资——充满了未知的挑战和拿到极品装备（解决Bug）的快感！
 
-#### 🎯 关于我
+#### 🎯 身份铭牌
 
-- **役期时长**: 16年 (正在努力发育中...)
-- **段位**: SS12 赛季王牌 & 代码圈青铜选手 (正在冲刺无敌战神!)
-- **主武器**: `Python` (狙击数据), `JavaScript` (突击交互)
-- **战术装备**: `React`, `Tailwind`, `LLM Prompting`
-- **座右铭**: `好好学习，天天向上 | Good Good Study, Day Day Up`
+- **役期时长**: 16年 (努力发育中...)
+- **当前段位**: SS12 赛季王牌 & 代码圈青铜选手 (正向无敌战神冲刺!)
+- **主战武器**: `Python` (精准狙击数据), `JavaScript` (前端贴脸突击)
+- **战术装备**: `React`, `Tailwind`, `AI / LLM Prompting`
+- **最高信条**: `好好学习，天天向上 | Good Good Study, Day Day Up`
 
-#### 🏗️ 基地设施
+#### 🏗️ 核心设施
 
-1. **📊 作战雷达 (Stats Radar)**: 展示我的全栈能力值（刚枪、指挥、跑图...）。
-2. **📦 军火库 (Warehouse)**: 陈列我的传说级项目（如本终端、AquaInsight）。
-3. **🎮 演习场 (Training Ground)**: 内置射击与空投小游戏，随时磨练手速。
-4. **📡 信号联络 (Signal)**: 发射信号枪，召唤我前来支援！
+> **不仅是展示，更是实战演习场。** 
 
-#### 🚀 部署行动
+1. **📊 动态作战雷达 (Stats Radar)** 
+   双层六维数据对比，直观展示`当前水平`（实心填充）与`目标水平`（雷达扫描虚线）的技术成长路径。
+2. **📦 极品装备库 (Project Warehouse)** 
+   陈列开源战果。带有翻转卡片动效的三级甲/史诗级项目展示（如 AquaInsight 水质分析系统）。
+3. **🏅 成就与荣誉 (Achievement & Battle Log)**
+   - **荣誉系统**: 记录实战成就可以解锁的徽章壁。
+   - **战斗日记**: 实时滚动播放代码击杀、项目提交流程的数据大屏。
+4. **📡 紧急联络 (Flare Gun)**
+   点击发射红色信号枪，召唤夜间空投并发送支援请求。
 
-🔗 **访问地址**: [https://initricky.lol/](https://initricky.lol/)
+#### 🎮 沉浸式战术演练 (Mini-Games)
+在学习之余，内置了三款硬核迷你演练局，挑战高分即可在本地排行榜留下传说：
+- **🎯 定点打靶 (Target Practice)**: 考验甩狙准度的移动靶心射击！
+- **🪂 极速接空投 (Airdrop Rush)**: 左右走位，避开手雷危机，疯狂掠夺空投物资箱！
+- **🚙 飙车派对 (Road Rage)**: 在公路上驾驶蹦蹦极限狂飙，躲避铁丝网与废弃车辆！
+
+🔗 **立即部署空降**: [https://initricky.lol/](https://initricky.lol/)
 
 ---
 
@@ -39,28 +51,39 @@
 
 ### 👋 Hey there! I'm RickinG (RG)
 
-Welcome to my **Tactical Command Terminal** — my secret base on the internet battlefield.
+Welcome to my **Tactical Command Terminal** — evolving from a pixel-art lab into a fully immersive **PUBG-inspired web base**.
 
-I'm a passionate **Code Commando** and a future **AI Commander**. To me, coding is like looting on Erangel — full of unknown challenges and the thrill of finding level 3 gear (fixing bugs)!
+I'm a passionate **Code Commando** and an aspiring **AI Commander**. To me, coding is like looting on Erangel — full of unknown dangers, hardcore challenges, and the ultimate thrill of securing a Level 3 Helmet (fixing a nasty bug)!
 
-#### 🎯 Profile
+#### 🎯 Tactical ID Tag
 
 - **Service Time**: 16 Years (Still looting & leveling up...)
-- **Rank**: Season SS12 Ace & Bronze in Coding (Pushing for Conqueror!)
+- **Current Rank**: Season SS12 Ace & Bronze in Coding (Pushing for Conqueror!)
 - **Main Weapons**: `Python` (Data Sniping), `JavaScript` (Frontend Assault)
-- **Tactical Gear**: `React`, `Tailwind`, `LLM Prompting`
+- **Tactical Gear**: `React`, `Tailwind`, `AI / LLM Prompting`
 - **Motto**: `Good Good Study, Day Day Up`
 
-#### 🏗️ Base Features
+#### 🏗️ Base Facilities
 
-1. **📊 Stats Radar**: Visualizing my full-stack capabilities (Coding, Planning, Ops...).
-2. **📦 Warehouse**: Showcasing my Legendary projects (This Terminal, AquaInsight).
-3. **🎮 Training Ground**: Built-in mini-games (Aim Training & Airdrop Dodge) to test your reflexes.
-4. **📡 Signal Flare**: Fire the flare gun to summon me for backup!
+> **Not just a portfolio, it's an interactive battleground.**
 
-#### 🚀 Deployment
+1. **📊 Advanced Stats Radar** 
+   A dynamic dual-layer hexagon chart visualizing my full-stack capabilities. It constantly compares `Current Level` (solid fill) versus the ultimate `Target Level` (sweeping radar outline).
+2. **📦 Project Warehouse** 
+   Showcasing my Legendary projects as flip-cards, complete with animated tech stacks and target-synced favicons (e.g., AquaInsight).
+3. **🏅 Achievements & Battle Log**
+   - **Medal Wall**: Displaying unlockable honors from coding and planning milestones.
+   - **Battle Log**: A scrolling terminal feed of code-kills and commit deployments.
+4. **📡 Signal Flare**
+   Fire the flare gun animation to cast a red supply drop glow and request backup!
 
-🔗 **Live Demo**: [https://initricky.lol/](https://initricky.lol/)
+#### 🎮 Interactive Combat Training (Mini-Games)
+Take a break and test your reflexes. Compete for the high score on the local Leaderboard:
+- **🎯 Target Practice**: Test your flick-sniping accuracy on moving targets!
+- **🪂 Airdrop Rush**: Strafe left and right to catch supply crates while dodging red-zone grenades!
+- **🚙 Road Rage**: Drive a buggy on a high-speed highway, dodging spike traps and abandoned vehicles!
+
+🔗 **Deploy Now**: [https://initricky.lol/](https://initricky.lol/)
 
 ---
 
