@@ -147,6 +147,7 @@ window.setLanguage = function (lang) {
     safeSetText('stats-time-label', t.stats.timeLabel);
     safeSetText('stats-time-val', t.stats.timeVal);
     safeSetText('stats-kill-label', t.stats.killLabel);
+    safeSetText('stats-avg-label', t.stats.avgLabel);
 
     safeSetText('missions-title', t.missions.title);
     safeSetText('mission-aim-title', t.missions.aim.title);
@@ -205,40 +206,90 @@ function detectLanguage() {
 // Expose helper to get current lang from config module
 window.getComputedLang = () => currentLang;
 
-// --- 5. 战力雷达图 ---
+// --- 5. 战力雷达图 (增强版) ---
 let skillsChart = null;
 function updateChart(lang) {
     if (skillsChart) skillsChart.destroy();
 
     if (typeof Chart !== 'undefined') {
         const ctxChart = document.getElementById('skillsChart').getContext('2d');
+        const data = GAME_CONFIG.SKILLS_CHART.DATA;
+        const maxVal = 100;
+
+        // Custom plugin: animated glow on data points
+        const glowPlugin = {
+            id: 'pointGlow',
+            afterDatasetsDraw(chart) {
+                const meta = chart.getDatasetMeta(0);
+                const ctx = chart.ctx;
+                meta.data.forEach((point, i) => {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
+                    const grad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 12);
+                    grad.addColorStop(0, 'rgba(234, 179, 8, 0.6)');
+                    grad.addColorStop(1, 'rgba(234, 179, 8, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                    ctx.restore();
+                });
+            }
+        };
+
         skillsChart = new Chart(ctxChart, {
             type: 'radar',
             data: {
                 labels: GAME_CONFIG.SKILLS_CHART.LABELS[lang],
                 datasets: [{
                     label: lang === 'zh' ? '能力值' : 'Stats',
-                    data: GAME_CONFIG.SKILLS_CHART.DATA,
-                    backgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BG,
-                    borderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
-                    borderWidth: 2,
-                    pointBackgroundColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: GAME_CONFIG.SKILLS_CHART.COLOR_BORDER,
-                    pointRadius: 3
+                    data: data,
+                    backgroundColor: 'rgba(234, 179, 8, 0.15)',
+                    borderColor: '#EAB308',
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#EAB308',
+                    pointBorderColor: '#1F2937',
+                    pointBorderWidth: 2,
+                    pointHoverBackgroundColor: '#FDE047',
+                    pointHoverBorderColor: '#EAB308',
+                    pointHoverBorderWidth: 3,
+                    pointRadius: 5,
+                    pointHoverRadius: 8,
+                    fill: true,
+                    tension: 0.1
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart',
+                    delay: (ctx) => ctx.dataIndex * 100
+                },
                 scales: {
                     r: {
-                        angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
-                        grid: { color: 'rgba(255, 255, 255, 0.1)', circular: true },
+                        angleLines: {
+                            color: 'rgba(234, 179, 8, 0.08)',
+                            lineWidth: 1
+                        },
+                        grid: {
+                            color: 'rgba(234, 179, 8, 0.1)',
+                            circular: true,
+                            lineWidth: 1
+                        },
                         pointLabels: {
-                            color: '#9CA3AF',
-                            font: { size: 11, family: "'Segoe UI', sans-serif", weight: 'bold' }
+                            color: (ctx) => {
+                                const val = data[ctx.index];
+                                if (val >= 92) return '#FDE047';
+                                if (val >= 85) return '#EAB308';
+                                return '#9CA3AF';
+                            },
+                            font: {
+                                size: 11,
+                                family: "'Segoe UI', sans-serif",
+                                weight: 'bold'
+                            },
+                            padding: 15
                         },
                         ticks: { display: false, backdropColor: 'transparent' },
                         suggestedMin: 20,
@@ -248,18 +299,36 @@ function updateChart(lang) {
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: 'rgba(17, 24, 39, 0.9)',
+                        backgroundColor: 'rgba(17, 24, 39, 0.95)',
                         titleColor: '#EAB308',
-                        bodyColor: '#fff',
-                        padding: 8,
+                        bodyColor: '#F3F4F6',
+                        titleFont: { size: 14, weight: 'bold' },
+                        bodyFont: { size: 13 },
+                        padding: 12,
+                        cornerRadius: 8,
                         displayColors: false,
+                        borderColor: 'rgba(234, 179, 8, 0.3)',
+                        borderWidth: 1,
                         callbacks: {
-                            title: (items) => items[0].label,
-                            label: (item) => `${lang === 'zh' ? '评分' : 'Score'}: ${item.raw} / 100`
+                            title: (items) => `⚡ ${items[0].label}`,
+                            label: (item) => {
+                                const val = item.raw;
+                                const bar = '█'.repeat(Math.floor(val / 10)) + '░'.repeat(10 - Math.floor(val / 10));
+                                const rank = val >= 92 ? '🏆 S+' : val >= 85 ? '⭐ A+' : val >= 75 ? '✦ A' : '◆ B';
+                                return [`${bar}  ${val}/100`, `${lang === 'zh' ? '评级' : 'Rank'}: ${rank}`];
+                            }
                         }
                     }
+                },
+                interaction: {
+                    mode: 'point',
+                    intersect: true
+                },
+                onHover: (event, elements) => {
+                    event.native.target.style.cursor = elements.length ? 'pointer' : 'default';
                 }
-            }
+            },
+            plugins: [glowPlugin]
         });
     }
 }
@@ -345,6 +414,158 @@ function ensureGameManagerReady() {
     return true;
 }
 
+// --- 8. 滚动入场动画 (Scroll Reveal) ---
+function initScrollReveal() {
+    const sections = document.querySelectorAll('section, .flip-card, footer');
+    sections.forEach((el, i) => {
+        el.classList.add('reveal-on-scroll');
+        el.style.transitionDelay = `${i * 0.08}s`;
+    });
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    sections.forEach(el => observer.observe(el));
+}
+
+// --- 9. 鼠标追踪光斑 ---
+function initCursorGlow() {
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+    let mx = 0, my = 0, gx = 0, gy = 0;
+    document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+    function animateGlow() {
+        gx += (mx - gx) * 0.08;
+        gy += (my - gy) * 0.08;
+        glow.style.left = gx + 'px';
+        glow.style.top = gy + 'px';
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+    // Hide on mobile / touch
+    if ('ontouchstart' in window) glow.style.display = 'none';
+}
+
+// --- 10. 3D Tilt 效果 (装备卡片) ---
+function initTiltCards() {
+    document.querySelectorAll('.flip-card').forEach(card => {
+        card.classList.add('tilt-card');
+        card.addEventListener('mousemove', (e) => {
+            if (card.classList.contains('flipped')) return;
+            const rect = card.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            if (!card.classList.contains('flipped')) {
+                card.style.transform = '';
+            }
+        });
+    });
+}
+
+// --- 11. Kill计数器动画 ---
+function animateKillCounter() {
+    const el = document.getElementById('stats-kill-val');
+    if (!el) return;
+    const originalText = el.textContent;
+    // Rapid number cycling then snap back to ERROR_0
+    let frame = 0;
+    const totalFrames = 30;
+    const chars = '0123456789ABCDEF';
+    const animate = () => {
+        if (frame < totalFrames) {
+            let txt = '';
+            for (let i = 0; i < 7; i++) {
+                txt += chars[Math.floor(Math.random() * chars.length)];
+            }
+            el.textContent = txt;
+            frame++;
+            requestAnimationFrame(animate);
+        } else {
+            el.textContent = originalText;
+            el.classList.add('count-pulse');
+            setTimeout(() => el.classList.remove('count-pulse'), 300);
+        }
+    };
+    // Trigger on first visible + re-trigger on hover
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            frame = 0;
+            animate();
+            observer.disconnect();
+        }
+    }, { threshold: 0.5 });
+    observer.observe(el);
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', () => { frame = 0; animate(); });
+}
+
+// --- 12. Konami Code Easter Egg ---
+function initKonamiCode() {
+    const sequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let idx = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key === sequence[idx]) {
+            idx++;
+            if (idx === sequence.length) {
+                idx = 0;
+                triggerChickenDinner();
+            }
+        } else {
+            idx = 0;
+        }
+    });
+}
+
+function triggerChickenDinner() {
+    // Golden particle explosion + message
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[200] flex items-center justify-center pointer-events-none';
+    overlay.innerHTML = `
+        <div class="text-center animate-bounce">
+            <div class="text-6xl md:text-8xl mb-4">🍗</div>
+            <div class="text-3xl md:text-5xl font-black text-yellow-400 drop-shadow-lg" style="text-shadow: 0 0 30px rgba(234,179,8,0.8)">
+                WINNER WINNER<br>CHICKEN DINNER!
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    // Golden confetti
+    for (let i = 0; i < 60; i++) {
+        const conf = document.createElement('div');
+        conf.style.cssText = `
+            position:fixed; z-index:201; pointer-events:none;
+            width:${Math.random() * 10 + 5}px; height:${Math.random() * 10 + 5}px;
+            background: hsl(${40 + Math.random() * 20}, 100%, ${50 + Math.random() * 20}%);
+            left:${Math.random() * 100}vw; top:-10px;
+            border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+        `;
+        document.body.appendChild(conf);
+        const dur = 2000 + Math.random() * 2000;
+        conf.animate([
+            { transform: `translateY(0) rotate(0deg)`, opacity: 1 },
+            { transform: `translateY(${window.innerHeight + 50}px) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+        ], { duration: dur, easing: 'ease-in' }).onfinish = () => conf.remove();
+    }
+    setTimeout(() => overlay.remove(), 4000);
+    // Activate footer easter egg
+    const slogan = document.getElementById('footer-slogan');
+    if (slogan) { slogan.classList.add('footer-konami', 'activated'); }
+}
+
+// --- 13. 头像 呼吸光效 ---
+function initAvatarGlow() {
+    const avatar = document.querySelector('header .rounded-full.border-4');
+    if (avatar) avatar.classList.add('avatar-glow');
+}
+
 // Initialize after DOM is ready to ensure all scripts loaded
 window.addEventListener('DOMContentLoaded', () => {
     detectLanguage();
@@ -363,4 +584,12 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('GameManager init failed after retries');
     };
     tryInit();
+
+    // Initialize enhanced interactions
+    initScrollReveal();
+    initCursorGlow();
+    initTiltCards();
+    animateKillCounter();
+    initKonamiCode();
+    initAvatarGlow();
 });

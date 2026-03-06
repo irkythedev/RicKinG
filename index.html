@@ -145,7 +145,7 @@
             <div class="lg:col-span-1 space-y-8">
 
                 <!-- 1. 个人战绩详情 (数值面板) -->
-                <section class="glass-panel rounded-xl p-6 relative">
+                <section class="glass-panel rounded-xl p-6 relative group/stats">
                     <div class="crosshair-decor crosshair-tl"></div>
                     <div class="crosshair-decor crosshair-tr"></div>
                     <div class="crosshair-decor crosshair-bl"></div>
@@ -154,11 +154,27 @@
                     <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
                         <img src="https://img.icons8.com/color/48/pubg-helmet.png" class="h-8 w-auto">
                         <span id="stats-title" class="text-yellow-500">PLAYER STATS</span>
+                        <!-- 总评分闪烁 -->
+                        <span
+                            class="ml-auto text-xs font-mono text-gray-500 group-hover/stats:text-yellow-500 transition-colors duration-500">
+                            <i class="fas fa-signal mr-1"></i>ONLINE
+                        </span>
                     </h2>
 
                     <!-- 六边形战力图 (Radar Chart) -->
-                    <div class="w-full relative h-64 flex justify-center items-center radar-container">
+                    <div
+                        class="w-full relative h-72 flex justify-center items-center radar-container group/radar cursor-crosshair">
                         <canvas id="skillsChart"></canvas>
+                    </div>
+
+                    <!-- 综合评分 -->
+                    <div class="mt-4 flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2">
+                            <span
+                                class="inline-block w-3 h-3 rounded-full bg-yellow-500 shadow-lg shadow-yellow-500/30"></span>
+                            <span class="text-gray-400 font-mono" id="stats-avg-label">综合评分</span>
+                        </div>
+                        <span class="text-yellow-400 font-bold font-mono text-lg" id="stats-avg-val">88.3</span>
                     </div>
                 </section>
 
@@ -423,7 +439,8 @@
                             <!-- 进度条 -->
                             <div class="w-full bg-gray-800 rounded-full h-2 mt-auto group cursor-help"
                                 title="投放进度: 30%">
-                                <div class="bg-red-600 h-2 rounded-full w-[30%] relative overflow-hidden">
+                                <div
+                                    class="bg-red-600 h-2 rounded-full w-[30%] relative overflow-hidden progress-shimmer">
                                     <div class="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
                                 </div>
                             </div>
@@ -437,7 +454,7 @@
         <!-- 页脚 -->
         <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
             <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
-            <p id="footer-slogan" class="mt-2 text-xs opacity-50">Winner Winner, Chicken Dinner!</p>
+            <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
         </footer>
 
         <!-- 全屏游戏 Modal -->
@@ -509,14 +526,14 @@
 
     <!-- --- JavaScript 逻辑区域 --- -->
     <!-- 引入自定义脚本 (按顺序) -->
-    <script src="js/config.js?v=20260305a"></script>
-    <script src="js/audio.js?v=20260305a"></script>
-    <script src="js/game/BaseGame.js?v=20260305a"></script>
-    <script src="js/game/AimGame.js?v=20260305a"></script>
-    <script src="js/game/DodgeGame.js?v=20260305a"></script>
-    <script src="js/game/VehicleGame.js?v=20260305a"></script>
-    <script src="js/game/GameManager.js?v=20260305a"></script>
-    <script src="js/script.js?v=20260305a"></script>
+    <script src="js/config.js?v=20260306a"></script>
+    <script src="js/audio.js?v=20260306a"></script>
+    <script src="js/game/BaseGame.js?v=20260306a"></script>
+    <script src="js/game/AimGame.js?v=20260306a"></script>
+    <script src="js/game/DodgeGame.js?v=20260306a"></script>
+    <script src="js/game/VehicleGame.js?v=20260306a"></script>
+    <script src="js/game/GameManager.js?v=20260306a"></script>
+    <script src="js/script.js?v=20260306a"></script>
 </body>
 
 </html>
