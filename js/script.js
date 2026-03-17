@@ -195,6 +195,7 @@ window.setLanguage = function (lang) {
     // New section i18n
     safeSetText('stats-proj-label', t.stats.projLabel);
     safeSetText('stats-ach-label', t.stats.achLabel);
+    safeSetText('stats-ai-label', t.stats.aiSynergy);
     safeSetText('achievement-title', t.achievements.title);
     // Gitee Activity Feed update on language switch
     if (typeof GiteeActivity !== 'undefined') {
