@@ -141,6 +141,7 @@ window.setLanguage = function (lang) {
     safeSetText('tag-python-text', t.tags.python);
     safeSetText('tag-rust-text', t.tags.rust);
     safeSetText('tag-llm-text', t.tags.llm);
+    safeSetText('tag-openclaw-text', t.tags.openclaw);
 
     safeSetText('header-name', t.name);
     safeSetText('header-quote', `<i class="fas fa-quote-left text-gray-600 mr-2"></i>${t.quote}<i class="fas fa-quote-right text-gray-600 ml-2"></i>`, true);
@@ -195,9 +196,10 @@ window.setLanguage = function (lang) {
     safeSetText('stats-proj-label', t.stats.projLabel);
     safeSetText('stats-ach-label', t.stats.achLabel);
     safeSetText('achievement-title', t.achievements.title);
-    safeSetText('battlelog-title', t.battlelog.title);
-    safeSetText('battlelog-empty-title', t.battlelog.emptyTitle);
-    safeSetText('battlelog-empty-desc', t.battlelog.emptyDesc, true);
+    // Gitee Activity Feed update on language switch
+    if (typeof GiteeActivity !== 'undefined') {
+        GiteeActivity.init(lang);
+    }
 
     // Render achievements
     if (typeof Achievements !== 'undefined') {
@@ -219,12 +221,8 @@ window.setLanguage = function (lang) {
 };
 
 function detectLanguage() {
-    const lang = navigator.language || navigator.userLanguage;
-    if (lang.startsWith('en')) {
-        window.setLanguage('en');
-    } else {
-        window.setLanguage('zh');
-    }
+    // Default to English
+    window.setLanguage('en');
 }
 
 // Expose helper to get current lang from config module

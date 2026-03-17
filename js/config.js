@@ -93,7 +93,8 @@ window.I18N = {
             tailwind: "Tailwind 战术",
             python: "Python 猎手",
             rust: "Rust 先锋",
-            llm: "LLM 指挥官"
+            llm: "LLM 指挥官",
+            openclaw: "养虾专业户"
         },
         name: "特种兵_RickinG",
         quote: "落地一把98K，代码一行Bug Free。",
@@ -194,7 +195,7 @@ window.I18N = {
         }
     },
     en: {
-        title: "Commando_RickinG | Personal HQ",
+        title: "CMD_RickinG | Personal HQ",
         metaDesc: "RickinG's Tactical Command Terminal. Immersive PUBG-style personal homepage with player stats and project showcase. Winner Winner, Chicken Dinner!",
         rank: "SS12 Ace",
         role: "Frontend Assault",
@@ -203,9 +204,10 @@ window.I18N = {
             tailwind: "Tailwind Tactics",
             python: "Python Hunter",
             rust: "Rust Pioneer",
-            llm: "LLM Commander"
+            llm: "LLM Commander",
+            openclaw: "Lobster Farmer"
         },
-        name: "Commando_RickinG",
+        name: "CMD_RickinG",
         quote: "Drop with a Kar98k, code with zero bugs.",
         motto: "Good Good Study, Day Day Up",
         giteeBtn: "Gitee Repo",

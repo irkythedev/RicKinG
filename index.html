@@ -93,6 +93,11 @@
                         class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
                         <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
                         <span id="tag-llm-text">LLM 指挥官</span></span>
+                    <span id="tag-openclaw"
+                        class="bg-rose-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                        <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw.svg"
+                            class="h-3 w-3 brightness-0 invert inline-block" alt="OpenClaw">
+                        <span id="tag-openclaw-text">养虾专业户</span></span>
                 </div>
                 <!-- 你的名字 (带闪烁特效) -->
                 <h1 id="header-name"
@@ -165,7 +170,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
             <!-- 左侧栏：个人属性 + 演习任务 -->
-            <div class="lg:col-span-1 flex flex-col gap-8">
+            <div class="lg:col-span-1 flex flex-col gap-8 h-full">
 
                 <!-- 1. 个人战绩详情 (数值面板) -->
                 <section class="glass-panel rounded-xl p-6 relative group/stats">
@@ -280,10 +285,10 @@
                 </section>
 
                 <!-- 3. 成就勋章 (Achievement Wall) -->
-                <section class="glass-panel rounded-xl p-6 flex flex-col flex-grow">
+                <section class="glass-panel rounded-xl p-5 pb-4 flex flex-col flex-grow justify-center">
                     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3 flex-nowrap whitespace-nowrap">
                         <span class="text-2xl">🎖️</span>
-                        <span id="achievement-title" class="text-yellow-500">成就勋章</span>
+                        <span id="achievement-title" class="text-yellow-500">ACHIEVEMENTS</span>
                         <span class="ml-auto text-xs font-mono text-gray-500 flex-shrink-0">
                             <span id="achievement-progress">0/7</span>
                         </span>
@@ -294,33 +299,54 @@
             </div>
 
             <!-- 右侧栏 -->
-            <div class="lg:col-span-2 flex flex-col gap-8">
+            <div class="lg:col-span-2 flex flex-col gap-8 h-full">
 
-                <!-- 4. 战场日志 (Battle Log) -->
-                <section class="glass-panel rounded-xl p-8">
+                <!-- 4. 战场日志 → Gitee 活跃度 (Gitee Activity Feed) -->
+                <section class="glass-panel rounded-xl p-6 md:p-8">
                     <h2
-                        class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
+                        class="text-xl md:text-2xl font-bold text-white mb-5 flex items-center gap-3 border-b border-gray-700 pb-4">
                         <span class="text-2xl">📡</span>
                         <span id="battlelog-title" class="text-yellow-500">BATTLE LOG</span>
+                        <span id="gitee-status-dot"
+                            class="ml-auto flex items-center gap-1.5 text-xs font-mono text-gray-500">
+                            <span class="inline-block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            <span id="gitee-status-text">LIVE</span>
+                        </span>
                     </h2>
-                    <div class="battlelog-empty">
-                        <div class="battlelog-empty-icon">📻</div>
-                        <div id="battlelog-empty-title" class="battlelog-empty-title">通讯频道建设中...</div>
-                        <div id="battlelog-empty-desc" class="battlelog-empty-desc">
-                            情报正在收集中，战术笔记即将发布。<br>
-                            [ 空投区即将开放 ]
+
+                    <!-- Gitee 活跃度热力图 -->
+                    <div class="gitee-heatmap-section mb-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="gitee-heatmap-label" class="text-xs font-mono text-gray-400">近30天作战热力</span>
+                            <span id="gitee-heatmap-total" class="text-xs font-mono text-yellow-500"></span>
+                        </div>
+                        <div id="gitee-heatmap" class="gitee-heatmap"></div>
+                    </div>
+
+                    <!-- Gitee 动态列表 -->
+                    <div id="gitee-feed" class="gitee-feed">
+                        <div class="battlelog-empty">
+                            <div class="battlelog-empty-icon">📻</div>
+                            <div id="battlelog-empty-title" class="battlelog-empty-title">通讯频道连接中...</div>
+                            <div id="battlelog-empty-desc" class="battlelog-empty-desc">
+                                正在获取 Gitee 战区情报...
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- 装备仓库 (Warehouse) -->
                 <section class="glass-panel rounded-xl p-8 flex-grow">
-                    <h2
-                        class="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-gray-700 pb-4">
-                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png"
-                            class="h-10 w-auto">
-                        <span id="warehouse-title" class="text-yellow-500">WAREHOUSE</span>
-                    </h2>
+                    <div class="mb-6 border-b border-gray-700 pb-4 flex flex-col justify-start gap-2">
+                        <h2 class="text-2xl font-bold text-white flex items-center gap-3 relative">
+                            <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png"
+                                class="h-10 w-auto">
+                            <span id="warehouse-title" class="text-yellow-500">WAREHOUSE</span>
+                        </h2>
+                        <span id="card-next-desc" class="text-xs text-gray-500 font-normal">
+                            下一波信号圈缩圈后投放。包含全新战术装备与功能模块，敬请期待。
+                        </span>
+                    </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -514,30 +540,7 @@
                             </div>
                         </div>
 
-                        <!-- 待解锁空投 (待开发项目) -->
-                        <div
-                            class="glass-panel p-5 rounded-lg border-dashed border-2 border-gray-600 h-72 flex flex-col relative opacity-70 hover:opacity-100 transition">
-                            <div id="card-next-tag"
-                                class="absolute top-0 right-0 bg-gray-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
-                                NEXT DROP</div>
 
-                            <div class="h-16 pt-3 flex items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AK47_C.png"
-                                    class="h-full object-contain filter grayscale opacity-50">
-                            </div>
-                            <h3 id="card-next-title" class="text-base font-bold text-gray-300 mb-1 mt-2">绝密空投物资</h3>
-                            <p id="card-next-desc" class="text-gray-500 text-xs flex-grow leading-relaxed line-clamp-3">
-                                下一波信号圈缩圈后投放。包含全新战术装备与功能模块，敬请期待。
-                            </p>
-                            <!-- 进度条 -->
-                            <div class="w-full bg-gray-800 rounded-full h-1.5 mt-auto group cursor-help"
-                                title="投放进度: 30%">
-                                <div
-                                    class="bg-red-600 h-1.5 rounded-full w-[30%] relative overflow-hidden progress-shimmer">
-                                    <div class="absolute inset-0 bg-white opacity-20 animate-pulse"></div>
-                                </div>
-                            </div>
-                        </div>
 
                 </section>
             </div>
@@ -550,8 +553,14 @@
                 <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
                 <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
                 <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" alt="Rust"
+                    title="Rust" style="filter: brightness(0) invert(1);">
                 <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
                 <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"
+                    title="GitHub" style="filter: brightness(0) invert(1);">
+                <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw-color.svg" alt="OpenClaw"
+                    title="OpenClaw" class="openclaw-icon">
             </div>
             <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
             <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
@@ -631,6 +640,7 @@
     <script src="js/config.js?v=20260306c"></script>
     <script src="js/audio.js?v=20260306c"></script>
     <script src="js/achievements.js?v=20260306c"></script>
+    <script src="js/giteeActivity.js?v=20260318a"></script>
     <script src="js/game/Leaderboard.js?v=20260306c"></script>
     <script src="js/game/BaseGame.js?v=20260306c"></script>
     <script src="js/game/AimGame.js?v=20260306c"></script>
