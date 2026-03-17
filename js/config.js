@@ -109,7 +109,8 @@ window.I18N = {
             killVal: "ERROR_0",
             avgLabel: "综合评分",
             projLabel: "项目数",
-            achLabel: "成就"
+            achLabel: "成就",
+            aiSynergy: "战术部署与 AI 核心"
         },
         missions: {
             title: "MISSIONS",
@@ -220,7 +221,8 @@ window.I18N = {
             killVal: "ERROR_0",
             avgLabel: "Overall Score",
             projLabel: "Projects",
-            achLabel: "Badges"
+            achLabel: "Badges",
+            aiSynergy: "TACTICAL DEPLOY & AI CORE"
         },
         missions: {
             title: "MISSIONS",

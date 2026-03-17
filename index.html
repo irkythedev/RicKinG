@@ -34,14 +34,15 @@
         <header
             class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center gap-6 md:gap-8 relative overflow-hidden">
 
-            <!-- 头像区域 (可以是图片或图标) -->
-            <div class="relative group flex-shrink-0">
-                <div
-                    class="w-28 h-28 md:w-32 md:h-32 rounded-full border-4 border-yellow-500 overflow-hidden shadow-lg transform group-hover:rotate-12 transition-transform duration-300 relative z-10 bg-gray-900 flex items-center justify-center">
-                    <!-- RG 文字头像 (带故障特效) -->
-                    <span class="text-4xl md:text-5xl font-black text-white glitch-text select-none"
-                        data-text="RG">RG</span>
-                </div>
+            <!-- 头像区域及跨平台支持 -->
+            <div class="flex flex-col items-center gap-4 flex-shrink-0 z-10">
+                <div class="relative group">
+                    <div
+                        class="w-28 h-28 md:w-32 md:h-32 rounded-full border-4 border-yellow-500 overflow-hidden shadow-lg transform group-hover:rotate-12 transition-transform duration-300 relative z-10 bg-gray-900 flex items-center justify-center">
+                        <!-- RG 文字头像 (带故障特效) -->
+                        <span class="text-4xl md:text-5xl font-black text-white glitch-text select-none"
+                            data-text="RG">RG</span>
+                    </div>
                 <!-- 动态光圈装饰 -->
                 <div
                     class="absolute inset-0 rounded-full border-2 border-transparent border-t-red-500 border-r-yellow-500 animate-spin-slow -m-1">
@@ -59,6 +60,7 @@
                     aria-label="Toggle Language" title="切换语言 / Switch Language">
                     <span id="lang-switch-label" class="text-xs font-black tracking-tight text-yellow-500">EN</span>
                 </button>
+                </div>
             </div>
 
             <!-- 文字信息 -->
@@ -115,35 +117,35 @@
                 </div>
 
                 <!-- 社交链接按钮 -->
-                <div class="flex flex-wrap gap-3 justify-center md:justify-start items-center">
+                <div class="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start items-center">
                     <!-- Gitee (Active) -->
                     <a href="https://gitee.com/K4Ricky2Win/RicKinG" target="_blank"
-                        class="bg-red-700 hover:bg-red-600 text-white px-4 py-1.5 md:px-5 md:py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50 text-sm md:text-base"
+                        class="bg-red-700 hover:bg-red-600 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full transition border border-red-500 flex items-center gap-2 shadow-lg hover:shadow-red-500/50 text-xs md:text-sm"
                         aria-label="Visit Gitee Repository">
                         <img src="https://gitee.com/favicon.ico"
-                            class="h-4 w-4 md:h-5 md:w-5 rounded-full bg-white p-0.5" alt="Gitee">
+                            class="h-3.5 w-3.5 md:h-4 md:w-4 rounded-full bg-white p-0.5" alt="Gitee">
                         <span id="btn-gitee-text" class="font-bold">Gitee 仓库</span>
                     </a>
 
                     <!-- GitHub (Disabled / Locked) -->
-                    <div class="bg-gray-800 text-gray-500 px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none text-sm md:text-base"
+                    <div class="bg-gray-800 text-gray-500 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-gray-700 flex items-center gap-2 cursor-not-allowed opacity-60 select-none text-xs md:text-sm"
                         title="暂未开放 / Locked" aria-label="GitHub Repository Locked" role="button" aria-disabled="true">
-                        <i class="fab fa-github text-lg md:text-xl" aria-hidden="true"></i>
+                        <i class="fab fa-github text-base md:text-lg" aria-hidden="true"></i>
                         <span id="btn-github-text" class="font-bold">GitHub</span>
                     </div>
 
                     <!-- 联系我 (Flare Gun) -->
-                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-2"
+                    <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-1 md:ml-2"
                         title="发射信号弹 / Signal" aria-label="Fire Signal Flare">
                         <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png"
-                            class="h-10 md:h-12 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim"
+                            class="h-9 md:h-11 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim"
                             alt="Flare Gun">
                     </a>
                 </div>
             </div>
 
-            <!-- 右上角 K/D 数据牌 -->
-            <div class="hidden md:block text-right border-l border-gray-600 pl-8 flex-shrink-0">
+            <!-- 右上角 K/D 数据牌 (兼容移动端) -->
+            <div class="w-full md:w-auto mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-700 md:pl-8 text-center md:text-right flex-shrink-0">
                 <div class="grid grid-cols-2 gap-x-6 gap-y-3">
                     <div>
                         <div id="stats-time-label" class="text-xs text-gray-400">役期时长</div>
@@ -161,6 +163,32 @@
                     <div>
                         <div id="stats-ach-label" class="text-xs text-gray-400">成就</div>
                         <div id="stats-ach-val" class="text-2xl font-mono text-purple-400 font-bold">0/7</div>
+                    </div>
+                    
+                    <!-- 跨平台与AI协同认证 -->
+                    <div class="col-span-2 mt-2 pt-3 border-t border-gray-700/50 flex flex-col items-center md:items-end gap-1.5">
+                        <div id="stats-ai-label" class="text-[10px] text-gray-400 font-mono tracking-widest uppercase mb-1 flex items-center justify-center md:justify-end">
+                            TACTICAL DEPLOY & AI CORE
+                        </div>
+                        <div class="flex flex-wrap justify-center md:justify-end gap-2 items-center">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows11/windows11-original.svg" alt="Windows" title="Windows" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple" title="macOS & iOS" class="w-3.5 h-3.5 brightness-0 invert opacity-80 hover:opacity-100 hover:scale-125 transition-transform cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" title="Linux" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="Android" title="Android" class="w-4 h-4 hover:scale-125 transition-transform cursor-pointer">
+                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#FFD21E] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/huggingface.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/huggingface.svg') no-repeat center/contain;" title="HuggingFace"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#A78BFA] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/lmstudio.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/lmstudio.svg') no-repeat center/contain;" title="LM Studio"></span>
+                            <img src="https://img.icons8.com/color/48/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
+                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#10A37F] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/openai.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/openai.svg') no-repeat center/contain;" title="ChatGPT"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#D97757] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/claude.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/claude.svg') no-repeat center/contain;" title="Claude"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#6B47DD] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/qwen.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/qwen.svg') no-repeat center/contain;" title="Qwen"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#4D88FE] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/deepseek.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/deepseek.svg') no-repeat center/contain;" title="DeepSeek"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#8E75FF] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/gemini.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/gemini.svg') no-repeat center/contain;" title="Gemini"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/grok.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/grok.svg') no-repeat center/contain;" title="Grok"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#325AB4] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/bytedance.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/bytedance.svg') no-repeat center/contain;" title="ByteDance"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/ollama.svg') no-repeat center/contain; mask: url('https://unpkg.com/@lobehub/icons-static-svg/icons/ollama.svg') no-repeat center/contain;" title="Ollama"></span>
+                        </div>
                     </div>
                 </div>
             </div>
