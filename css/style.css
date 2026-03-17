@@ -680,7 +680,7 @@ header span[id="header-role"]:hover::after {
 .achievement-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 6px;
 }
 
 .achievement-badge {
@@ -688,7 +688,7 @@ header span[id="header-role"]:hover::after {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 4px;
+    padding: 6px 4px;
     border-radius: 0.5rem;
     border: 1px solid rgba(255, 255, 255, 0.06);
     background: rgba(17, 24, 39, 0.5);
@@ -716,9 +716,9 @@ header span[id="header-role"]:hover::after {
 }
 
 .achievement-icon {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
 }
 
 .achievement-name {
@@ -823,6 +823,349 @@ header span[id="header-role"]:hover::after {
 }
 
 /* ============================================
+   成就勋章 - 紧凑横条布局 (Achievement Strip)
+   ============================================ */
+.achievement-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+}
+
+.achievement-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.achievement-strip .achievement-badge {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.5);
+    cursor: default;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.achievement-strip .achievement-badge.unlocked {
+    border-color: rgba(234, 179, 8, 0.25);
+    background: rgba(234, 179, 8, 0.06);
+}
+
+.achievement-strip .achievement-badge.unlocked:hover {
+    border-color: rgba(234, 179, 8, 0.5);
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.15);
+    transform: translateY(-1px);
+}
+
+.achievement-strip .achievement-badge.locked {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+.achievement-strip .achievement-icon {
+    font-size: 0.875rem;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+.achievement-strip .achievement-name {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #9CA3AF;
+}
+
+.achievement-strip .achievement-badge.unlocked .achievement-name {
+    color: #EAB308;
+}
+
+/* ============================================
+   Gitee 活跃度热力图 (Heatmap)
+   ============================================ */
+.gitee-heatmap {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    gap: 3px;
+}
+
+.gitee-heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 10px;
+}
+
+.gitee-heatmap-cell:hover {
+    transform: scale(1.3);
+    z-index: 2;
+}
+
+.gitee-heatmap-cell[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.gitee-heatmap-cell[data-level="1"] {
+    background: rgba(234, 179, 8, 0.15);
+    box-shadow: 0 0 3px rgba(234, 179, 8, 0.1);
+}
+
+.gitee-heatmap-cell[data-level="2"] {
+    background: rgba(234, 179, 8, 0.35);
+    box-shadow: 0 0 5px rgba(234, 179, 8, 0.15);
+}
+
+.gitee-heatmap-cell[data-level="3"] {
+    background: rgba(234, 179, 8, 0.55);
+    box-shadow: 0 0 8px rgba(234, 179, 8, 0.2);
+}
+
+.gitee-heatmap-cell[data-level="4"] {
+    background: rgba(234, 179, 8, 0.8);
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+}
+
+/* ============================================
+   Gitee 动态列表 (Activity Feed)
+   ============================================ */
+.gitee-feed {
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(234, 179, 8, 0.2) transparent;
+}
+
+.gitee-feed::-webkit-scrollbar {
+    width: 4px;
+}
+
+.gitee-feed::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.gitee-feed::-webkit-scrollbar-thumb {
+    background: rgba(234, 179, 8, 0.2);
+    border-radius: 4px;
+}
+
+.gitee-feed-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.2s ease;
+}
+
+.gitee-feed-item:last-child {
+    border-bottom: none;
+}
+
+.gitee-feed-item:hover {
+    background: rgba(234, 179, 8, 0.03);
+    border-radius: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.gitee-feed-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gitee-feed-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.gitee-feed-action {
+    font-size: 0.75rem;
+    color: #D1D5DB;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.gitee-feed-action strong {
+    color: #EAB308;
+    font-weight: 700;
+}
+
+.gitee-feed-action a {
+    color: #60A5FA;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.gitee-feed-action a:hover {
+    text-decoration: underline;
+}
+
+.gitee-feed-time {
+    font-size: 0.625rem;
+    color: #6B7280;
+    font-family: 'Segoe UI', monospace;
+    margin-top: 2px;
+}
+
+/* Gitee feed item type icons */
+.gitee-feed-icon.type-push {
+    background: rgba(34, 197, 94, 0.12);
+    color: #22C55E;
+}
+
+.gitee-feed-icon.type-issue {
+    background: rgba(234, 179, 8, 0.12);
+    color: #EAB308;
+}
+
+.gitee-feed-icon.type-pr {
+    background: rgba(168, 85, 247, 0.12);
+    color: #A855F7;
+}
+
+.gitee-feed-icon.type-create {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3B82F6;
+}
+
+.gitee-feed-icon.type-star {
+    background: rgba(250, 204, 21, 0.12);
+    color: #FACC15;
+}
+
+.gitee-feed-icon.type-comment {
+    background: rgba(99, 102, 241, 0.12);
+    color: #6366F1;
+}
+
+.gitee-feed-icon.type-fork {
+    background: rgba(236, 72, 153, 0.12);
+    color: #EC4899;
+}
+
+.gitee-feed-icon.type-default {
+    background: rgba(100, 116, 139, 0.12);
+    color: #64748B;
+}
+
+/* 热力图 tooltip */
+.gitee-heatmap-cell[title] {
+    cursor: pointer;
+}
+
+/* 热力图 Legend */
+.gitee-heatmap-legend {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.gitee-heatmap-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.gitee-heatmap-cell-mini {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.gitee-heatmap-cell-mini[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gitee-heatmap-cell-mini[data-level="1"] {
+    background: rgba(234, 179, 8, 0.15);
+}
+
+.gitee-heatmap-cell-mini[data-level="2"] {
+    background: rgba(234, 179, 8, 0.35);
+}
+
+.gitee-heatmap-cell-mini[data-level="3"] {
+    background: rgba(234, 179, 8, 0.55);
+}
+
+.gitee-heatmap-cell-mini[data-level="4"] {
+    background: rgba(234, 179, 8, 0.8);
+}
+
+.gitee-heatmap-legend-text {
+    font-size: 0.55rem;
+    color: #6B7280;
+    font-family: 'Segoe UI', monospace;
+}
+
+/* Feed item tactical border accent */
+.gitee-feed-item {
+    border-left: 2px solid transparent;
+    padding-left: 8px;
+}
+
+.gitee-feed-item:hover {
+    border-left-color: rgba(234, 179, 8, 0.5);
+}
+
+/* Callsign bracket highlighting in feed */
+.gitee-feed-action {
+    font-family: 'Segoe UI', monospace, sans-serif;
+}
+
+/* Subtle commit message hint — code intel fragment */
+.gitee-feed-commit-hint {
+    font-family: 'Courier New', monospace;
+    font-size: 0.6rem;
+    color: #4ADE80;
+    opacity: 0.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+    margin-top: 1px;
+    letter-spacing: 0.3px;
+    transition: opacity 0.3s ease;
+}
+
+.gitee-feed-item:hover .gitee-feed-commit-hint {
+    opacity: 0.55;
+}
+
+@media (max-width: 639px) {
+    .gitee-heatmap {
+        grid-template-columns: repeat(15, 1fr);
+    }
+
+    .gitee-feed {
+        max-height: 180px;
+    }
+
+    .gitee-heatmap-legend {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* ============================================
    页脚技术栈图标条
    ============================================ */
 .tech-stack-bar {
@@ -845,5 +1188,19 @@ header span[id="header-role"]:hover::after {
 .tech-stack-bar img:hover {
     opacity: 1;
     filter: grayscale(0%);
+    transform: translateY(-2px);
+}
+
+/* OpenClaw emoji fallback */
+.openclaw-emoji-icon {
+    font-size: 20px;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    cursor: default;
+    line-height: 1;
+}
+
+.openclaw-emoji-icon:hover {
+    opacity: 1;
     transform: translateY(-2px);
 }
