@@ -32,7 +32,48 @@
         <!-- 顶部：个人ID卡片 -->
         <!-- 修改提示：这里是你的个人头部信息 -->
         <header
-            class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center gap-6 md:gap-8 relative overflow-hidden">
+            class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col gap-6 md:gap-8 relative overflow-hidden">
+
+            <!-- 1. 顶部全宽标签组 (从最左侧头像上方起始，贯穿全宽) -->
+            <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 border-b border-gray-700/50 pb-4 w-full z-10">
+                <span id="header-rank"
+                    class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS12
+                    王牌</span>
+                <span id="header-role"
+                    class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
+                <span id="tag-react"
+                    class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                        class="h-3 w-3 inline-block" alt="React">
+                    <span id="tag-react-text">React 爱好者</span></span>
+                <span id="tag-tailwind"
+                    class="bg-cyan-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                        class="h-3 w-3 inline-block" alt="Tailwind">
+                    <span id="tag-tailwind-text">Tailwind 战术</span></span>
+                <span id="tag-python"
+                    class="bg-yellow-500/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                        class="h-3 w-3 inline-block" alt="Python">
+                    <span id="tag-python-text">Python 猎手</span></span>
+                <span id="tag-rust"
+                    class="bg-orange-700/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg"
+                        class="h-3 w-3 inline-block brightness-0 invert" alt="Rust">
+                    <span id="tag-rust-text">Rust 先锋</span></span>
+                <span id="tag-llm"
+                    class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
+                    <span id="tag-llm-text">LLM 指挥官</span></span>
+                <span id="tag-openclaw"
+                    class="bg-rose-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
+                    <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw.svg"
+                        class="h-3 w-3 brightness-0 invert inline-block" alt="OpenClaw">
+                    <span id="tag-openclaw-text">养虾专业户</span></span>
+            </div>
+
+            <!-- 2. 下部信息两列排布 (头像左 + 主体排右) -->
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 w-full z-10">
 
             <!-- 头像区域及跨平台支持 -->
             <div class="flex flex-col items-center gap-4 flex-shrink-0 z-10">
@@ -63,45 +104,11 @@
                 </div>
             </div>
 
-            <!-- 文字信息 -->
-            <div class="text-center md:text-left flex-1 min-w-0">
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-3 min-h-[3.5rem]">
-                    <span id="header-rank"
-                        class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS12
-                        王牌</span>
-                    <span id="header-role"
-                        class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
-                    <span id="tag-react"
-                        class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
-                            class="h-3 w-3 inline-block" alt="React">
-                        <span id="tag-react-text">React 爱好者</span></span>
-                    <span id="tag-tailwind"
-                        class="bg-cyan-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
-                            class="h-3 w-3 inline-block" alt="Tailwind">
-                        <span id="tag-tailwind-text">Tailwind 战术</span></span>
-                    <span id="tag-python"
-                        class="bg-yellow-500/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
-                            class="h-3 w-3 inline-block" alt="Python">
-                        <span id="tag-python-text">Python 猎手</span></span>
-                    <span id="tag-rust"
-                        class="bg-orange-700/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg"
-                            class="h-3 w-3 inline-block brightness-0 invert" alt="Rust">
-                        <span id="tag-rust-text">Rust 先锋</span></span>
-                    <span id="tag-llm"
-                        class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
-                        <span id="tag-llm-text">LLM 指挥官</span></span>
-                    <span id="tag-openclaw"
-                        class="bg-rose-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                        <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw.svg"
-                            class="h-3 w-3 brightness-0 invert inline-block" alt="OpenClaw">
-                        <span id="tag-openclaw-text">养虾专业户</span></span>
-                </div>
-                <!-- 你的名字 (带闪烁特效) -->
+            <!-- 主排内容（接管原右侧信息与数据牌） -->
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-6 md:gap-8 flex-1 min-w-0">
+                    <!-- 左侧：核心信息 -->
+                    <div class="text-center md:text-left flex-1 min-w-0">
+                        <!-- 你的名字 (带闪烁特效) -->
                 <h1 id="header-name"
                     class="text-3xl md:text-5xl font-black text-white mb-2 glitch-auto cursor-pointer truncate"
                     data-text="RICKING_PLAYER">
@@ -144,8 +151,8 @@
                 </div>
             </div>
 
-            <!-- 右上角 K/D 数据牌 (兼容移动端) -->
-            <div class="w-full md:w-auto mt-4 md:mt-0 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-700 md:pl-8 text-center md:text-right flex-shrink-0">
+            <!-- 右侧 K/D 数据牌 (兼容移动端) -->
+            <div class="w-full md:w-auto pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-gray-700 md:pl-8 text-center md:text-right flex-shrink-0">
                 <div class="grid grid-cols-2 gap-x-6 gap-y-3">
                     <div>
                         <div id="stats-time-label" class="text-xs text-gray-400">役期时长</div>
@@ -178,6 +185,7 @@
                             <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
                             <span class="inline-block w-3.5 h-3.5 bg-[#FFD21E] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/huggingface.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/huggingface.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="HuggingFace"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#A78BFA] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/lmstudio.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/lmstudio.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="LM Studio"></span>
+                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/ollama.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/ollama.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Ollama"></span>
                             <img src="https://img.icons8.com/color/48/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
                             <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
                             <span class="inline-block w-3.5 h-3.5 bg-[#10A37F] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/openai.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/openai.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ChatGPT"></span>
@@ -187,10 +195,11 @@
                             <span class="inline-block w-3.5 h-3.5 bg-[#8E75FF] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/gemini.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/gemini.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Gemini"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/grok.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/grok.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Grok"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#325AB4] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/bytedance.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/bytedance.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ByteDance"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/ollama.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/ollama.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Ollama"></span>
                         </div>
                     </div>
                 </div>
+
+            </div>
             </div>
         </header>
 
