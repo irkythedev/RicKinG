@@ -507,27 +507,27 @@ function updateChart(lang) {
                     }
                 },
                 tooltip: {
-                    backgroundColor: 'rgba(17, 24, 39, 0.95)',
-                    titleColor: '#EAB308',
-                    bodyColor: '#F3F4F6',
-                    titleFont: { size: 13, weight: 'bold' },
-                    bodyFont: { size: 12 },
-                    padding: 12,
-                    cornerRadius: 8,
-                    displayColors: true,
-                    borderColor: 'rgba(234, 179, 8, 0.3)',
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#FDE047',
+                    bodyColor: '#E5E7EB',
+                    titleFont: { family: "'Oswald', 'PingFang SC', sans-serif", size: 11, weight: 'bold', letterSpacing: 1 },
+                    bodyFont: { family: "'Oswald', 'PingFang SC', sans-serif", size: 11 },
+                    padding: 6,
+                    cornerRadius: 0,
+                    caretSize: 4,
+                    displayColors: false,
+                    borderColor: 'rgba(234, 179, 8, 0.8)',
                     borderWidth: 1,
                     callbacks: {
-                        title: (items) => `⚡ ${items[0].label}`,
+                        title: (items) => `[ TARGET : ${items[0].label} ]`,
                         label: (item) => {
                             const val = item.raw;
                             const currentLang = window.getComputedLang ? window.getComputedLang() : 'zh';
                             const isTarget = item.datasetIndex === 1;
                             const prefix = isTarget
-                                ? (currentLang === 'zh' ? '目标' : 'Target')
-                                : (currentLang === 'zh' ? '当前' : 'Current');
-                            const bar = '█'.repeat(Math.floor(val / 10)) + '░'.repeat(10 - Math.floor(val / 10));
-                            return ` ${prefix}: ${val}/100  ${bar}`;
+                                ? (currentLang === 'zh' ? '战术目标' : 'TRG.LVL')
+                                : (currentLang === 'zh' ? '当前实战' : 'CUR.LVL');
+                            return `${prefix}  >>  ${val}`;
                         }
                     }
                 }
