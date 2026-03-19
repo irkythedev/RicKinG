@@ -1,12 +1,18 @@
 /* --- 全局样式设定 --- */
 body {
-    /* 鼠标样式改为 Kar98k (使用官方 ICON) */
-    cursor: url('https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_Kar98k_C.png') 32 32, crosshair;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* 狙击准星光标效果 (白准星默认) */
+    cursor: url('https://img.icons8.com/ios-filled/24/ffffff/crosshair.png') 12 12, crosshair;
+    /* 战术字体家族：英文使用 Oswald 加强吃鸡硬派排版，中文兜底系统无衬线抗锯齿字体 */
+    font-family: 'Oswald', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
     overflow-x: hidden;
     /* 防止左右滚动条出现 */
     touch-action: manipulation;
     /* 优化移动端触摸 */
+}
+
+/* 交互元素悬停时变成红色准星 (致命击杀锁定) */
+a, button, [role="button"], .cursor-pointer {
+    cursor: url('https://img.icons8.com/ios-filled/24/ef4444/crosshair.png') 12 12, pointer !important;
 }
 
 /* --- 慢速旋转动画 --- */
@@ -891,21 +897,25 @@ header span[id="header-role"]:hover::after {
 .gitee-heatmap {
     display: grid;
     grid-template-columns: repeat(30, 1fr);
-    gap: 3px;
+    gap: 2px;
 }
 
 .gitee-heatmap-cell {
     aspect-ratio: 1;
-    border-radius: 3px;
+    border-radius: 0;
     background: rgba(255, 255, 255, 0.04);
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     min-height: 10px;
+    transform: skewX(-15deg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gitee-heatmap-cell:hover {
-    transform: scale(1.3);
+    transform: scale(1.4) skewX(-15deg);
     z-index: 2;
+    border-color: rgba(234, 179, 8, 0.8);
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
 }
 
 .gitee-heatmap-cell[data-level="0"] {
@@ -1086,7 +1096,9 @@ header span[id="header-role"]:hover::after {
     display: inline-block;
     width: 8px;
     height: 8px;
-    border-radius: 2px;
+    border-radius: 0;
+    transform: skewX(-15deg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gitee-heatmap-cell-mini[data-level="0"] {
