@@ -19,7 +19,7 @@ window.GiteeActivity = (function () {
         zh: {
             title: 'BATTLE LOG',
             heatmapLabel: '📡 近30天作战热力',
-            heatmapTotal: (n) => `${n} 次行动`,
+            heatmapTotal: (n, u) => u ? `累计火力: ${u.public_repos} 个设施 | 近期行动: ${n} 次` : `近期行动: ${n} 次`,
             statusLive: 'LIVE',
             timeAgo: {
                 now: '刚刚',
@@ -49,7 +49,7 @@ window.GiteeActivity = (function () {
         en: {
             title: 'BATTLE LOG',
             heatmapLabel: '📡 Last 30 Days Ops Heatmap',
-            heatmapTotal: (n) => `${n} ops`,
+            heatmapTotal: (n, u) => u ? `Total Fronts: ${u.public_repos} | Recent Ops: ${n}` : `Recent Ops: ${n}`,
             statusLive: 'LIVE',
             timeAgo: {
                 now: 'just now',
@@ -144,14 +144,24 @@ window.GiteeActivity = (function () {
     // ------------ Fetch events ------------
     async function fetchEvents() {
         const cached = _getCached();
-        if (cached) return cached;
+        if (cached && cached.events !== undefined) return cached;
 
         try {
-            const resp = await fetch(`${API_BASE}/users/${GITEE_USER}/events/public?limit=30&page=1`, {
+            const evResp = await fetch(`${API_BASE}/users/${GITEE_USER}/events/public?limit=30&page=1`, {
                 headers: { 'Accept': 'application/json' }
             });
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const data = await resp.json();
+            if (!evResp.ok) throw new Error(`HTTP ${evResp.status}`);
+            const events = await evResp.json();
+
+            let user = null;
+            try {
+                const uResp = await fetch(`${API_BASE}/users/${GITEE_USER}`, {
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (uResp.ok) user = await uResp.json();
+            } catch(e) {}
+
+            const data = { events, user };
             _setCache(data);
             return data;
         } catch (err) {
@@ -161,7 +171,9 @@ window.GiteeActivity = (function () {
     }
 
     // ------------ Render heatmap ------------
-    function renderHeatmap(events, lang) {
+    function renderHeatmap(data, lang) {
+        const events = data ? data.events : null;
+        const user = data ? data.user : null;
         const container = document.getElementById('gitee-heatmap');
         const totalEl = document.getElementById('gitee-heatmap-total');
         const labelEl = document.getElementById('gitee-heatmap-label');
@@ -191,7 +203,7 @@ window.GiteeActivity = (function () {
             });
         }
 
-        if (totalEl) totalEl.textContent = t.heatmapTotal(totalActions);
+        if (totalEl) totalEl.textContent = t.heatmapTotal(totalActions, user);
 
         // Find max for level scaling
         const counts = Object.values(dayCounts);
@@ -323,12 +335,12 @@ window.GiteeActivity = (function () {
         const t = I18N_FEED[lang] || I18N_FEED.en;
         if (titleEl) titleEl.textContent = t.title;
 
-        const events = await fetchEvents();
-        const online = !!events;
+        const data = await fetchEvents();
+        const online = !!data;
 
         updateStatus(online, lang);
-        renderHeatmap(events, lang);
-        renderFeed(events, lang);
+        renderHeatmap(data, lang);
+        renderFeed(data ? data.events : null, lang);
     }
 
     async function refresh(lang) {
