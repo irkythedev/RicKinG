@@ -22,8 +22,25 @@
 
 <body class="bg-gray-900 text-gray-200 min-h-screen relative selection:bg-red-500 selection:text-white">
 
+    <!-- 战术准心 (自定义光标) -->
+    <div id="tactical-cursor">
+        <div class="cursor-recoil-wrapper">
+            <div class="cursor-scope">
+                <div class="cursor-dot"></div>
+                <div class="cursor-crosshair top"></div>
+                <div class="cursor-crosshair bottom"></div>
+                <div class="cursor-crosshair left"></div>
+                <div class="cursor-crosshair right"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- 背景烟雾画布 -->
     <canvas id="smoke-canvas"></canvas>
+
+    <!-- 隐藏的战术通讯电台 -->
+    <audio id="audio-deploy-zh" src="audio/welcome_zh.mp3" preload="none"></audio>
+    <audio id="audio-deploy-en" src="audio/welcome_en.mp3" preload="none"></audio>
 
 
 
@@ -101,6 +118,13 @@
                     class="absolute -bottom-1 -left-1 bg-gray-800 hover:bg-gray-700 p-1.5 rounded-full border border-gray-600 z-20 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 shadow-lg"
                     aria-label="Toggle Language" title="切换语言 / Switch Language">
                     <span id="lang-switch-label" class="text-xs font-black tracking-tight text-yellow-500">EN</span>
+                </button>
+
+                <!-- 战术对讲机开关 (右上角，无包裹背景) -->
+                <button id="radio-comms-btn" onclick="toggleRadioComms()"
+                    class="absolute -top-2 -right-2 z-20 transition transform hover:scale-125 hover:-rotate-12 focus:outline-none group flex items-center justify-center"
+                    aria-label="Toggle Radio Comms" title="开启通讯 / Enable Radio Comms">
+                    <i id="radio-comms-icon" class="fas fa-walkie-talkie text-gray-500 text-lg md:text-xl drop-shadow-md group-hover:text-yellow-400 transition-all duration-300"></i>
                 </button>
                 </div>
             </div>

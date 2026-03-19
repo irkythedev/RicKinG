@@ -1,18 +1,98 @@
 /* --- 全局样式设定 --- */
 body {
-    /* 狙击准星光标效果 (白准星默认) */
-    cursor: url('https://img.icons8.com/ios-filled/24/ffffff/crosshair.png') 12 12, crosshair;
-    /* 战术字体家族：英文使用 Oswald 加强吃鸡硬派排版，中文兜底系统无衬线抗锯齿字体 */
+    /* 隐藏所有系统光标 (在支持的桌面端由自定义战术准星接管) */
+    cursor: none;
     font-family: 'Oswald', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
     overflow-x: hidden;
-    /* 防止左右滚动条出现 */
     touch-action: manipulation;
-    /* 优化移动端触摸 */
 }
 
-/* 交互元素悬停时变成红色准星 (致命击杀锁定) */
-a, button, [role="button"], .cursor-pointer {
-    cursor: url('https://img.icons8.com/ios-filled/24/ef4444/crosshair.png') 12 12, pointer !important;
+/* --- 自定义狙击枪准星光标系统 --- */
+@media (pointer: fine) {
+    *, a, button, [role="button"], .cursor-pointer {
+        cursor: none !important; /* 强制覆盖所有交互元素光标 */
+    }
+
+    #tactical-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        pointer-events: none; /* 绝对不能阻挡点击事件 */
+        z-index: 999999;
+        will-change: transform;
+        /* 通过 JS 实时更改 transform: translate3d(x, y, 0) */
+    }
+
+    .cursor-recoil-wrapper {
+        width: 100%;
+        height: 100%;
+        transform-origin: center bottom;
+    }
+
+    .cursor-scope {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-sizing: border-box;
+        transition: all 0.15s cubic-bezier(0.2, 1, 0.3, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 中心红点 */
+    .cursor-dot {
+        width: 4px;
+        height: 4px;
+        background-color: #ef4444;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #ef4444;
+        transition: all 0.15s ease;
+    }
+
+    /* 准星四角刻度线 */
+    .cursor-crosshair {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: all 0.15s ease;
+    }
+    .cursor-crosshair.top { width: 2px; height: 8px; top: -4px; left: 13px; }
+    .cursor-crosshair.bottom { width: 2px; height: 8px; bottom: -4px; left: 13px; }
+    .cursor-crosshair.left { width: 8px; height: 2px; left: -4px; top: 13px; }
+    .cursor-crosshair.right { width: 8px; height: 2px; right: -4px; top: 13px; }
+
+    /* 锁定状态 (Hover Action) */
+    #tactical-cursor.locked .cursor-scope {
+        border-color: rgba(234, 179, 8, 0.8);
+        transform: scale(0.65) rotate(45deg);
+        background: rgba(234, 179, 8, 0.1);
+    }
+    #tactical-cursor.locked .cursor-crosshair {
+        background-color: rgba(234, 179, 8, 1);
+    }
+    #tactical-cursor.locked .cursor-dot {
+        background-color: #EAB308;
+        box-shadow: 0 0 8px #EAB308;
+    }
+
+    /* 开火后坐力 (Recoil Animation) */
+    @keyframes recoil {
+        0% { transform: translateY(0) scale(1); }
+        20% { transform: translateY(-15px) scale(1.15); } /* 枪口急剧上跳 */
+        50% { transform: translateY(3px) scale(0.95); }  /* 枪口下沉回压 */
+        100% { transform: translateY(0) scale(1); }      /* 恢复稳定 */
+    }
+    .cursor-recoil-wrapper.firing {
+        animation: recoil 0.25s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    }
+}
+/* 移动端/无精细指针设备：自动隐藏准星以防干扰触摸流 */
+@media (pointer: coarse) {
+    #tactical-cursor { display: none !important; }
 }
 
 /* --- 慢速旋转动画 --- */
@@ -912,10 +992,42 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-heatmap-cell:hover {
-    transform: scale(1.4) skewX(-15deg);
-    z-index: 2;
-    border-color: rgba(234, 179, 8, 0.8);
-    box-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+    transform: skewX(-15deg);
+    z-index: 100;
+    border-color: rgba(234, 179, 8, 1);
+    box-shadow: 0 0 12px rgba(234, 179, 8, 0.8), inset 0 0 5px rgba(234, 179, 8, 0.5);
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- PUBG PUBG Style Heatmap Tooltip --- */
+.gitee-heatmap-cell[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 160%;
+    left: 50%;
+    transform: translateX(-50%) skewX(15deg); /* 反向修正斜切以保证文字方正 */
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(234, 179, 8, 0.8);
+    color: #EAB308;
+    padding: 4px 8px;
+    font-size: 11px;
+    font-family: 'Oswald', 'PingFang SC', sans-serif;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+}
+
+.gitee-heatmap-cell[data-tip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) skewX(15deg);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(234, 179, 8, 0.8) transparent transparent transparent;
+    pointer-events: none;
 }
 
 .gitee-heatmap-cell[data-level="0"] {

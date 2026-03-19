@@ -56,6 +56,56 @@ function animateSmoke() {
 }
 animateSmoke();
 
+// --- 战术准星控制系统 (Custom Tactical Cursor) ---
+(function initTacticalCursor() {
+    // 仅在有高精度鼠标指针的设备（PC端）上启用，防止触屏设备出现乱入的光标
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
+    const cursor = document.getElementById('tactical-cursor');
+    if (!cursor) return;
+    const recoilWrapper = cursor.querySelector('.cursor-recoil-wrapper');
+
+    // 默认初始居中，防止未移动鼠标前光标闪现到 0,0
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+
+    // 追踪鼠标移动
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        // 使用 translate3d 获得最佳硬件加速性能，减去半个宽度(16px)以强制定心
+        cursor.style.transform = `translate3d(${mouseX - 16}px, ${mouseY - 16}px, 0)`;
+        
+        // 目标锁定状态检测
+        const target = e.target;
+        const isClickable = target.closest('a, button, [role="button"], .cursor-pointer, .gitee-heatmap-cell, .achievement-badge, .flip-card');
+        
+        if (isClickable) {
+            cursor.classList.add('locked');
+        } else {
+            cursor.classList.remove('locked');
+        }
+    });
+
+    // 模拟后坐力散布跳动
+    document.addEventListener('mousedown', () => {
+        recoilWrapper.classList.remove('firing');
+        void recoilWrapper.offsetWidth; // 触发 reflow 重绘，才能保证连续点击能重复播放动画
+        recoilWrapper.classList.add('firing');
+    });
+
+    recoilWrapper.addEventListener('animationend', () => {
+        recoilWrapper.classList.remove('firing');
+    });
+
+    // 鼠标离开/进入浏览器窗口区域时，隐藏/显示准星
+    document.addEventListener('mouseout', (e) => {
+        if (!e.relatedTarget) cursor.style.display = 'none';
+    });
+    document.addEventListener('mouseover', () => {
+        cursor.style.display = '';
+    });
+})();
 
 // --- 2. 全局点击特效 (漂浮文字) ---
 function showClickEffect(e) {
@@ -107,6 +157,45 @@ function bindGameEntrances() {
 // Expose closeGameModal globally for the close button in HTML
 window.closeGameModal = () => gameManager.closeModal();
 
+// --- 战术电台通讯 (Radio Comms) ---
+let radioEnabled = false;
+window.toggleRadioComms = function() {
+    radioEnabled = !radioEnabled;
+    const icon = document.getElementById('radio-comms-icon');
+    const btn = document.getElementById('radio-comms-btn');
+    const lang = window.getComputedLang();
+    
+    // 强制切断当前通讯频段
+    const audioZh = document.getElementById('audio-deploy-zh');
+    const audioEn = document.getElementById('audio-deploy-en');
+    if (audioZh) { audioZh.pause(); audioZh.currentTime = 0; }
+    if (audioEn) { audioEn.pause(); audioEn.currentTime = 0; }
+    
+    if (radioEnabled) {
+        // 开启通讯
+        icon.className = 'fas fa-walkie-talkie text-yellow-500 text-lg md:text-xl drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all duration-300';
+        btn.classList.add('animate-pulse'); // 模拟电台信号脉冲
+        
+        const targetAudio = lang === 'zh' ? audioZh : audioEn;
+        if (targetAudio) {
+            targetAudio.volume = 0.8;
+            targetAudio.play().catch(e => {
+                console.log('Tactical Comms Blocked by browser:', e);
+                icon.className = 'fas fa-walkie-talkie text-red-500 text-lg md:text-xl drop-shadow-md transition-all duration-300';
+                btn.classList.remove('animate-pulse');
+                radioEnabled = false;
+            });
+            targetAudio.onended = () => {
+                btn.classList.remove('animate-pulse');
+                // 恢复默认高亮或者保持开启直到用户手动关？我们保持原逻辑
+            };
+        }
+    } else {
+        // 静默
+        icon.className = 'fas fa-walkie-talkie text-gray-500 text-lg md:text-xl drop-shadow-md group-hover:text-yellow-400 transition-all duration-300';
+        btn.classList.remove('animate-pulse');
+    }
+};
 
 // --- 4. 多语言支持 ---
 
