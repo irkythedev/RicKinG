@@ -224,7 +224,7 @@ window.GiteeActivity = (function () {
             const dateLabel = new Date(day).toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' });
             const levelName = t.legend[level];
             const tip = `${dateLabel} — ${levelName} (${count})`;
-            html += `<div class="gitee-heatmap-cell" data-level="${level}" title="${tip}"></div>`;
+            html += `<div class="gitee-heatmap-cell" data-level="${level}" data-tip="${tip}"></div>`;
         });
 
         // Legend
