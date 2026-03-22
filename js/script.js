@@ -227,6 +227,114 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+// --- 生物特征认证扫描仪 (ID Scan Protocol) ---
+window.startIdentifyScan = async function() {
+    // 1. 获取访客特征 (客户端)
+    const ua = navigator.userAgent;
+    let browser = "UAV Unknown System";
+    if (ua.indexOf("Firefox") > -1) browser = "Firefox Tactical Optics";
+    else if (ua.indexOf("Edg") > -1) browser = "Edge Recon Lens";
+    else if (ua.indexOf("Chrome") > -1) browser = "Chrome Scope 8x";
+    else if (ua.indexOf("Safari") > -1) browser = "Safari Night Vision";
+
+    let os = "Unknown Territory";
+    if (ua.indexOf("Win") > -1) os = "Windows Ground Base";
+    else if (ua.indexOf("Mac") > -1) os = "macOS Airborne Unit";
+    else if (ua.indexOf("Linux") > -1) os = "Linux Covert Ops";
+    else if (ua.indexOf("Android") > -1) os = "Android Mobile Recon";
+    else if (ua.indexOf("iPhone") > -1 || ua.indexOf("iPad") > -1) os = "iOS Mobile Recon";
+    
+    // 2. 创建覆盖层 (不再全屏黑屏遮挡，仅保留极淡的暗化以便聚焦)
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 z-[999999] bg-black/40 backdrop-blur-[2px] flex items-center justify-center font-mono overflow-hidden transition-all duration-300';
+    // 点击背景空白处关闭
+    overlay.onclick = (e) => {
+        if (e.target === overlay) overlay.remove();
+    };
+    
+    // 3. 弹窗容器 (迷你版，PUBG UI风格的黄灰配色，类似小面板)
+    const terminal = document.createElement('div');
+    terminal.className = 'relative w-[85%] max-w-sm border border-gray-600 p-4 md:p-6 shadow-2xl bg-gray-900/95 text-gray-300 rounded-md';
+    
+    terminal.innerHTML = `
+        <div class="absolute inset-0 pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-b before:from-transparent before:via-yellow-500/10 before:to-transparent before:animate-bio-scan overflow-hidden rounded-md"></div>
+        <div class="flex items-center gap-3 mb-4 border-b border-gray-700 pb-3 relative z-10 w-full">
+            <i class="fas fa-fingerprint text-2xl text-yellow-500 animate-pulse drop-shadow-[0_0_5px_rgba(234,179,8,0.5)]"></i>
+            <div>
+                <h2 class="text-sm md:text-base font-bold tracking-widest text-yellow-500 m-0 leading-tight">IDENTITY_SCAN</h2>
+                <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 uppercase">Tactical Auth Protocol</div>
+            </div>
+            <button class="ml-auto text-gray-500 hover:text-red-500 transition-colors font-bold text-lg px-2 focus:outline-none" onclick="this.closest('.fixed').remove()">×</button>
+        </div>
+        <div id="scan-log" class="text-xs space-y-2 h-36 md:h-40 overflow-y-auto relative z-10 tracking-wide pr-2"></div>
+        <div class="mt-4 pt-3 border-t border-gray-700 text-[9px] text-gray-500 w-full flex justify-between relative z-10 font-bold uppercase">
+            <span>[ Encrypted Connection ]</span>
+            <span class="text-yellow-500 animate-pulse">● Secure</span>
+        </div>
+    `;
+    
+    overlay.appendChild(terminal);
+    document.body.appendChild(overlay);
+    
+    const logBox = overlay.querySelector('#scan-log');
+    
+    // 文本机打字机复用器
+    const typeWriter = async (text, speed = 20) => {
+        const line = document.createElement('div');
+        logBox.appendChild(line);
+        let i = 0;
+        return new Promise(res => {
+            const timer = setInterval(() => {
+                line.textContent += text.charAt(i);
+                logBox.scrollTop = logBox.scrollHeight;
+                i++;
+                if (i >= text.length) {
+                    clearInterval(timer);
+                    res();
+                }
+            }, speed);
+        });
+    };
+
+    const delay = ms => new Promise(r => setTimeout(r, ms));
+    
+    await typeWriter("> 初始化身份雷达扫描协议...");
+    await delay(300);
+    await typeWriter("> 正在锁定目标生物坐标，请求安全放行权限...");
+    await delay(500);
+    
+    let ip = "SIGNAL INTERCEPTED";
+    try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        if (res.ok) {
+            const data = await res.json();
+            ip = data.ip;
+        }
+    } catch(e) {}
+
+    await typeWriter(`> [ 雷达追踪 ] IPv4 作战坐标定位: ${ip}`, 15);
+    await delay(400);
+    await typeWriter(`> [ 硬件防线 ] 终端火力型号: ${os}`, 15);
+    await delay(400);
+    await typeWriter(`> [ 光学侦查 ] 准镜光学引擎: ${browser}`, 15);
+    await delay(600);
+    await typeWriter("> 正在拉取国际防务指纹数据库进行比对...");
+    await delay(800);
+    
+    const lineRes = document.createElement('div');
+    lineRes.className = 'text-yellow-400 mt-3 mb-2 font-bold animate-pulse text-[13px] border-l-4 border-yellow-400 pl-2 bg-yellow-400/10 py-1';
+    lineRes.textContent = ">> 身份标记：[ 友军 ]。欢迎回归！";
+    logBox.appendChild(lineRes);
+    
+    const btnEnter = document.createElement('button');
+    btnEnter.className = 'w-full mt-3 bg-yellow-500/20 hover:bg-yellow-500 hover:text-gray-900 border border-yellow-500/50 text-yellow-500 py-1.5 text-xs font-bold tracking-widest transition-colors focus:outline-none rounded-sm uppercase';
+    btnEnter.textContent = "确认身份 ( ENTER )";
+    btnEnter.onclick = () => overlay.remove();
+    logBox.appendChild(btnEnter);
+
+    logBox.scrollTop = logBox.scrollHeight;
+};
+
 // --- 4. 多语言支持 ---
 window.setLanguage = function (lang) {
     if (lang !== currentLang) {
