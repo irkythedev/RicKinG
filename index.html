@@ -38,9 +38,6 @@
     <!-- 背景烟雾画布 -->
     <canvas id="smoke-canvas"></canvas>
 
-    <!-- 隐藏的战术通讯电台 -->
-    <audio id="audio-deploy-zh" src="audio/welcome_zh.mp3" preload="none"></audio>
-    <audio id="audio-deploy-en" src="audio/welcome_en.mp3" preload="none"></audio>
 
 
 
@@ -55,8 +52,8 @@
             <!-- 1. 顶部全宽标签组 (从最左侧头像上方起始，贯穿全宽) -->
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 border-b border-gray-700/50 pb-4 w-full z-10">
                 <span id="header-rank"
-                    class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS12
-                    王牌</span>
+                    class="bg-yellow-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">SS37
+                    皇冠</span>
                 <span id="header-role"
                     class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
                 <span id="tag-react"
@@ -120,12 +117,11 @@
                     <span id="lang-switch-label" class="text-xs font-black tracking-tight text-yellow-500">EN</span>
                 </button>
 
-                <!-- 战术对讲机开关 (右上角，无包裹背景) -->
-                <button id="radio-comms-btn" onclick="toggleRadioComms()"
-                    class="absolute -top-2 -right-2 z-20 transition transform hover:scale-125 hover:-rotate-12 focus:outline-none group flex items-center justify-center"
-                    aria-label="Toggle Radio Comms" title="开启通讯 / Enable Radio Comms">
-                    <i id="radio-comms-icon" class="fas fa-walkie-talkie text-gray-500 text-lg md:text-xl drop-shadow-md group-hover:text-yellow-400 transition-all duration-300"></i>
-                </button>
+                <!-- 赛季皇冠排位徽章 (右上角，无交互纯展示) -->
+                <div class="absolute -top-3 -right-3 z-30 pointer-events-none drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]"
+                    title="SS37 皇冠 / Crown Tier">
+                    <img src="https://img.icons8.com/color/48/crown.png" class="w-8 h-8 md:w-10 md:h-10 filter brightness-110 -rotate-12" alt="Crown Tier">
+                </div>
                 </div>
             </div>
 

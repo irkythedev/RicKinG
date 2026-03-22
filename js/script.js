@@ -157,45 +157,7 @@ function bindGameEntrances() {
 // Expose closeGameModal globally for the close button in HTML
 window.closeGameModal = () => gameManager.closeModal();
 
-// --- 战术电台通讯 (Radio Comms) ---
-let radioEnabled = false;
-window.toggleRadioComms = function() {
-    radioEnabled = !radioEnabled;
-    const icon = document.getElementById('radio-comms-icon');
-    const btn = document.getElementById('radio-comms-btn');
-    const lang = window.getComputedLang();
-    
-    // 强制切断当前通讯频段
-    const audioZh = document.getElementById('audio-deploy-zh');
-    const audioEn = document.getElementById('audio-deploy-en');
-    if (audioZh) { audioZh.pause(); audioZh.currentTime = 0; }
-    if (audioEn) { audioEn.pause(); audioEn.currentTime = 0; }
-    
-    if (radioEnabled) {
-        // 开启通讯
-        icon.className = 'fas fa-walkie-talkie text-yellow-500 text-lg md:text-xl drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all duration-300';
-        btn.classList.add('animate-pulse'); // 模拟电台信号脉冲
-        
-        const targetAudio = lang === 'zh' ? audioZh : audioEn;
-        if (targetAudio) {
-            targetAudio.volume = 0.8;
-            targetAudio.play().catch(e => {
-                console.log('Tactical Comms Blocked by browser:', e);
-                icon.className = 'fas fa-walkie-talkie text-red-500 text-lg md:text-xl drop-shadow-md transition-all duration-300';
-                btn.classList.remove('animate-pulse');
-                radioEnabled = false;
-            });
-            targetAudio.onended = () => {
-                btn.classList.remove('animate-pulse');
-                // 恢复默认高亮或者保持开启直到用户手动关？我们保持原逻辑
-            };
-        }
-    } else {
-        // 静默
-        icon.className = 'fas fa-walkie-talkie text-gray-500 text-lg md:text-xl drop-shadow-md group-hover:text-yellow-400 transition-all duration-300';
-        btn.classList.remove('animate-pulse');
-    }
-};
+
 
 // --- 4. 多语言支持 ---
 
