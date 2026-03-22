@@ -28,17 +28,17 @@ window.GiteeActivity = (function () {
                 day: (n) => `${n}天前`,
             },
             actions: {
-                PushEvent: (repo, cs) => `[${cs}] 空投代码包投放至 <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                IssueEvent: (repo, cs) => `[${cs}] 标记新战区目标 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                IssueCommentEvent: (repo, cs) => `[${cs}] 战术通讯 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                PullRequestEvent: (repo, cs) => `[${cs}] 发起合并请求 → <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                PullRequestCommentEvent: (repo, cs) => `[${cs}] PR 通讯 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                CreateEvent: (repo, cs) => `[${cs}] 开辟新战线 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                DeleteEvent: (repo, cs) => `[${cs}] 撤退阵地 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                StarEvent: (repo, cs) => `[${cs}] 标记空投 ★ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                ForkEvent: (repo, cs) => `[${cs}] 复制战术图 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                MemberEvent: (repo, cs) => `[${cs}] 队伍集结 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                _default: (repo, cs) => `[${cs}] 战区活动 @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
+                PushEvent: (repo, cs) => `[${cs}] 空投代码包投放至 <span class="font-bold">${_repoName(repo)}</span>`,
+                IssueEvent: (repo, cs) => `[${cs}] 标记新战区目标 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                IssueCommentEvent: (repo, cs) => `[${cs}] 战术通讯 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                PullRequestEvent: (repo, cs) => `[${cs}] 发起合并请求 → <span class="font-bold">${_repoName(repo)}</span>`,
+                PullRequestCommentEvent: (repo, cs) => `[${cs}] PR 通讯 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                CreateEvent: (repo, cs) => `[${cs}] 开辟新战线 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                DeleteEvent: (repo, cs) => `[${cs}] 撤退阵地 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                StarEvent: (repo, cs) => `[${cs}] 标记空投 ★ <span class="font-bold">${_repoName(repo)}</span>`,
+                ForkEvent: (repo, cs) => `[${cs}] 复制战术图 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                MemberEvent: (repo, cs) => `[${cs}] 队伍集结 @ <span class="font-bold">${_repoName(repo)}</span>`,
+                _default: (repo, cs) => `[${cs}] 战区活动 @ <span class="font-bold">${_repoName(repo)}</span>`,
             },
             emptyTitle: '频道静默中...',
             emptyDesc: '近期未检测到行动信号。<br>[ 等待下一次空投 ]',
@@ -58,17 +58,17 @@ window.GiteeActivity = (function () {
                 day: (n) => `${n}d ago`,
             },
             actions: {
-                PushEvent: (repo, cs) => `[${cs}] Airdrop deployed → <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                IssueEvent: (repo, cs) => `[${cs}] Target marked @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                IssueCommentEvent: (repo, cs) => `[${cs}] Radio chatter @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                PullRequestEvent: (repo, cs) => `[${cs}] Merge request fired → <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                PullRequestCommentEvent: (repo, cs) => `[${cs}] PR comms @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                CreateEvent: (repo, cs) => `[${cs}] New front opened @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                DeleteEvent: (repo, cs) => `[${cs}] Position abandoned @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                StarEvent: (repo, cs) => `[${cs}] Drop marked ★ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                ForkEvent: (repo, cs) => `[${cs}] Tactical map copied @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                MemberEvent: (repo, cs) => `[${cs}] Squad assembled @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
-                _default: (repo, cs) => `[${cs}] Zone activity @ <a href="https://gitee.com/${repo}" target="_blank">${_repoName(repo)}</a>`,
+                PushEvent: (repo, cs) => `[${cs}] Airdrop deployed → <span class="font-bold">${_repoName(repo)}</span>`,
+                IssueEvent: (repo, cs) => `[${cs}] Target marked @ <span class="font-bold">${_repoName(repo)}</span>`,
+                IssueCommentEvent: (repo, cs) => `[${cs}] Radio chatter @ <span class="font-bold">${_repoName(repo)}</span>`,
+                PullRequestEvent: (repo, cs) => `[${cs}] Merge request fired → <span class="font-bold">${_repoName(repo)}</span>`,
+                PullRequestCommentEvent: (repo, cs) => `[${cs}] PR comms @ <span class="font-bold">${_repoName(repo)}</span>`,
+                CreateEvent: (repo, cs) => `[${cs}] New front opened @ <span class="font-bold">${_repoName(repo)}</span>`,
+                DeleteEvent: (repo, cs) => `[${cs}] Position abandoned @ <span class="font-bold">${_repoName(repo)}</span>`,
+                StarEvent: (repo, cs) => `[${cs}] Drop marked ★ <span class="font-bold">${_repoName(repo)}</span>`,
+                ForkEvent: (repo, cs) => `[${cs}] Tactical map copied @ <span class="font-bold">${_repoName(repo)}</span>`,
+                MemberEvent: (repo, cs) => `[${cs}] Squad assembled @ <span class="font-bold">${_repoName(repo)}</span>`,
+                _default: (repo, cs) => `[${cs}] Zone activity @ <span class="font-bold">${_repoName(repo)}</span>`,
             },
             emptyTitle: 'Channel Silent...',
             emptyDesc: 'No ops detected in the zone.<br>[ Awaiting next airdrop ]',
@@ -279,7 +279,7 @@ window.GiteeActivity = (function () {
                 const lastCommit = ev.payload.commits[ev.payload.commits.length - 1];
                 if (lastCommit?.message) {
                     const msg = lastCommit.message.split('\n')[0].substring(0, 50);
-                    commitHint = `<div class="gitee-feed-commit-hint">// ${msg}</div>`;
+                    commitHint = `<div class="gitee-feed-commit-hint truncate">// ${msg}</div>`;
 
                     // Dynamically change icon based on commit message prefix
                     const lowerMsg = msg.toLowerCase();
@@ -299,15 +299,28 @@ window.GiteeActivity = (function () {
             const actionText = actionFn(repoName, callsign);
             const timeText = _timeAgo(ev.created_at, lang);
 
+            // 构建 Gitee 直达作战坐标 URL
+            let url = `https://gitee.com/${repoName}`;
+            if (type === 'PushEvent' && ev.payload?.commits?.length) {
+                const sha = ev.payload.commits[ev.payload.commits.length - 1].sha;
+                if (sha) url = `https://gitee.com/${repoName}/commit/${sha}`;
+            } else if (type === 'IssueEvent' && ev.payload?.issue?.number) {
+                url = `https://gitee.com/${repoName}/issues/${ev.payload.issue.number}`;
+            } else if (type === 'PullRequestEvent' && ev.payload?.pull_request?.number) {
+                url = `https://gitee.com/${repoName}/pulls/${ev.payload.pull_request.number}`;
+            }
+
             html += `
-                <div class="gitee-feed-item">
-                    <div class="gitee-feed-icon ${iconInfo.cls}">${iconInfo.icon}</div>
-                    <div class="gitee-feed-body">
-                        <div class="gitee-feed-action">${actionText}</div>
-                        ${commitHint}
-                        <div class="gitee-feed-time"><i class="fas fa-clock" style="margin-right:3px;opacity:0.5"></i>${timeText}</div>
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="block group" title="${lang === 'zh' ? '直达作战现场' : 'View Target'}">
+                    <div class="gitee-feed-item transition-all duration-300 rounded group-hover:bg-gray-800/40 group-hover:px-2 -mx-2 px-2">
+                        <div class="gitee-feed-icon ${iconInfo.cls} group-hover:scale-110 transition-transform duration-300 shadow-sm">${iconInfo.icon}</div>
+                        <div class="gitee-feed-body min-w-0">
+                            <div class="gitee-feed-action group-hover:text-yellow-400 transition-colors duration-300 truncate">${actionText}</div>
+                            ${commitHint}
+                            <div class="gitee-feed-time"><i class="fas fa-link" style="margin-right:4px;opacity:0.5"></i>${timeText}</div>
+                        </div>
                     </div>
-                </div>`;
+                </a>`;
         });
 
         container.innerHTML = html;

@@ -1091,7 +1091,8 @@ header span[id="header-role"]:hover::after {
     gap: 10px;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    transition: background 0.2s ease;
+    transition: all 0.2s ease;
+    text-decoration: none;
 }
 
 .gitee-feed-item:last-child {
