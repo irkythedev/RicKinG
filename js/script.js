@@ -159,9 +159,18 @@ window.closeGameModal = () => gameManager.closeModal();
 
 
 
+// === 核心数据防务系统 (Data Shield) ===
+// 解决 Safari 无痕模式和微信内置浏览器的 LocalStorage 拦截崩溃问题
+const safeGetStorage = (key) => {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+};
+const safeSetStorage = (key, val) => {
+    try { localStorage.setItem(key, val); } catch (e) {}
+};
+
 // --- 一键收藏日志与HUD反馈 (Collect & Loot System) ---
 window.collectToBackpack = function() {
-    const isCollected = localStorage.getItem('r_collected') === 'true';
+    const isCollected = safeGetStorage('r_collected') === 'true';
     const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
 
     if (isCollected) {
@@ -180,7 +189,7 @@ window.collectToBackpack = function() {
     }
     document.getElementById('collect-badge').classList.remove('hidden');
 
-    localStorage.setItem('r_collected', 'true');
+    safeSetStorage('r_collected', 'true');
     
     // HUD 雷达提示
     window.showTacticalToast(lang === 'zh' ? '物资拾取成功！终端已收入三级包安全库。' : 'Loot successful! Terminal secured in Level 3 Backpack.');
@@ -213,7 +222,7 @@ window.showTacticalToast = function(message) {
 
 // 页面加载时检查拾取状态
 document.addEventListener('DOMContentLoaded', () => {
-    if (localStorage.getItem('r_collected') === 'true') {
+    if (safeGetStorage('r_collected') === 'true') {
         const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
         document.getElementById('collect-icon').classList.add('brightness-125');
         const textEl = document.getElementById('collect-text');
@@ -229,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- 生物特征认证扫描仪 (ID Scan Protocol) ---
 window.startIdentifyScan = async function() {
+    const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
     // 1. 获取访客特征 (客户端)
     const ua = navigator.userAgent;
     let browser = "UAV Unknown System";
@@ -262,7 +272,7 @@ window.startIdentifyScan = async function() {
             <i class="fas fa-fingerprint text-2xl text-yellow-500 animate-pulse drop-shadow-[0_0_5px_rgba(234,179,8,0.5)]"></i>
             <div>
                 <h2 class="text-sm md:text-base font-bold tracking-widest text-yellow-500 m-0 leading-tight">IDENTITY_SCAN</h2>
-                <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 uppercase">Tactical Auth Protocol</div>
+                <div class="text-[9px] md:text-[10px] text-gray-500 mt-1 uppercase">${lang === 'zh' ? '战术安全认证 v2.4' : 'Tactical Auth Protocol v2.4'}</div>
             </div>
             <button class="ml-auto text-gray-500 hover:text-red-500 transition-colors font-bold text-lg px-2 focus:outline-none" onclick="this.closest('.fixed').remove()">×</button>
         </div>
@@ -298,37 +308,60 @@ window.startIdentifyScan = async function() {
 
     const delay = ms => new Promise(r => setTimeout(r, ms));
     
-    await typeWriter("> 初始化身份雷达扫描协议...");
+    await typeWriter(lang === 'zh' ? "> 初始化身份雷达扫描协议..." : "> Initializing Identity Radar Scan Protocol...");
     await delay(300);
-    await typeWriter("> 正在锁定目标生物坐标，请求安全放行权限...");
+    await typeWriter(lang === 'zh' ? "> 正在锁定目标生物坐标，请求安全放行权限..." : "> Locking onto biological coordinates, requesting clearance...");
     await delay(500);
     
     let ip = "SIGNAL INTERCEPTED";
+    let isp = "CLASSIFIED";
+    let loc = "ENCRYPTED GEO-SECTOR";
+    
     try {
-        const res = await fetch('https://api.ipify.org?format=json');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3500);
+        const res = await fetch('https://get.geojs.io/v1/ip/geo.json', { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (res.ok) {
             const data = await res.json();
-            ip = data.ip;
+            ip = data.ip || ip;
+            if (data.city || data.country) loc = `${data.city || 'U.N.K'}, ${data.country || 'U.N'}`;
+            if (data.organization) isp = data.organization.replace('AS', 'AS-').split(' ')[0] + ' COMMS';
+            else isp = data.asn || isp;
+        } else {
+            // 安全防线退线处理
+            const fb = await fetch('https://api.ipify.org?format=json');
+            if (fb.ok) ip = (await fb.json()).ip;
         }
-    } catch(e) {}
+    } catch(e) {
+        console.warn("[ Tactical Radar ] Deep Scan Blocked by Firewall.", e);
+    }
+    
+    const cores = navigator.hardwareConcurrency ? `[ ${navigator.hardwareConcurrency} Cores ]` : '[ Classified ]';
+    const ram = navigator.deviceMemory ? `[ ${navigator.deviceMemory}GB+ ]` : '';
+    const screenRes = `${window.screen.width}x${window.screen.height}`;
 
-    await typeWriter(`> [ 雷达追踪 ] IPv4 作战坐标定位: ${ip}`, 15);
-    await delay(400);
-    await typeWriter(`> [ 硬件防线 ] 终端火力型号: ${os}`, 15);
-    await delay(400);
-    await typeWriter(`> [ 光学侦查 ] 准镜光学引擎: ${browser}`, 15);
+    await typeWriter(lang === 'zh' ? `> [ 卫星定位 ] 截获地表物理坐标: ${loc}` : `> [ SATELLITE ] Surfaced Physical Coordinates: ${loc}`, 15);
+    await delay(300);
+    await typeWriter(lang === 'zh' ? `> [ 防火墙 ] 突破 IPv4 节点网关: ${ip} (${isp})` : `> [ FIREWALL ] Pierced IPv4 Gateway: ${ip} (${isp})`, 15);
+    await delay(300);
+    await typeWriter(lang === 'zh' ? `> [ 核心算力 ] 处理器运算阵列: ${cores} ${ram}` : `> [ MOTHERBOARD ] CPU Processing Array: ${cores} ${ram}`, 15);
+    await delay(300);
+    await typeWriter(lang === 'zh' ? `> [ 硬件防线 ] 终端载具装甲型号: ${os}` : `> [ HARDWARE ] Terminal Armor Model: ${os}`, 15);
+    await delay(300);
+    await typeWriter(lang === 'zh' ? `> [ 光学侦查 ] 准镜光学引擎: ${browser} (${screenRes})` : `> [ OPTICAL RECON ] Optics Engine: ${browser} (${screenRes})`, 15);
     await delay(600);
-    await typeWriter("> 正在拉取国际防务指纹数据库进行比对...");
-    await delay(800);
+    await typeWriter(lang === 'zh' ? "> 正在拉取国际防务指纹数据库进行比对..." : "> Pulling global defense databases for fingerprint cross-reference...");
+    await delay(600);
     
     const lineRes = document.createElement('div');
     lineRes.className = 'text-yellow-400 mt-3 mb-2 font-bold animate-pulse text-[13px] border-l-4 border-yellow-400 pl-2 bg-yellow-400/10 py-1';
-    lineRes.textContent = ">> 身份标记：[ 友军 ]。欢迎回归！";
+    lineRes.textContent = lang === 'zh' ? ">> 身份标记：[ 友军 ]。欢迎回归！" : ">> ID MARK: [ ALLY ]. Welcome back to the frontlines!";
     logBox.appendChild(lineRes);
     
     const btnEnter = document.createElement('button');
     btnEnter.className = 'w-full mt-3 bg-yellow-500/20 hover:bg-yellow-500 hover:text-gray-900 border border-yellow-500/50 text-yellow-500 py-1.5 text-xs font-bold tracking-widest transition-colors focus:outline-none rounded-sm uppercase';
-    btnEnter.textContent = "确认身份 ( ENTER )";
+    btnEnter.textContent = lang === 'zh' ? "确认身份 ( ENTER )" : "AUTHENTICATE ( ENTER )";
     btnEnter.onclick = () => overlay.remove();
     logBox.appendChild(btnEnter);
 
@@ -359,6 +392,18 @@ window.setLanguage = function (lang) {
             else el.innerText = text;
         }
     };
+
+    // Update backpack loot UI based on current storage state & lang
+    const isCollected = safeGetStorage('r_collected') === 'true';
+    if (isCollected) {
+        safeSetText('collect-text', lang === 'zh' ? '已被拾取' : 'SECURED');
+    } else {
+        safeSetText('collect-text', lang === 'zh' ? '收入背包' : 'LOOT DROP');
+    }
+    const btnCollect = document.getElementById('btn-collect');
+    if (btnCollect) {
+        btnCollect.title = lang === 'zh' ? '收入背包 / Save to Level 3 Backpack' : 'Loot to Level 3 Backpack';
+    }
 
     safeSetText('header-rank', t.rank);
     safeSetText('header-role', t.role);
