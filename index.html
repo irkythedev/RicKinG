@@ -49,6 +49,19 @@
         <header
             class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col gap-6 md:gap-8 relative overflow-hidden">
 
+            <!-- 一键收藏 (收入三级包) -->
+            <button id="btn-collect" onclick="collectToBackpack()" class="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 focus:outline-none" title="收入背包 / Save to Backpack">
+                <div class="relative">
+                    <img id="collect-icon" src="https://img.icons8.com/color/48/backpack.png" class="w-6 h-6 md:w-7 md:h-7 opacity-80 group-hover:opacity-100 drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all" alt="Save to Backpack">
+                    <!-- 满格信号角标，初始隐藏 -->
+                    <span id="collect-badge" class="absolute -top-1 -right-1 flex h-3 w-3 hidden">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500 border border-black"></span>
+                    </span>
+                </div>
+                <span id="collect-text" class="text-[9px] font-bold tracking-tight text-gray-500 group-hover:text-yellow-500 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">收入背包</span>
+            </button>
+
             <!-- 1. 顶部全宽标签组 (从最左侧头像上方起始，贯穿全宽) -->
             <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 border-b border-gray-700/50 pb-4 w-full z-10">
                 <span id="header-rank"
@@ -202,12 +215,11 @@
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows11/windows11-original.svg" alt="Windows" title="Windows" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple" title="macOS & iOS" class="w-3.5 h-3.5 brightness-0 invert opacity-80 hover:opacity-100 hover:scale-125 transition-transform cursor-pointer">
                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" title="Linux" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="Android" title="Android" class="w-4 h-4 hover:scale-125 transition-transform cursor-pointer">
+                            <img src="https://img.icons8.com/color/48/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
                             <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
                             <span class="inline-block w-3.5 h-3.5 bg-[#FFD21E] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/huggingface.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/huggingface.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="HuggingFace"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#A78BFA] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/lmstudio.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/lmstudio.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="LM Studio"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/ollama.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/ollama.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Ollama"></span>
-                            <img src="https://img.icons8.com/color/48/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
                             <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
                             <span class="inline-block w-3.5 h-3.5 bg-[#10A37F] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/openai.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/openai.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ChatGPT"></span>
                             <span class="inline-block w-3.5 h-3.5 bg-[#D97757] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/claude.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/claude.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Claude"></span>
