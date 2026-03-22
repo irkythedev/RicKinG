@@ -86,7 +86,7 @@ window.I18N = {
     zh: {
         title: "特种兵_RickinG | 个人主页",
         metaDesc: "RickinG 的战术指挥终端。沉浸式 PUBG 风格个人主页，集成作战数据与项目展示。Winner Winner, Chicken Dinner!",
-        rank: "SS12 王牌",
+        rank: "SS37 皇冠",
         role: "前端突击手",
         tags: {
             react: "React 爱好者",
@@ -197,9 +197,9 @@ window.I18N = {
     },
     en: {
         title: "CMD_RickinG | Personal HQ",
-        metaDesc: "RickinG's Tactical Command Terminal. Immersive PUBG-style personal homepage with player stats and project showcase. Winner Winner, Chicken Dinner!",
-        rank: "SS12 Ace",
-        role: "Frontend Assault",
+        metaDesc: "RickinG's Tactical Command Terminal. Immersive PUBG-style personal homepage integrating combat stats and project showcases. Winner Winner, Chicken Dinner!",
+        rank: "SS37 Crown",
+        role: "Frontend Assaulter",
         tags: {
             react: "React Enthusiast",
             tailwind: "Tailwind Tactics",
