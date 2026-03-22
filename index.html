@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="RickinG 的战术指挥终端。沉浸式 PUBG 风格个人主页，集成作战数据与项目展示。Winner Winner, Chicken Dinner!">
-    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/pubg-helmet.png">
+    <link rel="icon" type="image/png" href="img/icons/pubg-helmet.png">
     <title>特种兵_RickinG | 个人主页</title>
     <!-- 引入 Tailwind CSS (样式库) -->
     <script src="https://cdn.tailwindcss.com"
@@ -52,7 +52,7 @@
             <!-- 一键收藏 (收入三级包) -->
             <button id="btn-collect" onclick="collectToBackpack()" class="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 focus:outline-none" title="收入背包 / Save to Backpack">
                 <div class="relative">
-                    <img id="collect-icon" src="https://img.icons8.com/color/48/backpack.png" class="w-6 h-6 md:w-7 md:h-7 opacity-80 group-hover:opacity-100 drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all" alt="Save to Backpack">
+                    <img id="collect-icon" src="img/icons/backpack.png" class="w-6 h-6 md:w-7 md:h-7 opacity-80 group-hover:opacity-100 drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all" alt="Save to Backpack">
                     <!-- 满格信号角标，初始隐藏 -->
                     <span id="collect-badge" class="absolute -top-1 -right-1 flex h-3 w-3 hidden">
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
@@ -71,31 +71,31 @@
                     class="bg-green-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm">前端突击手</span>
                 <span id="tag-react"
                     class="bg-blue-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                    <img src="img/icons/react-original.svg"
                         class="h-3 w-3 inline-block" alt="React">
                     <span id="tag-react-text">React 爱好者</span></span>
                 <span id="tag-tailwind"
                     class="bg-cyan-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                    <img src="img/icons/tailwindcss-original.svg"
                         class="h-3 w-3 inline-block" alt="Tailwind">
                     <span id="tag-tailwind-text">Tailwind 战术</span></span>
                 <span id="tag-python"
                     class="bg-yellow-500/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                    <img src="img/icons/python-original.svg"
                         class="h-3 w-3 inline-block" alt="Python">
                     <span id="tag-python-text">Python 猎手</span></span>
                 <span id="tag-rust"
                     class="bg-orange-700/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg"
+                    <img src="img/icons/rust-original.svg"
                         class="h-3 w-3 inline-block brightness-0 invert" alt="Rust">
                     <span id="tag-rust-text">Rust 先锋</span></span>
                 <span id="tag-llm"
                     class="bg-purple-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
+                    <img src="img/icons/chatgpt.png" class="h-3 w-3 inline-block" alt="LLM">
                     <span id="tag-llm-text">LLM 指挥官</span></span>
                 <span id="tag-openclaw"
                     class="bg-rose-600/90 text-xs px-2 py-0.5 rounded font-bold text-white shadow-sm flex items-center gap-1">
-                    <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw.svg"
+                    <img src="img/icons/openclaw.svg"
                         class="h-3 w-3 brightness-0 invert inline-block" alt="OpenClaw">
                     <span id="tag-openclaw-text">养虾专业户</span></span>
             </div>
@@ -119,13 +119,13 @@
 
                 <!-- 三级头图标装饰 (使用 Spetsnaz Helmet 图标) -->
                 <div class="absolute -bottom-1 -right-1 bg-gray-800 p-1.5 rounded-full border border-gray-600 z-20">
-                    <img src="https://img.icons8.com/color/48/pubg-helmet.png"
+                    <img src="img/icons/pubg-helmet.png"
                         class="w-5 h-5 md:w-6 md:h-6 object-contain" alt="Level 3 Helmet">
                 </div>
 
                 <!-- 战术身份认证仪 (左上角，指纹扫描模块) -->
                 <button id="btn-id-scan" onclick="startIdentifyScan()" class="absolute -top-1 -left-1 z-20 group focus:outline-none transition-transform hover:scale-110 flex items-center justify-center animate-pulse" aria-label="Auth Scan" title="生物特征认证 / ID Scan">
-                    <img src="https://img.icons8.com/color/48/fingerprint.png" class="w-8 h-8 md:w-10 md:h-10 opacity-90 group-hover:opacity-100 drop-shadow-[0_0_8px_rgba(0,255,0,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(0,255,0,1)] transition-all filter hover:brightness-125" alt="Fingerprint">
+                    <img src="img/icons/fingerprint.png" class="w-8 h-8 md:w-10 md:h-10 opacity-90 group-hover:opacity-100 drop-shadow-[0_0_8px_rgba(0,255,0,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(0,255,0,1)] transition-all filter hover:brightness-125" alt="Fingerprint">
                 </button>
 
                 <!-- 语言切换按钮 (左下角，对应三级头) -->
@@ -137,7 +137,7 @@
                 <!-- 赛季皇冠排位徽章 (右上角，无交互纯展示) -->
                 <div class="absolute -top-3 -right-3 z-30 pointer-events-none drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]"
                     title="SS37 皇冠 / Crown Tier">
-                    <img src="https://img.icons8.com/color/48/crown.png" class="w-8 h-8 md:w-10 md:h-10 filter brightness-110 -rotate-12" alt="Crown Tier">
+                    <img src="img/icons/crown.png" class="w-8 h-8 md:w-10 md:h-10 filter brightness-110 -rotate-12" alt="Crown Tier">
                 </div>
                 </div>
             </div>
@@ -182,7 +182,7 @@
                     <!-- 联系我 (Flare Gun) -->
                     <a href="javascript:void(0)" onclick="fireSignal()" class="relative group ml-1 md:ml-2"
                         title="发射信号弹 / Signal" aria-label="Fire Signal Flare">
-                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Handgun/Item_Weapon_FlareGun_C.png"
+                        <img src="img/icons/flaregun.png"
                             class="h-9 md:h-11 w-auto transform transition duration-300 group-hover:scale-110 group-hover:-rotate-12 filter drop-shadow-lg flare-anim"
                             alt="Flare Gun">
                     </a>
@@ -215,23 +215,24 @@
                         <div id="stats-ai-label" class="text-[10px] text-gray-400 font-mono tracking-widest uppercase mb-1 flex items-center justify-center md:justify-end">
                             TACTICAL DEPLOY & AI CORE
                         </div>
-                        <div class="flex flex-wrap justify-center md:justify-end gap-2 items-center">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows11/windows11-original.svg" alt="Windows" title="Windows" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" alt="Apple" title="macOS & iOS" class="w-3.5 h-3.5 brightness-0 invert opacity-80 hover:opacity-100 hover:scale-125 transition-transform cursor-pointer">
-                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" title="Linux" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
-                            <img src="https://img.icons8.com/color/48/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer">
-                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#FFD21E] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/huggingface.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/huggingface.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="HuggingFace"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#A78BFA] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/lmstudio.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/lmstudio.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="LM Studio"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/ollama.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/ollama.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Ollama"></span>
-                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5"></div>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#10A37F] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/openai.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/openai.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ChatGPT"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#D97757] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/claude.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/claude.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Claude"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#6B47DD] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/qwen.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/qwen.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Qwen"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#4D88FE] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/deepseek.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/deepseek.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="DeepSeek"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#8E75FF] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/gemini.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/gemini.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Gemini"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/grok.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/grok.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Grok"></span>
-                            <span class="inline-block w-3.5 h-3.5 bg-[#325AB4] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/bytedance.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/bytedance.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ByteDance"></span>
+                        <div class="flex flex-nowrap justify-center md:justify-end gap-1.5 md:gap-2 items-center overflow-x-auto pb-1 scrollbar-hide">
+                            <img src="img/icons/windows11-original.svg" alt="Windows" title="Windows" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer flex-shrink-0">
+                            <img src="img/icons/apple-original.svg" alt="Apple" title="macOS & iOS" class="w-3.5 h-3.5 brightness-0 invert opacity-80 hover:opacity-100 hover:scale-125 transition-transform cursor-pointer flex-shrink-0">
+                            <img src="img/icons/android-original.svg" alt="Android" title="Android OS" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer flex-shrink-0">
+                            <img src="img/icons/linux-original.svg" alt="Linux" title="Linux" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer flex-shrink-0">
+                            <img src="img/icons/nvidia.png" alt="Nvidia" title="NVIDIA" class="w-3.5 h-3.5 hover:scale-125 transition-transform cursor-pointer flex-shrink-0">
+                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5 flex-shrink-0"></div>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#FFD21E] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/huggingface.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/huggingface.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="HuggingFace"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#A78BFA] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/lmstudio.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/lmstudio.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="LM Studio"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/ollama.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/ollama.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Ollama"></span>
+                            <div class="w-[1px] h-3 bg-gray-600 mx-0.5 flex-shrink-0"></div>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#10A37F] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/openai.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/openai.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ChatGPT"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#D97757] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/claude.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/claude.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Claude"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#6B47DD] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/qwen.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/qwen.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Qwen"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#4D88FE] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/deepseek.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/deepseek.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="DeepSeek"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#8E75FF] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/gemini.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/gemini.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Gemini"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#E1E1E1] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/grok.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/grok.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="Grok"></span>
+                            <span class="inline-block w-3.5 h-3.5 flex-shrink-0 bg-[#325AB4] hover:scale-125 transition-transform cursor-pointer" style="-webkit-mask-image: url('img/icons/bytedance.svg'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center; mask-image: url('img/icons/bytedance.svg'); mask-size: contain; mask-repeat: no-repeat; mask-position: center;" title="ByteDance"></span>
                         </div>
                     </div>
                 </div>
@@ -254,7 +255,7 @@
                     <div class="crosshair-decor crosshair-br"></div>
 
                     <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-3 flex-nowrap whitespace-nowrap">
-                        <img src="https://img.icons8.com/color/48/pubg-helmet.png" class="h-8 w-auto flex-shrink-0">
+                        <img src="img/icons/pubg-helmet.png" class="h-8 w-auto flex-shrink-0">
                         <span id="stats-title" class="text-yellow-500">PLAYER STATS</span>
                         <span
                             class="ml-auto text-xs font-mono text-gray-500 group-hover/stats:text-yellow-500 transition-colors duration-500 flex-shrink-0">
@@ -282,7 +283,7 @@
                 <!-- 2. 演习任务区 (小游戏入口) -->
                 <section class="glass-panel rounded-xl p-6">
                     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3">
-                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_Kar98k_C.png"
+                        <img src="img/icons/item_weapon_kar98k_c.png"
                             class="h-8 w-auto">
                         <span id="missions-title" class="text-red-500">MISSIONS</span>
                     </h2>
@@ -413,7 +414,7 @@
                 <section class="glass-panel rounded-xl p-8 flex-grow">
                     <div class="mb-6 border-b border-gray-700 pb-4 flex flex-col justify-start gap-2">
                         <h2 class="text-2xl font-bold text-white flex items-center gap-3 relative">
-                            <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Item/Weapon/Main/Item_Weapon_M249_C.png"
+                            <img src="img/icons/item_weapon_m249_c.png"
                                 class="h-10 w-auto">
                             <span id="warehouse-title" class="text-yellow-500">WAREHOUSE</span>
                         </h2>
@@ -439,7 +440,7 @@
 
                                     <!-- 武器图标区 -->
                                     <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
-                                        <img src="https://cdn.jsdelivr.net/gh/pubg/api-assets@master/Assets/Icons/Item/Weapon/Main/Item_Weapon_AWM_C.png"
+                                        <img src="img/icons/item_weapon_awm_c.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]"
                                             alt="AWM Sniper">
                                     </div>
@@ -458,22 +459,22 @@
                                     <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg"
+                                            <img src="img/icons/html5-original.svg"
                                                 class="h-3 w-3" alt="">HTML
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg"
+                                            <img src="img/icons/css3-original.svg"
                                                 class="h-3 w-3" alt="">CSS
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                            <img src="img/icons/javascript-original.svg"
                                                 class="h-3 w-3" alt="">JS
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                                            <img src="img/icons/tailwindcss-original.svg"
                                                 class="h-3 w-3" alt="">Tailwind
                                         </span>
                                     </div>
@@ -521,7 +522,7 @@
 
                                     <!-- 武器图标区 -->
                                     <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
-                                        <img src="https://img.icons8.com/color/48/energy-drink.png"
+                                        <img src="img/icons/energy-drink.png"
                                             class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]"
                                             alt="Energy Drink">
                                     </div>
@@ -541,47 +542,47 @@
                                     <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                                            <img src="img/icons/javascript-original.svg"
                                                 class="h-3 w-3" alt="">JS
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                            <img src="img/icons/react-original.svg"
                                                 class="h-3 w-3" alt="">React
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                                            <img src="img/icons/typescript-original.svg"
                                                 class="h-3 w-3" alt="">TypeScript
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://img.icons8.com/color/48/chatgpt.png" class="h-3 w-3"
+                                            <img src="img/icons/chatgpt.png" class="h-3 w-3"
                                                 alt="">AI
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg"
+                                            <img src="img/icons/tailwindcss-original.svg"
                                                 class="h-3 w-3" alt="">Tailwind
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg"
+                                            <img src="img/icons/apple-original.svg"
                                                 class="h-3 w-3 brightness-0 invert" alt="">iOS
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg"
+                                            <img src="img/icons/android-original.svg"
                                                 class="h-3 w-3" alt="">Android
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://img.icons8.com/color/48/bot.png" class="h-3 w-3"
+                                            <img src="img/icons/bot.png" class="h-3 w-3"
                                                 alt="">Agent
                                         </span>
                                         <span
                                             class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
-                                            <img src="https://img.icons8.com/color/48/map.png" class="h-3 w-3"
+                                            <img src="img/icons/map.png" class="h-3 w-3"
                                                 alt="">Map
                                         </span>
                                     </div>
@@ -623,17 +624,17 @@
         <footer class="mt-12 text-center text-gray-500 text-sm pb-8">
             <!-- 技术栈图标条 -->
             <div class="tech-stack-bar mb-4">
-                <img src="https://img.icons8.com/color/48/html-5--v1.png" alt="HTML5" title="HTML5">
-                <img src="https://img.icons8.com/color/48/css3.png" alt="CSS3" title="CSS3">
-                <img src="https://img.icons8.com/color/48/javascript--v1.png" alt="JavaScript" title="JavaScript">
-                <img src="https://img.icons8.com/color/48/python--v1.png" alt="Python" title="Python">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-original.svg" alt="Rust"
+                <img src="img/icons/html-5.png" alt="HTML5" title="HTML5">
+                <img src="img/icons/css3.png" alt="CSS3" title="CSS3">
+                <img src="img/icons/javascript.png" alt="JavaScript" title="JavaScript">
+                <img src="img/icons/python.png" alt="Python" title="Python">
+                <img src="img/icons/rust-original.svg" alt="Rust"
                     title="Rust" style="filter: brightness(0) invert(1);">
-                <img src="https://img.icons8.com/fluency/48/node-js.png" alt="Node.js" title="Node.js">
-                <img src="https://img.icons8.com/color/48/git.png" alt="Git" title="Git">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"
+                <img src="img/icons/node-js.png" alt="Node.js" title="Node.js">
+                <img src="img/icons/git.png" alt="Git" title="Git">
+                <img src="img/icons/github-original.svg" alt="GitHub"
                     title="GitHub" style="filter: brightness(0) invert(1);">
-                <img src="https://unpkg.com/@lobehub/icons-static-svg/icons/openclaw-color.svg" alt="OpenClaw"
+                <img src="img/icons/openclaw-color.svg" alt="OpenClaw"
                     title="OpenClaw" class="openclaw-icon">
             </div>
             <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
