@@ -7,6 +7,15 @@ body {
     touch-action: manipulation;
 }
 
+/* --- 生物特征雷达扫描动效 (Tactical ID Scan) --- */
+@keyframes bio-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+.animate-bio-scan {
+    animation: bio-scan 2.5s linear infinite;
+}
+
 /* --- 自定义狙击枪准星光标系统 --- */
 @media (pointer: fine) {
     *, a, button, [role="button"], .cursor-pointer {
@@ -20,7 +29,7 @@ body {
         width: 32px;
         height: 32px;
         pointer-events: none; /* 绝对不能阻挡点击事件 */
-        z-index: 999999;
+        z-index: 2147483647; /* 强制最高层级，避开任何全屏Modal遮挡 */
         will-change: transform;
         /* 通过 JS 实时更改 transform: translate3d(x, y, 0) */
     }

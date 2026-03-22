@@ -123,13 +123,17 @@
                         class="w-5 h-5 md:w-6 md:h-6 object-contain" alt="Level 3 Helmet">
                 </div>
 
+                <!-- 战术身份认证仪 (左上角，指纹扫描模块) -->
+                <button id="btn-id-scan" onclick="startIdentifyScan()" class="absolute -top-1 -left-1 z-20 group focus:outline-none transition-transform hover:scale-110 flex items-center justify-center animate-pulse" aria-label="Auth Scan" title="生物特征认证 / ID Scan">
+                    <img src="https://img.icons8.com/color/48/fingerprint.png" class="w-8 h-8 md:w-10 md:h-10 opacity-90 group-hover:opacity-100 drop-shadow-[0_0_8px_rgba(0,255,0,0.7)] group-hover:drop-shadow-[0_0_15px_rgba(0,255,0,1)] transition-all filter hover:brightness-125" alt="Fingerprint">
+                </button>
+
                 <!-- 语言切换按钮 (左下角，对应三级头) -->
                 <button id="lang-switch-btn" onclick="setLanguage(window.getComputedLang() === 'zh' ? 'en' : 'zh')"
                     class="absolute -bottom-1 -left-1 bg-gray-800 hover:bg-gray-700 p-1.5 rounded-full border border-gray-600 z-20 transition transform hover:scale-110 flex items-center justify-center w-8 h-8 md:w-9 md:h-9 shadow-lg"
                     aria-label="Toggle Language" title="切换语言 / Switch Language">
                     <span id="lang-switch-label" class="text-xs font-black tracking-tight text-yellow-500">EN</span>
                 </button>
-
                 <!-- 赛季皇冠排位徽章 (右上角，无交互纯展示) -->
                 <div class="absolute -top-3 -right-3 z-30 pointer-events-none drop-shadow-[0_0_8px_rgba(234,179,8,0.6)]"
                     title="SS37 皇冠 / Crown Tier">
