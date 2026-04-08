@@ -531,8 +531,8 @@ function updateChart(lang) {
                 ctx.beginPath();
                 ctx.arc(point.x, point.y, 6, 0, Math.PI * 2);
                 const grad = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 14);
-                grad.addColorStop(0, 'rgba(234, 179, 8, 0.55)');
-                grad.addColorStop(1, 'rgba(234, 179, 8, 0)');
+                grad.addColorStop(0, `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.55)`);
+                grad.addColorStop(1, `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0)`);
                 ctx.fillStyle = grad;
                 ctx.fill();
                 ctx.restore();
@@ -571,7 +571,7 @@ function updateChart(lang) {
                 ctx.moveTo(cx, cy);
                 ctx.arc(cx, cy, r, a0, a1, true);
                 ctx.closePath();
-                ctx.fillStyle = `rgba(234, 179, 8, ${opacity})`;
+                ctx.fillStyle = `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, ${opacity})`;
                 ctx.fill();
             }
 
@@ -579,22 +579,22 @@ function updateChart(lang) {
             const edgeX = cx + r * Math.cos(sweepAngle);
             const edgeY = cy + r * Math.sin(sweepAngle);
             const lineGrad = ctx.createLinearGradient(cx, cy, edgeX, edgeY);
-            lineGrad.addColorStop(0, 'rgba(234, 179, 8, 0)');
-            lineGrad.addColorStop(0.6, 'rgba(234, 179, 8, 0.4)');
+            lineGrad.addColorStop(0, `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0)`);
+            lineGrad.addColorStop(0.6, `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.4)`);
             lineGrad.addColorStop(1, 'rgba(253, 224, 71, 0.9)');
             ctx.beginPath();
             ctx.moveTo(cx, cy);
             ctx.lineTo(edgeX, edgeY);
             ctx.strokeStyle = lineGrad;
             ctx.lineWidth = 1.5;
-            ctx.shadowColor = 'rgba(234, 179, 8, 0.8)';
+            ctx.shadowColor = `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.8)`;
             ctx.shadowBlur = 6;
             ctx.stroke();
 
             // Center dot pulse
             ctx.beginPath();
             ctx.arc(cx, cy, 3, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(234, 179, 8, 0.7)';
+            ctx.fillStyle = `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.7)`;
             ctx.shadowBlur = 8;
             ctx.fill();
 
@@ -621,10 +621,10 @@ function updateChart(lang) {
                 {
                     label: lang === 'zh' ? '当前水平' : 'Current',
                     data: currentData,
-                    backgroundColor: 'rgba(234, 179, 8, 0.18)',
-                    borderColor: '#EAB308',
+                    backgroundColor: `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.18)`,
+                    borderColor: (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'),
                     borderWidth: 2.5,
-                    pointBackgroundColor: '#EAB308',
+                    pointBackgroundColor: (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'),
                     pointBorderColor: '#1F2937',
                     pointBorderWidth: 2,
                     pointHoverBackgroundColor: '#FDE047',
@@ -663,8 +663,8 @@ function updateChart(lang) {
             },
             scales: {
                 r: {
-                    angleLines: { color: 'rgba(234, 179, 8, 0.08)', lineWidth: 1 },
-                    grid: { color: 'rgba(234, 179, 8, 0.1)', circular: true, lineWidth: 1 },
+                    angleLines: { color: `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.08)`, lineWidth: 1 },
+                    grid: { color: `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.1)`, circular: true, lineWidth: 1 },
                     pointLabels: {
                         color: '#9CA3AF',
                         font: { size: 10, family: "'Segoe UI', sans-serif", weight: 'bold' },
@@ -698,7 +698,7 @@ function updateChart(lang) {
                     cornerRadius: 0,
                     caretSize: 4,
                     displayColors: false,
-                    borderColor: 'rgba(234, 179, 8, 0.8)',
+                    borderColor: `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, 0.8)`,
                     borderWidth: 1,
                     callbacks: {
                         title: (items) => `[ TARGET : ${items[0].label} ]`,

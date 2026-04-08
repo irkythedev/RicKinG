@@ -1,0 +1,76 @@
+/* ==============================================
+   RicKinG Theme Token System (CSS Custom Properties)
+   ==============================================
+   All theme-sensitive colors are centralized here.
+   Default values = PUBG Tactical theme.
+
+   To add a new theme:
+   1. Create a theme object in themeManager.js
+   2. Override these variables via ThemeManager.apply()
+   ============================================== */
+
+:root {
+  /* ─── Primary Accent ─── */
+  --t-accent: #EAB308;
+  --t-accent-rgb: 234, 179, 8;
+  --t-accent-light: #FDE047;
+  --t-accent-light-rgb: 253, 224, 71;
+  --t-accent-dark: #CA8A04;
+  --t-accent-dark-rgb: 202, 138, 4;
+  --t-accent-warm: #fbbf24;
+  --t-accent-warm-rgb: 251, 191, 36;
+
+  /* ─── Danger / Action ─── */
+  --t-danger: #EF4444;
+  --t-danger-rgb: 239, 68, 68;
+
+  /* ─── Success ─── */
+  --t-success: #22C55E;
+  --t-success-muted: #4ADE80;
+
+  /* ─── Surfaces ─── */
+  --t-bg-body: #111827;
+  --t-bg-surface: #1F2937;
+  --t-bg-surface-rgb: 31, 41, 55;
+  --t-bg-elevated: #374151;
+  --t-bg-elevated-rgb: 55, 65, 81;
+  --t-bg-deep: #0F172A;
+  --t-bg-deep-rgb: 15, 23, 42;
+  --t-bg-input: #111827;
+  --t-bg-input-rgb: 17, 24, 39;
+
+  /* ─── Glass Panel ─── */
+  --t-glass-bg: rgba(30, 41, 59, 0.7);
+  --t-glass-border: rgba(255, 255, 255, 0.1);
+  --t-glass-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --t-glass-blur: 10px;
+
+  /* ─── Text ─── */
+  --t-text-heading: #FFFFFF;
+  --t-text-body: #D1D5DB;
+  --t-text-muted: #9CA3AF;
+  --t-text-dim: #6B7280;
+  --t-text-code: #4ADE80;
+
+  /* ─── Borders ─── */
+  --t-border-subtle: rgba(255, 255, 255, 0.06);
+  --t-border-light: rgba(255, 255, 255, 0.1);
+  --t-border-medium: rgba(255, 255, 255, 0.2);
+  --t-border-strong: rgb(75, 85, 99);
+  --t-border-highlight: rgba(255, 255, 255, 0.3);
+
+  /* ─── Effects ─── */
+  --t-smoke-rgb: 100, 116, 139;
+  --t-legendary-glow: rgba(255, 215, 0, 0.6);
+  --t-legendary-border: rgba(255, 215, 0, 0.8);
+  --t-cursor-dot: #ef4444;
+
+  /* ─── Chart ─── */
+  --t-chart-target-bg: rgba(99, 179, 237, 0.06);
+  --t-chart-target-border: rgba(99, 179, 237, 0.6);
+  --t-chart-target-point: rgba(99, 179, 237, 0.7);
+  --t-chart-target-hover: #90CDF4;
+
+  /* ─── Feed ─── */
+  --t-feed-link: #60A5FA;
+}

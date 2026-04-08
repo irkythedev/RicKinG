@@ -18,6 +18,9 @@
     <script src="js/chart.min.js" onerror="console.error('Chart.js failed to load')"></script>
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="css/style.css">
+    <!-- 引入主题样式系统 -->
+    <link rel="stylesheet" href="css/theme-vars.css">
+    <link rel="stylesheet" href="css/theme-tw-bridge.css">
 </head>
 
 <body class="bg-gray-900 text-gray-200 min-h-screen relative selection:bg-red-500 selection:text-white">
@@ -712,6 +715,7 @@
 
     <!-- --- JavaScript 逻辑区域 --- -->
     <!-- 引入自定义脚本 (按顺序) -->
+    <script src="js/themeManager.js?v=20260408"></script>
     <script src="js/config.js?v=20260306c"></script>
     <script src="js/audio.js?v=20260306c"></script>
     <script src="js/achievements.js?v=20260306c"></script>
@@ -723,6 +727,13 @@
     <script src="js/game/VehicleGame.js?v=20260306c"></script>
     <script src="js/game/GameManager.js?v=20260306c"></script>
     <script src="js/script.js?v=20260306c"></script>
+    <script>
+        // 初始化主题系统并生成挂件
+        document.addEventListener('DOMContentLoaded', () => {
+            ThemeManager.init();
+            ThemeManager.createSwitcherUI();
+        });
+    </script>
 </body>
 
 </html>

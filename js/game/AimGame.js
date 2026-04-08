@@ -283,7 +283,7 @@ window.AimGame = class AimGame extends BaseGame {
 
                 let particleColor = '#ffffff';
                 if (t.type === 'rare') particleColor = '#fbbf24';
-                if (t.type === 'airdrop') particleColor = '#eab308';
+                if (t.type === 'airdrop') particleColor = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308');
                 if (t.type === 'armor') particleColor = '#ef4444';
 
                 this.createExplosion(t.x, t.y, particleColor);
@@ -298,7 +298,7 @@ window.AimGame = class AimGame extends BaseGame {
 
                 if (t.type === 'airdrop') {
                     this.powerupTimer = 8.0; // 8 seconds of unlimited ammo
-                    this.showFloatingText("8s 无限火力!", t.x, t.y - 60, '#eab308');
+                    this.showFloatingText("8s 无限火力!", t.x, t.y - 60, (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'));
                     this.ammo = GAME_CONFIG.AIM_GAME.MAX_AMMO;
                 } else {
                     this.showFloatingText(`+${points} ${this.combo > 1 ? 'x' + this.combo : ''}`, t.x, t.y - 20, '#fbbf24');
@@ -401,7 +401,7 @@ window.AimGame = class AimGame extends BaseGame {
             this.ctx.beginPath();
             this.ctx.arc(t.x, t.y, t.radius, 0, Math.PI * 2);
 
-            if (t.type === 'airdrop') this.ctx.fillStyle = '#eab308'; // Gold
+            if (t.type === 'airdrop') this.ctx.fillStyle = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'); // Gold
             else if (t.type === 'rare') this.ctx.fillStyle = '#fbbf24'; // Yellow
             else if (t.type === 'armor') this.ctx.fillStyle = t.hp > 1 ? '#4b5563' : '#ef4444'; // Gray if armored, Red if broken
             else this.ctx.fillStyle = '#ef4444'; // Red (Normal)
@@ -484,7 +484,7 @@ window.AimGame = class AimGame extends BaseGame {
         // Ammo (Left)
         this.ctx.textAlign = 'left';
         if (this.powerupTimer > 0) {
-            this.ctx.fillStyle = '#eab308'; // Gold
+            this.ctx.fillStyle = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'); // Gold
             this.ctx.fillText(`AMMO ∞ (${this.powerupTimer.toFixed(1)}s)`, 15, this.height - 15);
         } else {
             this.ctx.fillStyle = this.ammo === 0 ? '#ef4444' : '#fbbf24';

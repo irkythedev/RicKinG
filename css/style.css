@@ -57,9 +57,9 @@ body {
     .cursor-dot {
         width: 4px;
         height: 4px;
-        background-color: #ef4444;
+        background-color: var(--t-cursor-dot);
         border-radius: 50%;
-        box-shadow: 0 0 5px #ef4444;
+        box-shadow: 0 0 5px var(--t-cursor-dot);
         transition: all 0.15s ease;
     }
 
@@ -76,16 +76,16 @@ body {
 
     /* 锁定状态 (Hover Action) */
     #tactical-cursor.locked .cursor-scope {
-        border-color: rgba(234, 179, 8, 0.8);
+        border-color: rgba(var(--t-accent-rgb), 0.8);
         transform: scale(0.65) rotate(45deg);
-        background: rgba(234, 179, 8, 0.1);
+        background: rgba(var(--t-accent-rgb), 0.1);
     }
     #tactical-cursor.locked .cursor-crosshair {
-        background-color: rgba(234, 179, 8, 1);
+        background-color: rgba(var(--t-accent-rgb), 1);
     }
     #tactical-cursor.locked .cursor-dot {
-        background-color: #EAB308;
-        box-shadow: 0 0 8px #EAB308;
+        background-color: var(--t-accent);
+        box-shadow: 0 0 8px var(--t-accent);
     }
 
     /* 开火后坐力 (Recoil Animation) */
@@ -204,9 +204,9 @@ body {
 
 /* --- 传说级装备光效 --- */
 .legendary-glow {
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    box-shadow: 0 0 15px var(--t-legendary-glow);
     /* 金色光晕 */
-    border: 1px solid rgba(255, 215, 0, 0.8);
+    border: 1px solid var(--t-legendary-border);
     transition: transform 0.3s;
 }
 
@@ -255,8 +255,8 @@ body {
 }
 
 .glass-panel:hover .crosshair-decor {
-    border-color: rgba(234, 179, 8, 0.6);
-    filter: drop-shadow(0 0 3px rgba(234, 179, 8, 0.4));
+    border-color: rgba(var(--t-accent-rgb), 0.6);
+    filter: drop-shadow(0 0 3px rgba(var(--t-accent-rgb), 0.4));
 }
 
 .crosshair-tl {
@@ -373,21 +373,21 @@ body {
 /* --- 六边形雷达图容器 (全新升级) --- */
 .radar-container {
     position: relative;
-    background: radial-gradient(circle at center, rgba(234, 179, 8, 0.03) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(var(--t-accent-rgb), 0.03) 0%, transparent 70%);
     border-radius: 0.75rem;
-    border: 1px solid rgba(234, 179, 8, 0.12);
+    border: 1px solid rgba(var(--t-accent-rgb), 0.12);
     box-shadow:
         inset 0 0 30px rgba(0, 0, 0, 0.5),
-        0 0 15px rgba(234, 179, 8, 0.06);
+        0 0 15px rgba(var(--t-accent-rgb), 0.06);
     overflow: visible;
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .radar-container:hover {
-    border-color: rgba(234, 179, 8, 0.3);
+    border-color: rgba(var(--t-accent-rgb), 0.3);
     box-shadow:
         inset 0 0 30px rgba(0, 0, 0, 0.3),
-        0 0 30px rgba(234, 179, 8, 0.12);
+        0 0 30px rgba(var(--t-accent-rgb), 0.12);
 }
 
 
@@ -701,11 +701,11 @@ header span[id="header-role"]:hover::after {
 
     0%,
     100% {
-        box-shadow: 0 0 15px rgba(234, 179, 8, 0.3), 0 0 30px rgba(234, 179, 8, 0.1);
+        box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.3), 0 0 30px rgba(var(--t-accent-rgb), 0.1);
     }
 
     50% {
-        box-shadow: 0 0 25px rgba(234, 179, 8, 0.5), 0 0 50px rgba(234, 179, 8, 0.2);
+        box-shadow: 0 0 25px rgba(var(--t-accent-rgb), 0.5), 0 0 50px rgba(var(--t-accent-rgb), 0.2);
     }
 }
 
@@ -719,7 +719,7 @@ header span[id="header-role"]:hover::after {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(234, 179, 8, 0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(var(--t-accent-rgb), 0.06) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     transform: translate(-50%, -50%);
@@ -733,7 +733,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .tilt-card:hover {
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(234, 179, 8, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--t-accent-rgb), 0.08);
 }
 
 /* --- 进度条闪光 --- */
@@ -764,8 +764,8 @@ header span[id="header-role"]:hover::after {
 }
 
 .footer-konami.activated {
-    color: #EAB308 !important;
-    text-shadow: 0 0 10px rgba(234, 179, 8, 0.5);
+    color: var(--t-accent) !important;
+    text-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.5);
     opacity: 1 !important;
 }
 
@@ -795,13 +795,13 @@ header span[id="header-role"]:hover::after {
 }
 
 .achievement-badge.unlocked {
-    border-color: rgba(234, 179, 8, 0.25);
-    background: rgba(234, 179, 8, 0.06);
+    border-color: rgba(var(--t-accent-rgb), 0.25);
+    background: rgba(var(--t-accent-rgb), 0.06);
 }
 
 .achievement-badge.unlocked:hover {
-    border-color: rgba(234, 179, 8, 0.5);
-    box-shadow: 0 0 15px rgba(234, 179, 8, 0.15);
+    border-color: rgba(var(--t-accent-rgb), 0.5);
+    box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.15);
     transform: translateY(-2px);
 }
 
@@ -827,7 +827,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .achievement-badge.unlocked .achievement-name {
-    color: #EAB308;
+    color: var(--t-accent);
 }
 
 /* ============================================
@@ -843,9 +843,9 @@ header span[id="header-role"]:hover::after {
     gap: 12px;
     padding: 14px 18px;
     background: rgba(17, 24, 39, 0.95);
-    border: 1px solid rgba(234, 179, 8, 0.4);
+    border: 1px solid rgba(var(--t-accent-rgb), 0.4);
     border-radius: 0.75rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(234, 179, 8, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--t-accent-rgb), 0.1);
     z-index: 9999;
     transition: right 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
     backdrop-filter: blur(10px);
@@ -870,7 +870,7 @@ header span[id="header-role"]:hover::after {
 .achievement-toast-name {
     font-size: 1rem;
     font-weight: 700;
-    color: #EAB308;
+    color: var(--t-accent);
     margin-top: 2px;
 }
 
@@ -878,11 +878,11 @@ header span[id="header-role"]:hover::after {
    战场日志 空状态 (Battle Log Empty State)
    ============================================ */
 .battlelog-empty {
-    border: 1px dashed rgba(234, 179, 8, 0.15);
+    border: 1px dashed rgba(var(--t-accent-rgb), 0.15);
     border-radius: 0.5rem;
     padding: 24px 16px;
     text-align: center;
-    background: rgba(234, 179, 8, 0.02);
+    background: rgba(var(--t-accent-rgb), 0.02);
 }
 
 .battlelog-empty-icon {
@@ -906,7 +906,7 @@ header span[id="header-role"]:hover::after {
 .battlelog-empty-title {
     font-size: 0.875rem;
     font-weight: 700;
-    color: #EAB308;
+    color: var(--t-accent);
     margin-bottom: 4px;
     font-family: 'Segoe UI', monospace;
 }
@@ -949,13 +949,13 @@ header span[id="header-role"]:hover::after {
 }
 
 .achievement-strip .achievement-badge.unlocked {
-    border-color: rgba(234, 179, 8, 0.25);
-    background: rgba(234, 179, 8, 0.06);
+    border-color: rgba(var(--t-accent-rgb), 0.25);
+    background: rgba(var(--t-accent-rgb), 0.06);
 }
 
 .achievement-strip .achievement-badge.unlocked:hover {
-    border-color: rgba(234, 179, 8, 0.5);
-    box-shadow: 0 0 12px rgba(234, 179, 8, 0.15);
+    border-color: rgba(var(--t-accent-rgb), 0.5);
+    box-shadow: 0 0 12px rgba(var(--t-accent-rgb), 0.15);
     transform: translateY(-1px);
 }
 
@@ -977,7 +977,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .achievement-strip .achievement-badge.unlocked .achievement-name {
-    color: #EAB308;
+    color: var(--t-accent);
 }
 
 /* ============================================
@@ -1003,8 +1003,8 @@ header span[id="header-role"]:hover::after {
 .gitee-heatmap-cell:hover {
     transform: skewX(-15deg);
     z-index: 100;
-    border-color: rgba(234, 179, 8, 1);
-    box-shadow: 0 0 12px rgba(234, 179, 8, 0.8), inset 0 0 5px rgba(234, 179, 8, 0.5);
+    border-color: rgba(var(--t-accent-rgb), 1);
+    box-shadow: 0 0 12px rgba(var(--t-accent-rgb), 0.8), inset 0 0 5px rgba(var(--t-accent-rgb), 0.5);
     background: rgba(255, 255, 255, 0.2) !important;
 }
 
@@ -1016,15 +1016,15 @@ header span[id="header-role"]:hover::after {
     left: 50%;
     transform: translateX(-50%) skewX(15deg); /* 反向修正斜切以保证文字方正 */
     background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(234, 179, 8, 0.8);
-    color: #EAB308;
+    border: 1px solid rgba(var(--t-accent-rgb), 0.8);
+    color: var(--t-accent);
     padding: 4px 8px;
     font-size: 11px;
     font-family: 'Oswald', 'PingFang SC', sans-serif;
     letter-spacing: 0.5px;
     white-space: nowrap;
     pointer-events: none;
-    box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+    box-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.3);
 }
 
 .gitee-heatmap-cell[data-tip]:hover::before {
@@ -1035,7 +1035,7 @@ header span[id="header-role"]:hover::after {
     transform: translateX(-50%) skewX(15deg);
     border-width: 5px;
     border-style: solid;
-    border-color: rgba(234, 179, 8, 0.8) transparent transparent transparent;
+    border-color: rgba(var(--t-accent-rgb), 0.8) transparent transparent transparent;
     pointer-events: none;
 }
 
@@ -1044,23 +1044,23 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-heatmap-cell[data-level="1"] {
-    background: rgba(234, 179, 8, 0.15);
-    box-shadow: 0 0 3px rgba(234, 179, 8, 0.1);
+    background: rgba(var(--t-accent-rgb), 0.15);
+    box-shadow: 0 0 3px rgba(var(--t-accent-rgb), 0.1);
 }
 
 .gitee-heatmap-cell[data-level="2"] {
-    background: rgba(234, 179, 8, 0.35);
-    box-shadow: 0 0 5px rgba(234, 179, 8, 0.15);
+    background: rgba(var(--t-accent-rgb), 0.35);
+    box-shadow: 0 0 5px rgba(var(--t-accent-rgb), 0.15);
 }
 
 .gitee-heatmap-cell[data-level="3"] {
-    background: rgba(234, 179, 8, 0.55);
-    box-shadow: 0 0 8px rgba(234, 179, 8, 0.2);
+    background: rgba(var(--t-accent-rgb), 0.55);
+    box-shadow: 0 0 8px rgba(var(--t-accent-rgb), 0.2);
 }
 
 .gitee-heatmap-cell[data-level="4"] {
-    background: rgba(234, 179, 8, 0.8);
-    box-shadow: 0 0 10px rgba(234, 179, 8, 0.3);
+    background: rgba(var(--t-accent-rgb), 0.8);
+    box-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.3);
 }
 
 /* ============================================
@@ -1070,7 +1070,7 @@ header span[id="header-role"]:hover::after {
     max-height: 260px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgba(234, 179, 8, 0.2) transparent;
+    scrollbar-color: rgba(var(--t-accent-rgb), 0.2) transparent;
 }
 
 .gitee-feed::-webkit-scrollbar {
@@ -1082,7 +1082,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-feed::-webkit-scrollbar-thumb {
-    background: rgba(234, 179, 8, 0.2);
+    background: rgba(var(--t-accent-rgb), 0.2);
     border-radius: 4px;
 }
 
@@ -1100,7 +1100,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-feed-item:hover {
-    background: rgba(234, 179, 8, 0.03);
+    background: rgba(var(--t-accent-rgb), 0.03);
     border-radius: 6px;
     padding-left: 6px;
     padding-right: 6px;
@@ -1131,7 +1131,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-feed-action strong {
-    color: #EAB308;
+    color: var(--t-accent);
     font-weight: 700;
 }
 
@@ -1159,8 +1159,8 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-feed-icon.type-issue {
-    background: rgba(234, 179, 8, 0.12);
-    color: #EAB308;
+    background: rgba(var(--t-accent-rgb), 0.12);
+    color: var(--t-accent);
 }
 
 .gitee-feed-icon.type-pr {
@@ -1229,19 +1229,19 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-heatmap-cell-mini[data-level="1"] {
-    background: rgba(234, 179, 8, 0.15);
+    background: rgba(var(--t-accent-rgb), 0.15);
 }
 
 .gitee-heatmap-cell-mini[data-level="2"] {
-    background: rgba(234, 179, 8, 0.35);
+    background: rgba(var(--t-accent-rgb), 0.35);
 }
 
 .gitee-heatmap-cell-mini[data-level="3"] {
-    background: rgba(234, 179, 8, 0.55);
+    background: rgba(var(--t-accent-rgb), 0.55);
 }
 
 .gitee-heatmap-cell-mini[data-level="4"] {
-    background: rgba(234, 179, 8, 0.8);
+    background: rgba(var(--t-accent-rgb), 0.8);
 }
 
 .gitee-heatmap-legend-text {
@@ -1257,7 +1257,7 @@ header span[id="header-role"]:hover::after {
 }
 
 .gitee-feed-item:hover {
-    border-left-color: rgba(234, 179, 8, 0.5);
+    border-left-color: rgba(var(--t-accent-rgb), 0.5);
 }
 
 /* Callsign bracket highlighting in feed */

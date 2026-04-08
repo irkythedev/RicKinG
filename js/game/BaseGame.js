@@ -147,7 +147,7 @@ window.BaseGame = class BaseGame {
             this.ctx.font = `bold ${Math.round(18 * fontScale)}px "Segoe UI", sans-serif`;
             // Animated golden glow
             const glow = Math.sin(Date.now() * 0.005) * 0.3 + 0.7;
-            this.ctx.fillStyle = `rgba(234, 179, 8, ${glow})`;
+            this.ctx.fillStyle = `rgba(${window.THEME_COLORS ? window.THEME_COLORS['--t-accent-rgb'] : '234, 179, 8'}, ${glow})`;
             this.ctx.fillText(msg, cx, this.height * 0.12);
         }
 
@@ -212,7 +212,7 @@ window.BaseGame = class BaseGame {
 
         this.replayBtnRect = { x: btnX, y: btnY, w: btnW, h: btnH };
 
-        this.ctx.fillStyle = '#eab308';
+        this.ctx.fillStyle = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308');
         this.ctx.beginPath();
         this.ctx.moveTo(btnX + 8, btnY);
         this.ctx.lineTo(btnX + btnW, btnY);
