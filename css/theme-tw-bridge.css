@@ -1,0 +1,77 @@
+/* ==============================================
+   Tailwind ↔ Theme Bridge
+   ==============================================
+   Maps Tailwind utility classes to CSS custom properties.
+   Loaded AFTER Tailwind CDN so overrides take effect.
+   
+   Default PUBG values match Tailwind's palette,
+   so no visual change occurs until a new theme is applied.
+   ============================================== */
+
+/* ── Body-level ── */
+body[data-theme] {
+  background-color: var(--t-bg-body);
+  color: var(--t-text-body);
+}
+
+/* ── Primary Accent (Yellow) ── */
+body[data-theme] .text-yellow-400 { color: var(--t-accent-light) !important; }
+body[data-theme] .text-yellow-500 { color: var(--t-accent) !important; }
+body[data-theme] .text-yellow-600 { color: var(--t-accent-dark) !important; }
+body[data-theme] .bg-yellow-500 { background-color: var(--t-accent) !important; }
+body[data-theme] .bg-yellow-600 { background-color: var(--t-accent-dark) !important; }
+body[data-theme] .hover\:bg-yellow-400:hover { background-color: var(--t-accent-light) !important; }
+body[data-theme] .hover\:bg-yellow-500:hover { background-color: var(--t-accent) !important; }
+body[data-theme] .border-yellow-500 { border-color: var(--t-accent) !important; }
+body[data-theme] .border-yellow-600 { border-color: var(--t-accent-dark) !important; }
+
+/* Yellow with opacity variants */
+body[data-theme] .bg-yellow-600\/90 { background-color: rgba(var(--t-accent-dark-rgb), 0.9) !important; }
+body[data-theme] .bg-yellow-500\/90 { background-color: rgba(var(--t-accent-rgb), 0.9) !important; }
+body[data-theme] .bg-yellow-500\/20 { background-color: rgba(var(--t-accent-rgb), 0.2) !important; }
+body[data-theme] .border-yellow-500\/50 { border-color: rgba(var(--t-accent-rgb), 0.5) !important; }
+body[data-theme] .border-yellow-600\/50 { border-color: rgba(var(--t-accent-dark-rgb), 0.5) !important; }
+body[data-theme] .shadow-yellow-500\/30 { --tw-shadow-color: rgba(var(--t-accent-rgb), 0.3) !important; }
+body[data-theme] .shadow-yellow-500\/50 { --tw-shadow-color: rgba(var(--t-accent-rgb), 0.5) !important; }
+
+/* Animate-pulse yellow elements */
+body[data-theme] .bg-yellow-400 { background-color: var(--t-accent-light) !important; }
+body[data-theme] .bg-yellow-500 { background-color: var(--t-accent) !important; }
+
+/* ── Danger (Red) ── */
+body[data-theme] .text-red-400 { color: rgba(var(--t-danger-rgb), 0.85) !important; }
+body[data-theme] .text-red-500 { color: var(--t-danger) !important; }
+body[data-theme] .selection\:bg-red-500 ::selection { background-color: var(--t-danger) !important; }
+
+/* Red with opacity */
+body[data-theme] .bg-red-700 { background-color: rgba(var(--t-danger-rgb), 0.75) !important; }
+body[data-theme] .hover\:bg-red-600:hover { background-color: rgba(var(--t-danger-rgb), 0.65) !important; }
+body[data-theme] .border-red-500 { border-color: var(--t-danger) !important; }
+body[data-theme] .shadow-red-500\/50 { --tw-shadow-color: rgba(var(--t-danger-rgb), 0.5) !important; }
+
+/* ── Surface Grays ── */
+body[data-theme] .bg-gray-900 { background-color: var(--t-bg-body) !important; }
+body[data-theme] .bg-gray-800 { background-color: var(--t-bg-surface) !important; }
+body[data-theme] .hover\:bg-gray-700:hover { background-color: var(--t-bg-elevated) !important; }
+body[data-theme] .bg-gray-900\/95 { background-color: rgba(var(--t-bg-deep-rgb), 0.95) !important; }
+
+/* ── Text Grays ── */
+body[data-theme] .text-gray-200 { color: var(--t-text-body) !important; }
+body[data-theme] .text-gray-300 { color: var(--t-text-body) !important; }
+body[data-theme] .text-gray-400 { color: var(--t-text-muted) !important; }
+body[data-theme] .text-gray-500 { color: var(--t-text-dim) !important; }
+body[data-theme] .text-gray-600 { color: var(--t-text-dim) !important; }
+
+/* ── Border Grays ── */
+body[data-theme] .border-gray-600 { border-color: var(--t-border-strong) !important; }
+body[data-theme] .border-gray-700 { border-color: rgba(var(--t-bg-elevated-rgb), 0.8) !important; }
+body[data-theme] .border-gray-700\/50 { border-color: rgba(var(--t-bg-elevated-rgb), 0.5) !important; }
+
+/* ── Success (Green status) ── */
+body[data-theme] .text-green-500 { color: var(--t-success) !important; }
+body[data-theme] .text-green-400 { color: var(--t-success-muted) !important; }
+
+/* ── Drop Shadow accent ── */
+body[data-theme] .drop-shadow-\[0_0_8px_rgba\(234\,179\,8\,0\.8\)\] {
+  filter: drop-shadow(0 0 8px rgba(var(--t-accent-rgb), 0.8)) !important;
+}

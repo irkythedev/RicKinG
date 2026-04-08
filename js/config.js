@@ -8,7 +8,7 @@ window.setCurrentLang = function (lang) {
 window.GAME_CONFIG = {
     SMOKE: {
         COUNT: 50,
-        COLOR: 'rgba(100, 116, 139, ',
+        COLOR: 'rgba(var(--t-smoke-rgb), ',
         SPEED_X: 1,
         SPEED_Y: 1
     },

@@ -197,7 +197,7 @@ window.VehicleGame = class VehicleGame extends BaseGame {
         if (rand > 0.95) {
             type = 'turbo'; color = '#a855f7'; w = 25; h = 25;
         } else if (rand > 0.88) {
-            type = 'fuel'; color = '#eab308'; w = 25; h = 25;
+            type = 'fuel'; color = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'); w = 25; h = 25;
         } else if (rand > 0.80) {
             type = 'parts'; color = '#3b82f6'; w = 25; h = 25;
         } else if (rand > 0.55 && this.gamePhase !== 'TEACHING') {
@@ -239,7 +239,7 @@ window.VehicleGame = class VehicleGame extends BaseGame {
             this.score += 100;
             this.updateUI('score', this.score);
             playSound('hit');
-            this.showFloatingText('+100 ⛽', ob.x, ob.y, '#eab308');
+            this.showFloatingText('+100 ⛽', ob.x, ob.y, (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308'));
         } else if (ob.type === 'parts') {
             this.score += 200;
             this.updateUI('score', this.score);
@@ -346,7 +346,7 @@ window.VehicleGame = class VehicleGame extends BaseGame {
                 if (window.GAME_ASSETS && window.GAME_ASSETS.fuel.complete && window.GAME_ASSETS.fuel.naturalWidth > 0) {
                     this.ctx.drawImage(window.GAME_ASSETS.fuel, -18, -18, 36, 36);
                 } else {
-                    this.ctx.fillStyle = '#eab308';
+                    this.ctx.fillStyle = (window.THEME_COLORS ? window.THEME_COLORS['--t-accent'] : '#eab308');
                     this.ctx.beginPath();
                     this.ctx.arc(0, 0, 14, 0, Math.PI * 2);
                     this.ctx.fill();
