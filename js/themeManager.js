@@ -268,6 +268,7 @@ const ThemeManager = {
         
         // Slight hack: we poll or replace the original setLanguage to trigger UI update
         // We can just rely on the existing setLanguage if we add an event dispatcher there, or just replace it safely
+        window.addEventListener('languageChanged', onLangChange);
         
         document.body.appendChild(container);
     }
