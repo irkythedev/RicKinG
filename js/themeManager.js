@@ -206,9 +206,13 @@ const ThemeManager = {
         mainBtn.innerHTML = '<i class="fas fa-palette"></i>';
         mainBtn.title = lang === 'zh' ? '切换主题' : 'Switch Theme';
         
+        // List wrapper to bridge the hover gap
+        const listWrapper = document.createElement('div');
+        listWrapper.className = 'absolute bottom-full right-0 pb-3 transition-all duration-300 opacity-0 pointer-events-none translate-y-4 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 z-50';
+
         // List of themes (hidden by default)
         const list = document.createElement('div');
-        list.className = 'flex-col gap-2 p-2 bg-gray-900/90 border border-gray-700 rounded-lg shadow-xl backdrop-blur-sm transition-all duration-300 opacity-0 pointer-events-none translate-y-4 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 absolute bottom-12 right-0 flex max-h-[300px] overflow-y-auto w-max';
+        list.className = 'flex flex-col gap-2 p-2 bg-gray-900/90 border border-gray-700 rounded-lg shadow-xl backdrop-blur-sm max-h-[300px] overflow-y-auto w-max';
         
         // Populate list
         Object.keys(this.themes).forEach(key => {
@@ -246,7 +250,8 @@ const ThemeManager = {
             list.appendChild(btn);
         });
         
-        container.appendChild(list);
+        listWrapper.appendChild(list);
+        container.appendChild(listWrapper);
         container.appendChild(mainBtn);
         
         // Handle language switch updates by listening to the event we'll create or override in setLanguage
