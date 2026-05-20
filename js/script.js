@@ -456,6 +456,12 @@ window.setLanguage = function (lang) {
     safeSetText('card-aqua-btn-demo', t.warehouse.aqua.btnDemo);
     safeSetText('card-aqua-back-tip', t.warehouse.backTip);
 
+    // Tools card
+    safeSetText('card-tools-tag', t.warehouse.tools.tag);
+    safeSetText('card-tools-title', `${t.warehouse.tools.title} <span class="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>`, true);
+    safeSetText('card-tools-desc', `<span class="text-teal-500/80">$</span> ${t.warehouse.tools.desc}`, true);
+    safeSetText('card-tools-enter', t.warehouse.tools.enter);
+
     safeSetText('card-next-tag', t.warehouse.nextDrop.tag);
     safeSetText('card-next-title', t.warehouse.nextDrop.title);
     safeSetText('card-next-desc', t.warehouse.nextDrop.desc);

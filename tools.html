@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Field Toolkit | TACTICAL TERMINAL</title>
+    <link rel="icon" type="image/png" href="img/icons/pubg-helmet.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Noto+Sans+SC:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-vars.css">
+    <link rel="stylesheet" href="css/theme-tw-bridge.css">
+    <style>
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background-color: #06080d;
+            color: #c0ccd0;
+            overflow-x: hidden;
+        }
+
+        /* CRT Scanline Overlay */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .terminal-glow {
+            text-shadow: 0 0 5px var(--t-success-muted);
+        }
+
+        .accent-glow {
+            text-shadow: 0 0 8px var(--t-accent);
+        }
+
+        /* Blinking block cursor */
+        .cursor-blink::after {
+            content: '█';
+            animation: blink 1s step-start infinite;
+            color: var(--t-success-muted);
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .tui-window {
+            background-color: rgba(15, 20, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(var(--t-accent-rgb), 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .tui-window:hover {
+            border-color: rgba(var(--t-accent-rgb), 0.5);
+            box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.1);
+        }
+
+        .tui-header {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(var(--t-accent-rgb), 0.15);
+        }
+
+        .status-pulse {
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        .typing-effect {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 1.5s steps(40, end);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        .stagger-fade-in > div {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col relative selection:bg-green-500/30 selection:text-green-300">
+    <!-- 战术准心 (自定义光标) -->
+    <div id="tactical-cursor">
+        <div class="cursor-recoil-wrapper">
+            <div class="cursor-scope">
+                <div class="cursor-dot"></div>
+                <div class="cursor-crosshair top"></div>
+                <div class="cursor-crosshair bottom"></div>
+                <div class="cursor-crosshair left"></div>
+                <div class="cursor-crosshair right"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terminal Header Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur border-b border-[rgba(var(--t-accent-rgb),0.2)] px-4 py-2 flex items-center justify-between text-xs md:text-sm">
+        <div class="flex items-center gap-4">
+            <span class="text-[var(--t-success-muted)]">root@ricking-hq:~/tools $</span>
+            <a href="index.html" class="text-gray-400 hover:text-[var(--t-accent)] transition-colors inline-block cursor-blink">
+                cd ../BASE
+            </a>
+        </div>
+        <div class="hidden md:flex gap-6 text-gray-500">
+            <span>[TOOLS: 6 LOADED]</span>
+            <span class="text-[var(--t-success-muted)]">[STATUS: ONLINE]</span>
+            <span>[UPTIME: ██████████ 99.9%]</span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow pt-20 px-4 pb-12 max-w-7xl mx-auto w-full relative z-10">
+        <!-- ASCII Banner -->
+        <div class="mb-12 text-center">
+            <pre class="text-[var(--t-accent)] font-bold text-[8px] md:text-xs leading-tight inline-block text-left accent-glow">
+  ______ _____ ______ _      _____    _______ ____   ____  _      _  _______ _______ 
+ |  ____|_   _|  ____| |    |  __ \  |__   __/ __ \ / __ \| |    | |/ /_   _|__   __|
+ | |__    | | | |__  | |    | |  | |    | | | |  | | |  | | |    | ' /  | |    | |   
+ |  __|   | | |  __| | |    | |  | |    | | | |  | | |  | | |    |  <   | |    | |   
+ | |     _| |_| |____| |____| |__| |    | | | |__| | |__| | |____| . \ _| |_   | |   
+ |_|    |_____|______|______|_____/     |_|  \____/ \____/|______|_|\_\_____|  |_|   
+            </pre>
+            <div class="mt-4 text-gray-400 text-sm md:text-base typing-effect border-r-2 border-[var(--t-success-muted)] pr-1">
+                // 战术工具集 — 前线实用装备，随取随用。 / Field utilities ready for deployment.
+            </div>
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-fade-in">
+            
+            <!-- Tool 1 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.1s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/git-radar</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        Git Radar
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        Git 仓库健康扫描仪 / Git repo health scanner.
+                        <br>
+                        Monitors repository health, commit frequencies, and identifies stale branches.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Python]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Git]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 2 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.2s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/css-minefield</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        CSS Minefield
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        CSS 属性兼容性扫雷器 / CSS compatibility checker.
+                        <br>
+                        Detects modern CSS features and validates browser support across targets.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 3 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.3s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/port-scanner</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        Port Scanner
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        本地端口侦察兵 / Local port scouting tool.
+                        <br>
+                        Quickly identify active services and occupied ports on the local network.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Node]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[CLI]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 4 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.4s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/json-armory</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        JSON Armory
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        JSON 格式化 & 校验弹药库 / JSON formatter & validator.
+                        <br>
+                        Beautify, minify, and validate JSON payloads before deployment.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 5 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.5s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/color-recon</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        Color Recon
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        色彩情报提取器 / Color palette extractor.
+                        <br>
+                        Extract dominant color schemes from images using K-Means clustering.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Python]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[CV]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool 6 -->
+            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.6s;">
+                <div class="tui-header px-3 py-2 flex items-center gap-2">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    </div>
+                    <span class="text-xs text-gray-400 ml-2">~/tools/regex-drill</span>
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
+                        Regex Drill
+                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
+                            ● BUILDING
+                        </span>
+                    </h3>
+                    <p class="text-sm text-gray-400 mb-4 flex-grow">
+                        正则训练场 / Interactive regex testing ground.
+                        <br>
+                        Test and debug regular expressions with live highlighting and explainers.
+                    </p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                        <div class="flex gap-2">
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
+                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+                        </div>
+                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
+                            $ ./launch
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center text-gray-600 text-xs border-t border-gray-800 relative z-10 bg-[#0a0a0f]/80 mt-auto">
+        <p>[ EOF ] — 更多战术装备研发中... / More tactical gear in development...</p>
+        <p class="mt-2 text-gray-700">Powered by <a href="index.html" class="hover:text-[var(--t-accent)] transition-colors underline">RicKinG TACTICAL</a></p>
+    </footer>
+
+    <!-- Include Theme Manager to support theme switching even on this page -->
+    <script src="js/themeManager.js?v=20260520"></script>
+    <script>
+        // 1. Mouse Tracking Glow (Copied from main script.js for consistency)
+        function initCursorGlow() {
+            const glow = document.createElement('div');
+            glow.className = 'cursor-glow';
+            document.body.appendChild(glow);
+            let mx = 0, my = 0, gx = 0, gy = 0;
+            document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+            function animateGlow() {
+                gx += (mx - gx) * 0.08;
+                gy += (my - gy) * 0.08;
+                glow.style.left = gx + 'px';
+                glow.style.top = gy + 'px';
+                requestAnimationFrame(animateGlow);
+            }
+            animateGlow();
+            // Hide on mobile / touch
+            if ('ontouchstart' in window) glow.style.display = 'none';
+        }
+
+        // 2. Tactical Crosshair
+        function initTacticalCursor() {
+            if (!window.matchMedia('(pointer: fine)').matches) return;
+            const cursor = document.getElementById('tactical-cursor');
+            if (!cursor) return;
+            const recoilWrapper = cursor.querySelector('.cursor-recoil-wrapper');
+            let mouseX = window.innerWidth / 2;
+            let mouseY = window.innerHeight / 2;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursor.style.transform = `translate3d(${mouseX - 16}px, ${mouseY - 16}px, 0)`;
+                const isClickable = e.target.closest('a, button, [role="button"], .cursor-pointer, .tui-window');
+                if (isClickable) cursor.classList.add('locked');
+                else cursor.classList.remove('locked');
+            });
+
+            document.addEventListener('mousedown', () => {
+                recoilWrapper.classList.remove('firing');
+                void recoilWrapper.offsetWidth;
+                recoilWrapper.classList.add('firing');
+            });
+            recoilWrapper.addEventListener('animationend', () => {
+                recoilWrapper.classList.remove('firing');
+            });
+            document.addEventListener('mouseout', (e) => {
+                if (!e.relatedTarget) cursor.style.display = 'none';
+            });
+            document.addEventListener('mouseover', () => {
+                cursor.style.display = '';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Provide a fallback for getComputedLang since script.js isn't loaded here
+            if (typeof window.getComputedLang === 'undefined') {
+                window.getComputedLang = () => 'zh';
+            }
+
+            if (typeof ThemeManager !== 'undefined') {
+                ThemeManager.init();
+                ThemeManager.createSwitcherUI();
+            }
+
+            // Init cursors
+            initCursorGlow();
+            initTacticalCursor();
+        });
+    </script>
+</body>
+</html>
