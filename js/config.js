@@ -135,6 +135,12 @@ window.I18N = {
                 btnCode: "访问代码",
                 btnDemo: "访问页面"
             },
+            tools: {
+                tag: "稀有级",
+                title: "FIELD TOOLKIT",
+                desc: "战术工具集。包含代码侦察、格式化弹药库、端口扫描等前线实用装备。点击进入终端界面。",
+                enter: "进入终端"
+            },
             nextDrop: {
                 tag: "NEXT DROP",
                 title: "绝密空投物资",
@@ -246,6 +252,12 @@ window.I18N = {
                 desc: "AI-driven water quality monitoring system. Combining GIS & LLM to uncover meteorological-water coupling mechanisms.",
                 btnCode: "Code",
                 btnDemo: "Visit"
+            },
+            tools: {
+                tag: "Rare",
+                title: "FIELD TOOLKIT",
+                desc: "Tactical toolbox. Includes code recon, format armory, port scanning and other field utilities. Click to enter terminal.",
+                enter: "Enter Terminal"
             },
             nextDrop: {
                 tag: "NEXT DROP",
