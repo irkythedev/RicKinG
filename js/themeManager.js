@@ -236,6 +236,8 @@ const ThemeManager = {
             dot.style.backgroundColor = theme.colors['--t-accent'];
             
             const text = document.createElement('span');
+            text.className = 'theme-name-text';
+            text.dataset.themeKey = key;
             text.textContent = theme.name[lang] || theme.name.zh;
             
             btn.appendChild(dot);
@@ -258,14 +260,19 @@ const ThemeManager = {
         // Ensure language listener is added only once
         if (!this._langListenerAdded) {
             window.addEventListener('languageChanged', () => {
+                const currentLang = window.getComputedLang ? window.getComputedLang() : 'zh';
                 const btn = document.querySelector('.theme-switcher-main-btn');
                 if (btn) {
-                    btn.title = window.getComputedLang() === 'zh' ? '切换主题' : 'Switch Theme';
+                    btn.title = currentLang === 'zh' ? '切换主题' : 'Switch Theme';
                 }
-                // We can just recreate the UI to update language
-                const oldContainer = document.getElementById('r-theme-switcher');
-                if (oldContainer) oldContainer.remove();
-                this.createSwitcherUI();
+                
+                // Update names in place
+                document.querySelectorAll('.theme-name-text').forEach(el => {
+                    const key = el.dataset.themeKey;
+                    if (key && this.themes[key]) {
+                        el.textContent = this.themes[key].name[currentLang] || this.themes[key].name.zh;
+                    }
+                });
             });
             this._langListenerAdded = true;
         }
