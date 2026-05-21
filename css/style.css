@@ -204,10 +204,10 @@ body {
 
 /* --- 传说级装备光效 --- */
 .legendary-glow {
-    box-shadow: 0 0 15px var(--t-legendary-glow);
-    /* 金色光晕 */
-    border: 1px solid var(--t-legendary-border);
-    transition: transform 0.3s;
+    box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.6);
+    /* 主题动态光晕 */
+    border: 1px solid var(--t-accent);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
 }
 
 .legendary-glow:hover {

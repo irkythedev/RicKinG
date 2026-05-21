@@ -196,13 +196,14 @@ const ThemeManager = {
      */
     createSwitcherUI: function() {
         const container = document.createElement('div');
+        container.id = 'r-theme-switcher';
         container.className = 'fixed bottom-4 right-4 z-[99] flex flex-col gap-2 items-end group';
         
         const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
         
         // Button to toggle list
         const mainBtn = document.createElement('button');
-        mainBtn.className = 'w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-yellow-500 transition-all shadow-lg focus:outline-none';
+        mainBtn.className = 'theme-switcher-main-btn w-10 h-10 rounded-full bg-gray-800 border-2 border-gray-600 flex items-center justify-center text-gray-400 hover:text-white hover:border-yellow-500 transition-all shadow-lg focus:outline-none';
         mainBtn.innerHTML = '<i class="fas fa-palette"></i>';
         mainBtn.title = lang === 'zh' ? '切换主题' : 'Switch Theme';
         
@@ -254,21 +255,20 @@ const ThemeManager = {
         container.appendChild(listWrapper);
         container.appendChild(mainBtn);
         
-        // Handle language switch updates by listening to the event we'll create or override in setLanguage
-        const onLangChange = () => {
-            const btnTitle = window.getComputedLang() === 'zh' ? '切换主题' : 'Switch Theme';
-            mainBtn.title = btnTitle;
-            // update theme names in list
-            const currentLang = window.getComputedLang();
-            Array.from(list.children).forEach((btn, idx) => {
-                const key = Object.keys(this.themes)[idx];
-                btn.lastChild.textContent = this.themes[key].name[currentLang];
+        // Ensure language listener is added only once
+        if (!this._langListenerAdded) {
+            window.addEventListener('languageChanged', () => {
+                const btn = document.querySelector('.theme-switcher-main-btn');
+                if (btn) {
+                    btn.title = window.getComputedLang() === 'zh' ? '切换主题' : 'Switch Theme';
+                }
+                // We can just recreate the UI to update language
+                const oldContainer = document.getElementById('r-theme-switcher');
+                if (oldContainer) oldContainer.remove();
+                this.createSwitcherUI();
             });
-        };
-        
-        // Slight hack: we poll or replace the original setLanguage to trigger UI update
-        // We can just rely on the existing setLanguage if we add an event dispatcher there, or just replace it safely
-        window.addEventListener('languageChanged', onLangChange);
+            this._langListenerAdded = true;
+        }
         
         document.body.appendChild(container);
     }
