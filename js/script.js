@@ -310,6 +310,9 @@ window.setLanguage = function (lang) {
     const t = I18N[lang];
     if (!t) return; // Safety check
 
+    // Dispatch global event for other components (like themeManager and share.js)
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+
     document.title = t.title;
     document.querySelector('meta[name="description"]').setAttribute("content", t.metaDesc);
 
