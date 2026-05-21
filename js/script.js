@@ -168,73 +168,7 @@ const safeSetStorage = (key, val) => {
     try { localStorage.setItem(key, val); } catch (e) {}
 };
 
-// --- 一键收藏日志与HUD反馈 (Collect & Loot System) ---
-window.collectToBackpack = function() {
-    const isCollected = safeGetStorage('r_collected') === 'true';
-    const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
 
-    if (isCollected) {
-        window.showTacticalToast(lang === 'zh' ? '长官，该终端已被收入三级包，无需重复拾取！' : 'Terminal already secured in Backpack!');
-        return;
-    }
-
-    // 视觉反馈更新
-    document.getElementById('collect-icon').classList.add('brightness-125');
-    const textEl = document.getElementById('collect-text');
-    if (textEl) {
-        textEl.textContent = lang === 'zh' ? '已被拾取' : 'SECURED';
-        textEl.classList.replace('text-gray-500', 'text-yellow-500');
-        textEl.classList.replace('opacity-0', 'opacity-100');
-        textEl.classList.remove('group-hover:opacity-100');
-    }
-    document.getElementById('collect-badge').classList.remove('hidden');
-
-    safeSetStorage('r_collected', 'true');
-    
-    // HUD 雷达提示
-    window.showTacticalToast(lang === 'zh' ? '物资拾取成功！终端已收入三级包安全库。' : 'Loot successful! Terminal secured in Level 3 Backpack.');
-};
-
-// HUD 自制 Toast 系统
-window.showTacticalToast = function(message) {
-    const toast = document.createElement('div');
-    toast.className = 'fixed top-12 left-1/2 transform -translate-x-1/2 -translate-y-4 z-[99999] bg-[#1a1b1e] border-l-4 border-yellow-500 text-white px-6 py-3 shadow-[0_4px_20px_rgba(234,179,8,0.3)] flex items-center gap-3 pointer-events-none opacity-0 transition-all duration-300';
-    toast.innerHTML = `
-        <i class="fas fa-box-open text-yellow-500 text-xl animate-pulse"></i>
-        <span class="font-bold tracking-widest text-sm drop-shadow-md font-mono">${message}</span>
-    `;
-    
-    document.body.appendChild(toast);
-    
-    // Fade in
-    requestAnimationFrame(() => {
-        toast.classList.replace('opacity-0', 'opacity-100');
-        toast.classList.replace('-translate-y-4', 'translate-y-0');
-    });
-
-    // Destroy
-    setTimeout(() => {
-        toast.classList.replace('opacity-100', 'opacity-0');
-        toast.classList.replace('translate-y-0', '-translate-y-4');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-};
-
-// 页面加载时检查拾取状态
-document.addEventListener('DOMContentLoaded', () => {
-    if (safeGetStorage('r_collected') === 'true') {
-        const lang = window.getComputedLang ? window.getComputedLang() : 'zh';
-        document.getElementById('collect-icon').classList.add('brightness-125');
-        const textEl = document.getElementById('collect-text');
-        if (textEl) {
-            textEl.textContent = lang === 'zh' ? '已被拾取' : 'SECURED';
-            textEl.classList.replace('text-gray-500', 'text-yellow-500');
-            textEl.classList.replace('opacity-0', 'opacity-100');
-            textEl.classList.remove('group-hover:opacity-100');
-        }
-        document.getElementById('collect-badge').classList.remove('hidden');
-    }
-});
 
 // --- 生物特征认证扫描仪 (ID Scan Protocol) ---
 window.startIdentifyScan = async function() {
@@ -393,17 +327,6 @@ window.setLanguage = function (lang) {
         }
     };
 
-    // Update backpack loot UI based on current storage state & lang
-    const isCollected = safeGetStorage('r_collected') === 'true';
-    if (isCollected) {
-        safeSetText('collect-text', lang === 'zh' ? '已被拾取' : 'SECURED');
-    } else {
-        safeSetText('collect-text', lang === 'zh' ? '收入背包' : 'LOOT DROP');
-    }
-    const btnCollect = document.getElementById('btn-collect');
-    if (btnCollect) {
-        btnCollect.title = lang === 'zh' ? '收入背包 / Save to Level 3 Backpack' : 'Loot to Level 3 Backpack';
-    }
 
     safeSetText('header-rank', t.rank);
     safeSetText('header-role', t.role);

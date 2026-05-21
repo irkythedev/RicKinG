@@ -52,17 +52,12 @@
         <header
             class="glass-panel rounded-xl p-6 md:p-8 mb-8 flex flex-col gap-6 md:gap-8 relative overflow-hidden">
 
-            <!-- 一键收藏 (收入三级包) -->
-            <button id="btn-collect" onclick="collectToBackpack()" class="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 focus:outline-none" title="收入背包 / Save to Backpack">
-                <div class="relative">
-                    <img id="collect-icon" src="img/icons/backpack.png" class="w-6 h-6 md:w-7 md:h-7 opacity-80 group-hover:opacity-100 drop-shadow-md group-hover:drop-shadow-[0_0_8px_rgba(234,179,8,0.8)] transition-all" alt="Save to Backpack">
-                    <!-- 满格信号角标，初始隐藏 -->
-                    <span id="collect-badge" class="absolute -top-1 -right-1 flex h-3 w-3 hidden">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500 border border-black"></span>
-                    </span>
+            <!-- 分享战术情报 (Share) -->
+            <button id="btn-share" onclick="ShareManager.open()" class="absolute top-4 right-4 md:top-6 md:right-6 z-30 group flex flex-col items-center gap-1 transition-transform hover:-translate-y-1 focus:outline-none" title="分享终端 / Share Terminal">
+                <div class="w-6 h-6 md:w-7 md:h-7 rounded bg-gray-800/80 border border-gray-600 flex items-center justify-center text-gray-400 group-hover:text-[var(--t-accent)] group-hover:border-[var(--t-accent)] transition-colors shadow-lg">
+                    <i class="fas fa-share-nodes text-xs md:text-sm"></i>
                 </div>
-                <span id="collect-text" class="text-[9px] font-bold tracking-tight text-gray-500 group-hover:text-yellow-500 opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">收入背包</span>
+                <span class="text-[9px] font-bold tracking-tight text-gray-500 group-hover:text-[var(--t-accent)] opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap">分享终端</span>
             </button>
 
             <!-- 1. 顶部全宽标签组 (从最左侧头像上方起始，贯穿全宽) -->
@@ -746,7 +741,9 @@
 
     <!-- --- JavaScript 逻辑区域 --- -->
     <!-- 引入自定义脚本 (按顺序) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/themeManager.js?v=20260520"></script>
+    <script src="js/share.js?v=20260521"></script>
     <script src="js/config.js?v=20260306c"></script>
     <script src="js/audio.js?v=20260306c"></script>
     <script src="js/achievements.js?v=20260306c"></script>

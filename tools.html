@@ -128,10 +128,13 @@
                 cd ../BASE
             </a>
         </div>
-        <div class="hidden md:flex gap-6 text-gray-500">
+        <div class="hidden md:flex items-center gap-6 text-gray-500">
             <span>[TOOLS: 6 LOADED]</span>
             <span class="text-[var(--t-success-muted)]">[STATUS: ONLINE]</span>
             <span>[UPTIME: ██████████ 99.9%]</span>
+            <button onclick="ShareManager.open()" class="text-gray-400 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center gap-1" title="Share / 分享">
+                [SHARE <i class="fas fa-share-nodes ml-1"></i>]
+            </button>
         </div>
     </header>
 
@@ -382,7 +385,9 @@
     </footer>
 
     <!-- Include Theme Manager to support theme switching even on this page -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/themeManager.js?v=20260520"></script>
+    <script src="js/share.js?v=20260521"></script>
     <script>
         // 1. Mouse Tracking Glow (Copied from main script.js for consistency)
         function initCursorGlow() {
