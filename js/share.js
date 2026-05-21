@@ -7,9 +7,38 @@ const ShareManager = {
     qrContainerId: 'r-share-qr',
     qrInstance: null,
     
+    i18n: {
+        zh: {
+            title: '战术情报分享',
+            desc: '扫描二维码，或复制加密链接转发',
+            copyBtn: '$ ./copy'
+        },
+        en: {
+            title: 'Tactical Intel Share',
+            desc: 'Scan QR or copy encrypted link',
+            copyBtn: '$ ./copy'
+        }
+    },
+
     init: function() {
         this.injectModal();
         this.bindEvents();
+        this.updateLanguage(); // init language
+    },
+
+    updateLanguage: function() {
+        const lang = (typeof window.getComputedLang === 'function') ? window.getComputedLang() : 'zh';
+        const t = this.i18n[lang] || this.i18n['zh'];
+        
+        const titleEl = document.getElementById('r-share-title');
+        const descEl = document.getElementById('r-share-desc');
+        const copyBtn = document.getElementById('r-share-copy');
+        
+        if(titleEl) titleEl.textContent = t.title;
+        if(descEl) descEl.textContent = t.desc;
+        if(copyBtn && copyBtn.innerHTML.trim() === '$ ./copy') {
+            copyBtn.innerHTML = t.copyBtn;
+        }
     },
 
     injectModal: function() {
@@ -26,10 +55,10 @@ const ShareManager = {
                 <!-- Title -->
                 <div class="flex items-center gap-2 mb-2 w-full justify-center">
                     <i class="fab fa-weixin text-green-500 text-xl"></i>
-                    <h3 class="text-white font-bold tracking-wider">战术情报分享</h3>
+                    <h3 id="r-share-title" class="text-white font-bold tracking-wider">战术情报分享</h3>
                 </div>
                 
-                <p class="text-xs text-gray-400 mb-6 text-center">扫描二维码，或复制加密链接转发</p>
+                <p id="r-share-desc" class="text-xs text-gray-400 mb-6 text-center">扫描二维码，或复制加密链接转发</p>
 
                 <!-- QR Container -->
                 <div class="bg-white p-2 rounded mb-6">
@@ -69,6 +98,11 @@ const ShareManager = {
         });
 
         copyBtn.addEventListener('click', () => this.copyLink());
+
+        // Listen for language changes globally
+        window.addEventListener('languageChanged', () => {
+            this.updateLanguage();
+        });
     },
 
     open: function() {
