@@ -392,6 +392,12 @@ window.setLanguage = function (lang) {
     safeSetText('footer-operational', `&copy; 2026 RickinG. ${t.footer.operational}`, true);
     safeSetText('footer-slogan', t.footer.slogan);
 
+    safeSetText('share-text', lang === 'zh' ? '分享终端' : 'SHARE');
+    const btnShare = document.getElementById('btn-share');
+    if (btnShare) {
+        btnShare.title = lang === 'zh' ? '分享终端 / Share Terminal' : 'Share Terminal';
+    }
+
     // New section i18n
     safeSetText('stats-proj-label', t.stats.projLabel);
     safeSetText('stats-ach-label', t.stats.achLabel);
