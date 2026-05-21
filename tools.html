@@ -121,18 +121,20 @@
     </div>
 
     <!-- Terminal Header Bar -->
-    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur border-b border-[rgba(var(--t-accent-rgb),0.2)] px-4 py-2 flex items-center justify-between text-xs md:text-sm">
-        <div class="flex items-center gap-4 flex-wrap">
-            <span class="text-[var(--t-success-muted)]">root@ricking-hq:~/tools $ <span class="cursor-blink inline-block w-2 h-4 bg-[var(--t-success-muted)] ml-1 align-middle"></span></span>
-            <a href="index.html" class="text-[var(--t-accent)] hover:text-white transition-colors inline-block font-bold border border-[var(--t-accent)]/30 bg-[var(--t-accent)]/10 hover:bg-[var(--t-accent)]/30 px-2 py-1 rounded text-xs">
-                <i class="fas fa-arrow-left mr-1"></i> 返回主站 (cd ../BASE)
-            </a>
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0f]/90 backdrop-blur border-b border-[rgba(var(--t-accent-rgb),0.2)] px-4 py-2 flex items-center justify-between text-xs md:text-sm font-mono overflow-x-auto no-scrollbar">
+        <!-- 终端光标提示 (左侧) -->
+        <div class="flex items-center text-[var(--t-success-muted)] whitespace-nowrap mr-4">
+            root@ricking-hq:~/tools $ <span class="cursor-blink inline-block w-2 h-4 bg-[var(--t-success-muted)] ml-1 align-middle"></span>
         </div>
-        <div class="hidden md:flex items-center gap-6 text-gray-500">
-            <span>[TOOLS: 6 LOADED]</span>
-            <span class="text-[var(--t-success-muted)]">[STATUS: ONLINE]</span>
-            <span>[UPTIME: ██████████ 99.9%]</span>
-            <button onclick="ShareManager.open()" class="text-gray-400 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center gap-1" title="Share / 分享">
+        
+        <!-- 统一的 TUI 交互区 (右侧) -->
+        <div class="flex items-center gap-3 md:gap-4 text-gray-500 whitespace-nowrap">
+            <span class="hidden md:inline">[TOOLS: 6]</span>
+            <span class="hidden md:inline text-[var(--t-success-muted)]">[ONLINE]</span>
+            <a href="index.html" class="text-gray-400 hover:text-[var(--t-accent)] transition-colors focus:outline-none" title="返回主站 / Return to Base">
+                [← cd ../BASE]
+            </a>
+            <button onclick="ShareManager.open()" class="text-gray-400 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center" title="分享终端 / Share Terminal">
                 [SHARE <i class="fas fa-share-nodes ml-1"></i>]
             </button>
         </div>
