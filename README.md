@@ -43,7 +43,7 @@
 - **🪂 极速接空投 (Airdrop Rush)**: 左右走位，避开手雷危机，疯狂掠夺空投物资箱！
 - **🚙 飙车派对 (Road Rage)**: 在公路上驾驶蹦蹦极限狂飙，躲避铁丝网与废弃车辆！
 
-🔗 **立即部署空降**: [https://initricky.lol/](https://initricky.lol/)
+🔗 **立即部署空降**: [https://irky.dev/](https://irky.dev/)
 
 ---
 
@@ -83,7 +83,7 @@ Take a break and test your reflexes. Compete for the high score on the local Lea
 - **🪂 Airdrop Rush**: Strafe left and right to catch supply crates while dodging red-zone grenades!
 - **🚙 Road Rage**: Drive a buggy on a high-speed highway, dodging spike traps and abandoned vehicles!
 
-🔗 **Deploy Now**: [https://initricky.lol/](https://initricky.lol/)
+🔗 **Deploy Now**: [https://irky.dev/](https://irky.dev/)
 
 ---
 
