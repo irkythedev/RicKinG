@@ -135,6 +135,18 @@ window.I18N = {
                 btnCode: "访问代码",
                 btnDemo: "访问页面"
             },
+            echo: {
+                title: "世纪回声 · 百年回响",
+                desc: "沉浸式历史数字展陈。以暗色旧地图叙事重构百年时空，交互式时间线与海报生成。",
+                btnCode: "访问代码",
+                btnDemo: "访问页面"
+            },
+            stem: {
+                title: "数理化数字实验室",
+                desc: "基于初中 7-9 年级课程大纲的数学、物理、化学数字实验与探究平台。KaTeX 公式渲染，支持离线使用。",
+                btnCode: "访问代码",
+                btnDemo: "访问页面"
+            },
             tools: {
                 tag: "稀有级",
                 title: "FIELD TOOLKIT",
@@ -250,6 +262,18 @@ window.I18N = {
             aqua: {
                 title: "AquaInsight Analysis",
                 desc: "AI-driven water quality monitoring system. Combining GIS & LLM to uncover meteorological-water coupling mechanisms.",
+                btnCode: "Code",
+                btnDemo: "Visit"
+            },
+            echo: {
+                title: "Century Echo",
+                desc: "Immersive historical digital exhibition. Dark old-map narrative reconstructing a century of time, with interactive timeline & poster generation.",
+                btnCode: "Code",
+                btnDemo: "Visit"
+            },
+            stem: {
+                title: "STEM Digital Lab",
+                desc: "Digital experiments & inquiry platform for junior-high math, physics & chemistry. KaTeX formula rendering, PWA offline support.",
                 btnCode: "Code",
                 btnDemo: "Visit"
             },

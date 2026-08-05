@@ -382,6 +382,24 @@ window.setLanguage = function (lang) {
     safeSetText('card-aqua-btn-demo', t.warehouse.aqua.btnDemo);
     safeSetText('card-aqua-back-tip', t.warehouse.backTip);
 
+    // Echo card
+    safeSetText('card-echo-tag', t.warehouse.epic);
+    safeSetText('card-echo-title', t.warehouse.echo.title);
+    safeSetText('card-echo-desc', t.warehouse.echo.desc);
+    safeSetText('card-echo-action', t.warehouse.selectAction);
+    safeSetText('card-echo-btn-code', t.warehouse.echo.btnCode);
+    safeSetText('card-echo-btn-demo', t.warehouse.echo.btnDemo);
+    safeSetText('card-echo-back-tip', t.warehouse.backTip);
+
+    // STEM card
+    safeSetText('card-stem-tag', t.warehouse.legendary);
+    safeSetText('card-stem-title', t.warehouse.stem.title);
+    safeSetText('card-stem-desc', t.warehouse.stem.desc);
+    safeSetText('card-stem-action', t.warehouse.selectAction);
+    safeSetText('card-stem-btn-code', t.warehouse.stem.btnCode);
+    safeSetText('card-stem-btn-demo', t.warehouse.stem.btnDemo);
+    safeSetText('card-stem-back-tip', t.warehouse.backTip);
+
     // Tools card
     safeSetText('card-tools-tag', t.warehouse.tools.tag);
     safeSetText('card-tools-title', `${t.warehouse.tools.title} <span class="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>`, true);
@@ -935,4 +953,24 @@ window.addEventListener('DOMContentLoaded', () => {
         window._initialLang = initLang;
         Achievements.render('achievement-grid', initLang);
     }
+
+    // Sort warehouse cards by freshness (most recently updated first)
+    sortWarehouseCards();
 });
+
+// Sort warehouse project cards by data-updated (newest first)
+function sortWarehouseCards() {
+    const title = document.getElementById('warehouse-title');
+    if (!title) return;
+    const section = title.closest('section');
+    const grid = section.querySelector('.grid');
+    if (!grid) return;
+    const cards = Array.from(grid.querySelectorAll(':scope > .flip-card'));
+    if (cards.length < 2) return;
+    cards.sort((a, b) => {
+        const da = new Date(a.getAttribute('data-updated') || 0).getTime();
+        const db = new Date(b.getAttribute('data-updated') || 0).getTime();
+        return db - da; // newest first
+    });
+    cards.forEach(card => grid.appendChild(card));
+}
