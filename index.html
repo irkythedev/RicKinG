@@ -358,7 +358,7 @@
                 </section>
 
                 <!-- 3. 成就勋章 (Achievement Wall) -->
-                <section class="glass-panel rounded-xl p-5 pb-4 flex flex-col flex-grow justify-center">
+                <section class="glass-panel rounded-xl p-5 pb-4 flex flex-col justify-center">
                     <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-3 flex-nowrap whitespace-nowrap">
                         <span class="text-2xl">🎖️</span>
                         <span id="achievement-title" class="text-yellow-500">ACHIEVEMENTS</span>
@@ -460,7 +460,7 @@
                         <div class="block group relative h-72 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
-                            role="button" tabindex="0" aria-label="Toggle Project Card: Tactical Terminal">
+                            role="button" tabindex="0" aria-label="Toggle Project Card: Tactical Terminal" data-updated="2026-07-23T13:11:21+08:00">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
                                 <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
@@ -542,7 +542,7 @@
                         <div class="block group relative h-72 flip-card cursor-pointer"
                             onclick="this.classList.toggle('flipped')"
                             onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
-                            role="button" tabindex="0" aria-label="Toggle Project Card: AquaInsight">
+                            role="button" tabindex="0" aria-label="Toggle Project Card: AquaInsight" data-updated="2026-03-11T20:25:49+08:00">
                             <div class="flip-card-inner h-full">
                                 <!-- 正面 -->
                                 <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
@@ -646,6 +646,166 @@
                             </div>
                         </div>
 
+                        <!-- 史诗级武器 (Century Echo) -->
+                        <div class="block group relative h-72 flip-card cursor-pointer"
+                            onclick="this.classList.toggle('flipped')"
+                            onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
+                            role="button" tabindex="0" aria-label="Toggle Project Card: Century Echo" data-updated="2026-08-05T10:38:32+08:00">
+                            <div class="flip-card-inner h-full">
+                                <!-- 正面 -->
+                                <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
+                                    aria-hidden="false">
+                                    <div id="card-echo-tag"
+                                        class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
+                                        史诗级</div>
+
+                                    <!-- 武器图标区 -->
+                                    <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
+                                        <img src="img/icons/map-color.png"
+                                            class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]"
+                                            alt="Battle Map">
+                                    </div>
+
+                                    <!-- 标题 + 简介 -->
+                                    <div class="px-5 flex flex-col flex-grow min-h-0">
+                                        <h3 id="card-echo-title"
+                                            class="text-base font-bold text-white mb-1 leading-tight">世纪回声 · 百年回响
+                                        </h3>
+                                        <p id="card-echo-desc"
+                                            class="text-gray-400 text-xs text-left leading-relaxed line-clamp-3 flex-grow">
+                                            沉浸式历史数字展陈。以暗色旧地图叙事重构百年时空，交互式时间线与海报生成。
+                                        </p>
+                                    </div>
+
+                                    <!-- 技术标签 (固定在底部) -->
+                                    <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/react-original.svg"
+                                                class="h-3 w-3" alt="">Next.js
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/typescript-original.svg"
+                                                class="h-3 w-3" alt="">TypeScript
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/tailwindcss-original.svg"
+                                                class="h-3 w-3" alt="">Tailwind
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-teal-300 text-xs px-2 py-0.5 rounded font-mono border border-gray-700 leading-none">GSAP</span>
+                                    </div>
+                                </div>
+
+                                <!-- 背面 -->
+                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0"
+                                    aria-hidden="true">
+                                    <h3 id="card-echo-action" class="text-lg font-bold text-purple-400 mb-5">SELECT
+                                        ACTION</h3>
+                                    <div class="flex flex-col gap-3 w-full px-5">
+                                        <a href="https://gitee.com/K4Ricky2Win/hundred-year-echo" target="_blank"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Code on Gitee">
+                                            <img src="https://gitee.com/favicon.ico"
+                                                class="h-4 w-4 rounded-full bg-white p-0.5" alt="">
+                                            <span id="card-echo-btn-code">访问代码</span>
+                                        </a>
+                                        <a href="https://100ye.irky.dev" target="_blank"
+                                            class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 rounded-lg border border-purple-500 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Live Demo">
+                                            <img src="img/icons/echo-favicon.svg"
+                                                class="h-4 w-4 rounded-full" alt="">
+                                            <span id="card-echo-btn-demo">访问页面</span>
+                                        </a>
+                                    </div>
+                                    <p id="card-echo-back-tip" class="text-xs text-gray-600 mt-5">点击空白处返回</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 传说级武器 (STEM Digital Lab) -->
+                        <div class="block group relative h-72 flip-card cursor-pointer"
+                            onclick="this.classList.toggle('flipped')"
+                            onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
+                            role="button" tabindex="0" aria-label="Toggle Project Card: STEM Digital Lab" data-updated="2026-08-05T15:57:06+08:00">
+                            <div class="flip-card-inner h-full">
+                                <!-- 正面 -->
+                                <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
+                                    aria-hidden="false">
+                                    <div id="card-stem-tag"
+                                        class="absolute top-0 right-0 bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
+                                        传说级</div>
+
+                                    <!-- 武器图标区 -->
+                                    <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
+                                        <img src="img/icons/beaker-color.png"
+                                            class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(250,204,21,0.5)]"
+                                            alt="STEM Lab">
+                                    </div>
+
+                                    <!-- 标题 + 简介 -->
+                                    <div class="px-5 flex flex-col flex-grow min-h-0">
+                                        <h3 id="card-stem-title"
+                                            class="text-base font-bold text-white mb-1 leading-tight">数理化数字实验室
+                                        </h3>
+                                        <p id="card-stem-desc"
+                                            class="text-gray-400 text-xs text-left leading-relaxed line-clamp-3 flex-grow">
+                                            基于初中 7-9 年级课程大纲的数学、物理、化学数字实验与探究平台。KaTeX 公式渲染，支持离线使用。
+                                        </p>
+                                    </div>
+
+                                    <!-- 技术标签 (固定在底部) -->
+                                    <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/react-original.svg"
+                                                class="h-3 w-3" alt="">React
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/typescript-original.svg"
+                                                class="h-3 w-3" alt="">TypeScript
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/tailwindcss-original.svg"
+                                                class="h-3 w-3" alt="">Tailwind
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-teal-300 text-xs px-2 py-0.5 rounded font-mono border border-gray-700 leading-none">KaTeX</span>
+                                        <span
+                                            class="bg-gray-800 text-teal-300 text-xs px-2 py-0.5 rounded font-mono border border-gray-700 leading-none">PWA</span>
+                                    </div>
+                                </div>
+
+                                <!-- 背面 -->
+                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0"
+                                    aria-hidden="true">
+                                    <h3 id="card-stem-action" class="text-lg font-bold text-yellow-500 mb-5">SELECT
+                                        ACTION</h3>
+                                    <div class="flex flex-col gap-3 w-full px-5">
+                                        <a href="https://gitee.com/K4Ricky2Win/stem-digital-lab" target="_blank"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Code on Gitee">
+                                            <img src="https://gitee.com/favicon.ico"
+                                                class="h-4 w-4 rounded-full bg-white p-0.5" alt="">
+                                            <span id="card-stem-btn-code">访问代码</span>
+                                        </a>
+                                        <a href="https://stem.irky.dev" target="_blank"
+                                            class="bg-yellow-600 hover:bg-yellow-500 text-black py-2.5 rounded-lg border border-yellow-500 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Live Demo">
+                                            <img src="img/icons/stem-favicon.svg"
+                                                class="h-4 w-4 rounded-full" alt="">
+                                            <span id="card-stem-btn-demo">访问页面</span>
+                                        </a>
+                                    </div>
+                                    <p id="card-stem-back-tip" class="text-xs text-gray-600 mt-5">点击空白处返回</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>                </section>
             </div>
         </div>
@@ -663,8 +823,9 @@
                 <img src="img/icons/git.png" alt="Git" title="Git">
                 <img src="img/icons/github-original.svg" alt="GitHub"
                     title="GitHub" style="filter: brightness(0) invert(1);">
-                <img src="img/icons/openclaw-color.svg" alt="OpenClaw"
-                    title="OpenClaw" class="openclaw-icon">
+                <img src="img/icons/hermes-icon.png" alt="Hermes"
+                    title="Hermes" class="openclaw-icon"
+                    style="filter: brightness(0) invert(1);">
             </div>
             <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
             <p id="footer-slogan" class="mt-2 text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
