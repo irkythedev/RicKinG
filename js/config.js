@@ -150,7 +150,7 @@ window.I18N = {
             tools: {
                 tag: "稀有级",
                 title: "FIELD TOOLKIT",
-                desc: "战术工具集。包含代码侦察、格式化弹药库、端口扫描等前线实用装备。点击进入终端界面。",
+                desc: "战术命令训练营。收录 Linux / Windows / Git 高频命令，翻转卡片进入模拟终端实战演练，Tab 补全、键盘音效全副武装。",
                 enter: "进入终端"
             },
             nextDrop: {
@@ -280,7 +280,7 @@ window.I18N = {
             tools: {
                 tag: "Rare",
                 title: "FIELD TOOLKIT",
-                desc: "Tactical toolbox. Includes code recon, format armory, port scanning and other field utilities. Click to enter terminal.",
+                desc: "Tactical command bootcamp. Master Linux / Windows / Git essentials in a simulated terminal — flip the card, type real commands, hear the keys click.",
                 enter: "Enter Terminal"
             },
             nextDrop: {

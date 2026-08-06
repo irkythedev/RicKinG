@@ -88,6 +88,18 @@
             white-space: nowrap;
             animation: typing 1.5s steps(40, end);
         }
+        /* 移动端：提示语允许换行，避免横向溢出 */
+        @media (max-width: 767px) {
+            .typing-effect {
+                display: block;
+                white-space: normal;
+                overflow: visible;
+                animation: none;
+                border-right: none;
+                padding-right: 0;
+                max-width: 100%;
+            }
+        }
 
         @keyframes typing {
             from { width: 0 }
@@ -102,6 +114,65 @@
 
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== 卡片内嵌终端：平滑展开 ===== */
+        .term-wrap {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .term-wrap.open {
+            grid-template-rows: 1fr;
+        }
+        .term-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+        .term-wrap.open .term-toggle-icon {
+            transform: rotate(90deg);
+        }
+        .term-toggle[aria-expanded="true"] {
+            border-color: rgba(var(--t-accent-rgb), 0.6);
+            color: var(--t-accent);
+            background: rgba(var(--t-accent-rgb), 0.08);
+        }
+        .term-output::-webkit-scrollbar {
+            width: 4px;
+        }
+        .term-output::-webkit-scrollbar-thumb {
+            background: rgba(var(--t-accent-rgb), 0.3);
+            border-radius: 2px;
+        }
+
+        /* ===== 翻转卡片（正面学习 / 背面终端） ===== */
+        .perspective {
+            perspective: 1200px;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        .tool-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .tool-card .tui-window {
+            border-color: rgba(var(--t-accent-rgb), 0.15);
+        }
+        .tool-card:hover .tui-window {
+            border-color: rgba(var(--t-accent-rgb), 0.4);
+            box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.1);
+        }
+        /* 正面命令列表紧凑滚动 */
+        [data-front-cmds] {
+            scrollbar-width: thin;
+        }
+        [data-front-cmds]::-webkit-scrollbar {
+            width: 3px;
+        }
+        [data-front-cmds]::-webkit-scrollbar-thumb {
+            background: rgba(var(--t-accent-rgb), 0.25);
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -131,6 +202,9 @@
         <div class="flex items-center gap-3 md:gap-4 text-gray-500 whitespace-nowrap">
             <span class="hidden md:inline">[TOOLS: 6]</span>
             <span class="hidden md:inline text-[var(--t-success-muted)]">[ONLINE]</span>
+            <button id="keysound-toggle" onclick="toggleKeySound(this)" class="text-gray-500 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center" title="键盘音效：开（点击关闭）">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
             <a href="index.html" class="bg-[var(--t-accent)] text-[#0a0a0f] font-bold px-3 border border-[var(--t-accent)] hover:bg-transparent hover:text-[var(--t-accent)] shadow-[0_0_8px_rgba(var(--t-accent-rgb),0.5)] transition-all focus:outline-none flex items-center" title="返回主站 / Return to Base">
                 <i class="fas fa-reply text-[10px] mr-1.5"></i> cd ../BASE
             </a>
@@ -144,7 +218,7 @@
     <main class="flex-grow pt-20 px-4 pb-12 max-w-7xl mx-auto w-full relative z-10">
         <!-- ASCII Banner -->
         <div class="mb-12 text-center">
-            <pre class="text-[var(--t-accent)] font-bold text-[8px] md:text-xs leading-tight inline-block text-left accent-glow">
+            <pre class="text-[var(--t-accent)] font-bold text-[6px] md:text-xs leading-tight inline-block text-left accent-glow overflow-x-auto max-w-full">
   ______ _____ ______ _      _____    _______ ____   ____  _      _  _______ _______ 
  |  ____|_   _|  ____| |    |  __ \  |__   __/ __ \ / __ \| |    | |/ /_   _|__   __|
  | |__    | | | |__  | |    | |  | |    | | | |  | | |  | | |    | ' /  | |    | |   
@@ -157,213 +231,296 @@
             </div>
         </div>
 
-        <!-- Tools Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 stagger-fade-in">
-            
-            <!-- Tool 1 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.1s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/git-radar</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        Git Radar
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        Git 仓库健康扫描仪 / Git repo health scanner.
-                        <br>
-                        Monitors repository health, commit frequencies, and identifies stale branches.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Python]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Git]</span>
+        <!-- Tools Grid：翻转卡片（正面学习 / 背面终端） -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 stagger-fade-in">
+
+            <!-- Tool 1: Git 基础 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.1s;" data-topic="git">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/git-radar</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-brands fa-git-alt text-sm" style="color:#F05133"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">Git 基础</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">版本控制核心命令 / Version control essentials</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/git/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tool 2 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.2s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/css-minefield</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        CSS Minefield
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        CSS 属性兼容性扫雷器 / CSS compatibility checker.
-                        <br>
-                        Detects modern CSS features and validates browser support across targets.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+            <!-- Tool 2: 文件与目录 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.2s;" data-topic="files">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/file-ops</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-solid fa-folder-open text-sm" style="color:#4D88FE"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">文件与目录</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">Linux 文件操作 / File & directory ops</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/files/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tool 3 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.3s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/port-scanner</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        Port Scanner
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        本地端口侦察兵 / Local port scouting tool.
-                        <br>
-                        Quickly identify active services and occupied ports on the local network.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Node]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[CLI]</span>
+            <!-- Tool 3: 网络命令 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.30000000000000004s;" data-topic="network">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/net-scan</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-solid fa-network-wired text-sm" style="color:#10B981"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">网络命令</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">连通性 & 端口排查 / Network diagnostics</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/network/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tool 4 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.4s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/json-armory</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        JSON Armory
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        JSON 格式化 & 校验弹药库 / JSON formatter & validator.
-                        <br>
-                        Beautify, minify, and validate JSON payloads before deployment.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+            <!-- Tool 4: 文本与搜索 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.4s;" data-topic="text">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/text-recon</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-solid fa-magnifying-glass text-sm" style="color:#F59E0B"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">文本与搜索</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">查看 & 检索文件 / View & search</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/text/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tool 5 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.5s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/color-recon</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        Color Recon
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        色彩情报提取器 / Color palette extractor.
-                        <br>
-                        Extract dominant color schemes from images using K-Means clustering.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Python]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[CV]</span>
+            <!-- Tool 5: 权限与压缩 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.5s;" data-topic="perm">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/perm-pack</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-solid fa-shield-halved text-sm" style="color:#8B5CF6"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">权限与压缩</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">权限 & 归档打包 / Permissions & archives</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/perm/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Tool 6 -->
-            <div class="tui-window rounded flex flex-col h-full" style="animation-delay: 0.6s;">
-                <div class="tui-header px-3 py-2 flex items-center gap-2">
-                    <div class="flex gap-1.5">
-                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    </div>
-                    <span class="text-xs text-gray-400 ml-2">~/tools/regex-drill</span>
-                </div>
-                <div class="p-5 flex flex-col flex-grow">
-                    <h3 class="text-lg font-bold text-white mb-2 flex items-center justify-between">
-                        Regex Drill
-                        <span class="text-xs text-amber-500 status-pulse flex items-center gap-1">
-                            ● BUILDING
-                        </span>
-                    </h3>
-                    <p class="text-sm text-gray-400 mb-4 flex-grow">
-                        正则训练场 / Interactive regex testing ground.
-                        <br>
-                        Test and debug regular expressions with live highlighting and explainers.
-                    </p>
-                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
-                        <div class="flex gap-2">
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[JS]</span>
-                            <span class="text-xs text-[var(--t-accent)] bg-[rgba(var(--t-accent-rgb),0.1)] px-2 py-1 rounded">[Web]</span>
+            <!-- Tool 6: Windows 命令 -->
+            <div class="tool-card h-72 perspective" style="animation-delay: 0.6s;" data-topic="windows">
+                <div class="tool-card-inner relative w-full h-full transition-transform duration-500" style="transform-style: preserve-3d;">
+                    <!-- 正面：紧凑学习卡 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="z-index: 2;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/win-cmd</span>
+                            <span class="ml-auto text-[9px] font-mono text-[var(--t-success-muted)] status-pulse">● READY</span>
                         </div>
-                        <button class="text-gray-500 text-sm hover:text-red-400 cursor-not-allowed transition-colors" title="暂未部署 / Not deployed yet">
-                            $ ./launch
-                        </button>
+                        <div class="p-4 flex flex-col flex-grow min-h-0">
+                            <div class="flex items-center gap-2 mb-1.5">
+                                <i class="fa-brands fa-windows text-sm" style="color:#4D88FE"></i>
+                                <h3 class="text-base font-bold text-white leading-tight">Windows 命令</h3>
+                            </div>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate">CMD / PowerShell 基础 / Windows essentials</p>
+                            <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
+                            <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
+                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                            </button>
+                        </div>
+                    </div>
+                    <!-- 背面：完整终端 -->
+                    <div class="tool-card-face absolute inset-0 backface-hidden tui-window rounded flex flex-col overflow-hidden" style="transform: rotateY(180deg); background:#070b11;">
+                        <div class="tui-header px-3 py-1.5 flex items-center gap-2 shrink-0">
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                            </div>
+                            <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/windows/terminal</span>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                        </div>
+                        <div class="term-body flex-grow min-h-0 flex flex-col">
+                            <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
+                            <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
+                                <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
@@ -380,6 +537,7 @@
             <img src="img/icons/git.png" alt="Git" title="Git">
             <img src="img/icons/github-original.svg" alt="GitHub" title="GitHub" style="filter: brightness(0) invert(1);">
             <img src="img/icons/openclaw-color.svg" alt="OpenClaw" title="OpenClaw" class="openclaw-icon">
+            <img src="img/icons/hermes-icon.png" alt="Hermes" title="Hermes" class="openclaw-icon" style="filter: brightness(0) invert(1);">
         </div>
         <p id="footer-operational">&copy; 2026 RickinG. All Systems Operational.</p>
         <p id="footer-slogan" class="mt-2 text-[10px] md:text-xs opacity-50 footer-konami">Winner Winner, Chicken Dinner!</p>
@@ -390,6 +548,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="js/themeManager.js?v=20260520"></script>
     <script src="js/share.js?v=20260521"></script>
+    <script src="js/toolkit-data.js?v=2"></script>
+    <script src="js/terminal-engine.js?v=1"></script>
     <script>
         // 1. Mouse Tracking Glow (Copied from main script.js for consistency)
         function initCursorGlow() {
