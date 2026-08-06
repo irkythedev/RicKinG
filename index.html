@@ -239,6 +239,39 @@
             </div>
         </header>
 
+                <a href="tools.html" class="glass-panel rounded-xl p-4 md:p-5 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between border border-teal-500/30 hover:border-teal-400/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(20,184,166,0.2)] group cursor-pointer no-underline gap-4 hover:-translate-y-1">
+                    <div class="flex items-center gap-4">
+                        <div class="font-mono text-teal-400 text-2xl tracking-widest flex items-center gap-1 select-none bg-teal-900/30 p-3 rounded" style="text-shadow: 0 0 10px rgba(20,184,166,0.5);">
+                            <span class="text-teal-600">[</span>
+                            <i class="fas fa-terminal"></i>
+                            <span class="text-teal-600">]</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1 flex-wrap">
+                                <span id="card-tools-tag" class="bg-teal-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded leading-none">稀有级</span>
+                                <h3 id="card-tools-title" class="text-base font-bold text-white leading-tight flex items-center gap-2">
+                                    FIELD TOOLKIT
+                                    <span class="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+                                </h3>
+                                <div class="flex gap-1.5 flex-wrap ml-2">
+                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[JS]</span>
+                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[PY]</span>
+                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[CLI]</span>
+                                </div>
+                            </div>
+                            <p id="card-tools-desc" class="text-gray-400 text-xs font-mono line-clamp-2">
+                                <span class="text-teal-500/80">$</span> 战术命令训练营。收录 Linux / Windows / Git 高频命令，翻转卡片进入模拟终端实战演练，Tab 补全、键盘音效全副武装。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center w-full md:w-auto justify-end border-t md:border-t-0 border-gray-700/50 pt-3 md:pt-0">
+                        <span class="text-xs font-mono text-gray-400 group-hover:text-teal-300 transition-colors flex items-center bg-teal-900/20 group-hover:bg-teal-900/40 px-3 py-1.5 rounded-full shrink-0">
+                            <span id="card-tools-enter" class="mr-1">进入终端</span><i class="fas fa-chevron-right text-[10px]"></i>
+                        </span>
+                    </div>
+                </a>
+
+
         <!-- 双列布局：左侧属性面板，右侧项目仓库 -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
@@ -375,37 +408,6 @@
             <div class="lg:col-span-2 flex flex-col gap-8 h-full">
 
                 <!-- 新增：战术工具箱快捷入口 (扁平风格) -->
-                <a href="tools.html" class="glass-panel rounded-xl p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between border border-teal-500/30 hover:border-teal-400/60 transition-all duration-300 hover:shadow-[0_0_20px_rgba(20,184,166,0.2)] group cursor-pointer no-underline gap-4 hover:-translate-y-1">
-                    <div class="flex items-center gap-4">
-                        <div class="font-mono text-teal-400 text-2xl tracking-widest flex items-center gap-1 select-none bg-teal-900/30 p-3 rounded" style="text-shadow: 0 0 10px rgba(20,184,166,0.5);">
-                            <span class="text-teal-600">[</span>
-                            <i class="fas fa-terminal"></i>
-                            <span class="text-teal-600">]</span>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1 flex-wrap">
-                                <span id="card-tools-tag" class="bg-teal-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded leading-none">稀有级</span>
-                                <h3 id="card-tools-title" class="text-base font-bold text-white leading-tight flex items-center gap-2">
-                                    FIELD TOOLKIT
-                                    <span class="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
-                                </h3>
-                                <div class="flex gap-1.5 flex-wrap ml-2">
-                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[JS]</span>
-                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[PY]</span>
-                                    <span class="bg-gray-800 text-teal-400 text-[10px] px-1.5 py-0.5 rounded font-mono border border-gray-700 leading-none">[CLI]</span>
-                                </div>
-                            </div>
-                            <p id="card-tools-desc" class="text-gray-400 text-xs font-mono line-clamp-2">
-                                <span class="text-teal-500/80">$</span> 战术工具集。包含代码侦察、格式化弹药库、端口扫描等前线实用装备。点击进入终端界面。
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center w-full md:w-auto justify-end border-t md:border-t-0 border-gray-700/50 pt-3 md:pt-0">
-                        <span class="text-xs font-mono text-gray-400 group-hover:text-teal-300 transition-colors flex items-center bg-teal-900/20 group-hover:bg-teal-900/40 px-3 py-1.5 rounded-full shrink-0">
-                            <span id="card-tools-enter" class="mr-1">进入终端</span><i class="fas fa-chevron-right text-[10px]"></i>
-                        </span>
-                    </div>
-                </a>
 
                 <!-- 4. 战场日志 → Gitee 活跃度 (Gitee Activity Feed) -->
                 <section class="glass-panel rounded-xl p-6 md:p-8">
@@ -823,6 +825,8 @@
                 <img src="img/icons/git.png" alt="Git" title="Git">
                 <img src="img/icons/github-original.svg" alt="GitHub"
                     title="GitHub" style="filter: brightness(0) invert(1);">
+                <img src="img/icons/openclaw-color.svg" alt="OpenClaw"
+                    title="OpenClaw" class="openclaw-icon">
                 <img src="img/icons/hermes-icon.png" alt="Hermes"
                     title="Hermes" class="openclaw-icon"
                     style="filter: brightness(0) invert(1);">
