@@ -7,20 +7,15 @@
     <meta name="description" content="RickinG 的战术指挥终端。沉浸式 PUBG 风格个人主页，集成作战数据与项目展示。Winner Winner, Chicken Dinner!">
     <link rel="icon" type="image/png" href="img/icons/pubg-helmet.png">
     <title>特种兵_RickinG | 个人主页</title>
-    <!-- 引入 Tailwind CSS (样式库) -->
-    <script src="https://cdn.tailwindcss.com"
-        onerror="console.error('Tailwind CSS failed to load'); document.body.innerHTML += '<div style=\'color:red;padding:20px\'>Error: Tailwind CSS failed to load. Please check your connection.</div>'"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tailwind.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
     <!-- 引入 FontAwesome (图标库) -->
-    <link rel="stylesheet" href="css/font-awesome/css/all.min.css"
-        onerror="console.error('FontAwesome failed to load')">
+    <link rel="stylesheet" href="css/font-awesome/subset/css/font-awesome-subset.css">
+    <link rel="stylesheet" href="css/main.css">
     <!-- 引入 Chart.js (图表库) -->
-    <script src="js/chart.min.js" onerror="console.error('Chart.js failed to load')"></script>
+    <script  src="js/chart.min.js" defer onerror="console.error('Chart.js failed to load')"></script>
     <!-- 引入自定义样式 -->
-    <link rel="stylesheet" href="css/style.css">
     <!-- 引入主题样式系统 -->
-    <link rel="stylesheet" href="css/theme-vars.css">
-    <link rel="stylesheet" href="css/theme-tw-bridge.css">
 </head>
 
 <body class="bg-gray-900 text-gray-200 min-h-screen relative selection:bg-red-500 selection:text-white">
@@ -906,20 +901,20 @@
 
     <!-- --- JavaScript 逻辑区域 --- -->
     <!-- 引入自定义脚本 (按顺序) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="js/themeManager.js?v=20260521b"></script>
-    <script src="js/share.js?v=20260521"></script>
-    <script src="js/config.js?v=20260306c"></script>
-    <script src="js/audio.js?v=20260306c"></script>
-    <script src="js/achievements.js?v=20260306c"></script>
-    <script src="js/giteeActivity.js?v=20260318a"></script>
-    <script src="js/game/Leaderboard.js?v=20260306c"></script>
-    <script src="js/game/BaseGame.js?v=20260306c"></script>
-    <script src="js/game/AimGame.js?v=20260306c"></script>
-    <script src="js/game/DodgeGame.js?v=20260306c"></script>
-    <script src="js/game/VehicleGame.js?v=20260306c"></script>
-    <script src="js/game/GameManager.js?v=20260306c"></script>
-    <script src="js/script.js?v=20260521b"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+    <script  src="js/themeManager.js?v=20260521b" defer></script>
+    <script  src="js/share.js?v=20260521" defer></script>
+    <script  src="js/config.js?v=20260306c" defer></script>
+    <script  src="js/audio.js?v=20260306c" defer></script>
+    <script  src="js/achievements.js?v=20260306c" defer></script>
+    <script  src="js/giteeActivity.js?v=20260318a" defer></script>
+    <script  src="js/game/Leaderboard.js?v=20260306c" defer></script>
+    <script  src="js/game/BaseGame.js?v=20260306c" defer></script>
+    <script  src="js/game/AimGame.js?v=20260306c" defer></script>
+    <script  src="js/game/DodgeGame.js?v=20260306c" defer></script>
+    <script  src="js/game/VehicleGame.js?v=20260306c" defer></script>
+    <script  src="js/game/GameManager.js?v=20260306c" defer></script>
+    <script  src="js/script.js?v=20260521b" defer></script>
     <script>
         // 初始化主题系统并生成挂件
         document.addEventListener('DOMContentLoaded', () => {

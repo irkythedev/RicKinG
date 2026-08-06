@@ -1,0 +1,1499 @@
+/* ===== theme-vars.css ===== */
+/* ==============================================
+   RicKinG Theme Token System (CSS Custom Properties)
+   ==============================================
+   All theme-sensitive colors are centralized here.
+   Default values = PUBG Tactical theme.
+
+   To add a new theme:
+   1. Create a theme object in themeManager.js
+   2. Override these variables via ThemeManager.apply()
+   ============================================== */
+
+:root {
+  /* ─── Primary Accent ─── */
+  --t-accent: #EAB308;
+  --t-accent-rgb: 234, 179, 8;
+  --t-accent-light: #FDE047;
+  --t-accent-light-rgb: 253, 224, 71;
+  --t-accent-dark: #CA8A04;
+  --t-accent-dark-rgb: 202, 138, 4;
+  --t-accent-warm: #fbbf24;
+  --t-accent-warm-rgb: 251, 191, 36;
+
+  /* ─── Danger / Action ─── */
+  --t-danger: #EF4444;
+  --t-danger-rgb: 239, 68, 68;
+
+  /* ─── Success ─── */
+  --t-success: #22C55E;
+  --t-success-muted: #4ADE80;
+
+  /* ─── Surfaces ─── */
+  --t-bg-body: #111827;
+  --t-bg-surface: #1F2937;
+  --t-bg-surface-rgb: 31, 41, 55;
+  --t-bg-elevated: #374151;
+  --t-bg-elevated-rgb: 55, 65, 81;
+  --t-bg-deep: #0F172A;
+  --t-bg-deep-rgb: 15, 23, 42;
+  --t-bg-input: #111827;
+  --t-bg-input-rgb: 17, 24, 39;
+
+  /* ─── Glass Panel ─── */
+  --t-glass-bg: rgba(30, 41, 59, 0.7);
+  --t-glass-border: rgba(255, 255, 255, 0.1);
+  --t-glass-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --t-glass-blur: 10px;
+
+  /* ─── Text ─── */
+  --t-text-heading: #FFFFFF;
+  --t-text-body: #D1D5DB;
+  --t-text-muted: #9CA3AF;
+  --t-text-dim: #6B7280;
+  --t-text-code: #4ADE80;
+
+  /* ─── Borders ─── */
+  --t-border-subtle: rgba(255, 255, 255, 0.06);
+  --t-border-light: rgba(255, 255, 255, 0.1);
+  --t-border-medium: rgba(255, 255, 255, 0.2);
+  --t-border-strong: rgb(75, 85, 99);
+  --t-border-highlight: rgba(255, 255, 255, 0.3);
+
+  /* ─── Effects ─── */
+  --t-smoke-rgb: 100, 116, 139;
+  --t-legendary-glow: rgba(255, 215, 0, 0.6);
+  --t-legendary-border: rgba(255, 215, 0, 0.8);
+  --t-cursor-dot: #ef4444;
+
+  /* ─── Chart ─── */
+  --t-chart-target-bg: rgba(99, 179, 237, 0.06);
+  --t-chart-target-border: rgba(99, 179, 237, 0.6);
+  --t-chart-target-point: rgba(99, 179, 237, 0.7);
+  --t-chart-target-hover: #90CDF4;
+
+  /* ─── Feed ─── */
+  --t-feed-link: #60A5FA;
+}
+
+
+/* ===== style.css ===== */
+/* --- 全局样式设定 --- */
+body {
+    /* 隐藏所有系统光标 (在支持的桌面端由自定义战术准星接管) */
+    cursor: none;
+    font-family: 'Oswald', 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+    touch-action: manipulation;
+}
+
+/* --- 生物特征雷达扫描动效 (Tactical ID Scan) --- */
+@keyframes bio-scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+.animate-bio-scan {
+    animation: bio-scan 2.5s linear infinite;
+}
+
+/* --- 自定义狙击枪准星光标系统 --- */
+@media (pointer: fine) {
+    *, a, button, [role="button"], .cursor-pointer {
+        cursor: none !important; /* 强制覆盖所有交互元素光标 */
+    }
+
+    #tactical-cursor {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 32px;
+        height: 32px;
+        pointer-events: none; /* 绝对不能阻挡点击事件 */
+        z-index: 2147483647; /* 强制最高层级，避开任何全屏Modal遮挡 */
+        will-change: transform;
+        /* 通过 JS 实时更改 transform: translate3d(x, y, 0) */
+    }
+
+    .cursor-recoil-wrapper {
+        width: 100%;
+        height: 100%;
+        transform-origin: center bottom;
+    }
+
+    .cursor-scope {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-sizing: border-box;
+        transition: all 0.15s cubic-bezier(0.2, 1, 0.3, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 中心红点 */
+    .cursor-dot {
+        width: 4px;
+        height: 4px;
+        background-color: var(--t-cursor-dot);
+        border-radius: 50%;
+        box-shadow: 0 0 5px var(--t-cursor-dot);
+        transition: all 0.15s ease;
+    }
+
+    /* 准星四角刻度线 */
+    .cursor-crosshair {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: all 0.15s ease;
+    }
+    .cursor-crosshair.top { width: 2px; height: 8px; top: -4px; left: 13px; }
+    .cursor-crosshair.bottom { width: 2px; height: 8px; bottom: -4px; left: 13px; }
+    .cursor-crosshair.left { width: 8px; height: 2px; left: -4px; top: 13px; }
+    .cursor-crosshair.right { width: 8px; height: 2px; right: -4px; top: 13px; }
+
+    /* 锁定状态 (Hover Action) */
+    #tactical-cursor.locked .cursor-scope {
+        border-color: rgba(var(--t-accent-rgb), 0.8);
+        transform: scale(0.65) rotate(45deg);
+        background: rgba(var(--t-accent-rgb), 0.1);
+    }
+    #tactical-cursor.locked .cursor-crosshair {
+        background-color: rgba(var(--t-accent-rgb), 1);
+    }
+    #tactical-cursor.locked .cursor-dot {
+        background-color: var(--t-accent);
+        box-shadow: 0 0 8px var(--t-accent);
+    }
+
+    /* 开火后坐力 (Recoil Animation) */
+    @keyframes recoil {
+        0% { transform: translateY(0) scale(1); }
+        20% { transform: translateY(-15px) scale(1.15); } /* 枪口急剧上跳 */
+        50% { transform: translateY(3px) scale(0.95); }  /* 枪口下沉回压 */
+        100% { transform: translateY(0) scale(1); }      /* 恢复稳定 */
+    }
+    .cursor-recoil-wrapper.firing {
+        animation: recoil 0.25s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    }
+}
+/* 移动端/无精细指针设备：自动隐藏准星以防干扰触摸流 */
+@media (pointer: coarse) {
+    #tactical-cursor { display: none !important; }
+}
+
+/* --- 慢速旋转动画 --- */
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+}
+
+/* --- 背景烟雾效果 --- */
+#smoke-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* 放在最底层 */
+    pointer-events: none;
+    /* 让鼠标点击可以穿透画布 */
+}
+
+/* --- 玻璃拟态效果 (Glassmorphism) --- */
+.glass-panel {
+    background: rgba(30, 41, 59, 0.7);
+    /* 深蓝灰色半透明 */
+    backdrop-filter: blur(10px);
+    /* 背景模糊 */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* 微弱的白边框 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* 阴影 */
+}
+
+/* --- 名字闪烁特效 (模拟信号接收) --- */
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
+
+    25% {
+        text-shadow: -2px 2px #0000ff, 2px -2px #ffff00;
+    }
+
+    50% {
+        text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;
+    }
+
+    75% {
+        text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+    }
+
+    100% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
+}
+
+.glitch-text:hover {
+    animation: glitch 0.3s infinite;
+    /* 鼠标悬停时触发闪烁 */
+}
+
+/* 自动循环故障特效 */
+.glitch-auto {
+    animation: glitch-loop 3s infinite;
+}
+
+@keyframes glitch-loop {
+
+    0%,
+    90%,
+    100% {
+        text-shadow: none;
+    }
+
+    92% {
+        text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+    }
+
+    94% {
+        text-shadow: -2px 2px #0000ff, 2px -2px #ffff00;
+    }
+
+    96% {
+        text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;
+    }
+
+    98% {
+        text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+    }
+}
+
+/* --- 传说级装备光效 --- */
+.legendary-glow {
+    box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.6);
+    /* 主题动态光晕 */
+    border: 1px solid var(--t-accent);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.legendary-glow:hover {
+    transform: scale(1.02);
+    /* 鼠标悬停放大，幅度减小防止溢出 */
+}
+
+/* --- 点击出现的漂浮文字动画 --- */
+.float-text {
+    position: absolute;
+    color: #fbbf24;
+    /* 金黄色 */
+    font-weight: bold;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    z-index: 9999;
+    text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-25px) scale(1.15);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(-60px) scale(0.8);
+        opacity: 0;
+    }
+}
+
+/* --- 游戏准星装饰 --- */
+.crosshair-decor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.glass-panel:hover .crosshair-decor {
+    border-color: rgba(var(--t-accent-rgb), 0.6);
+    filter: drop-shadow(0 0 3px rgba(var(--t-accent-rgb), 0.4));
+}
+
+.crosshair-tl {
+    top: 10px;
+    left: 10px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.crosshair-tr {
+    top: 10px;
+    right: 10px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.crosshair-bl {
+    bottom: 10px;
+    left: 10px;
+    border-right: none;
+    border-top: none;
+}
+
+.crosshair-br {
+    bottom: 10px;
+    right: 10px;
+    border-left: none;
+    border-top: none;
+}
+
+/* --- 进度条动画 --- */
+.progress-fill {
+    transition: width 1.5s ease-out;
+    width: 0;
+    /* 初始宽度为0，JS加载后变长 */
+}
+
+/* --- 3D 翻转卡片 (Flip Card) --- */
+.flip-card {
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+/* 点击或添加 .flipped 类时翻转 */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 0.5rem;
+    /* rounded-lg */
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.95);
+    /* 更深的背景以便阅读 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 1.5rem;
+    z-index: 2;
+}
+
+/* --- 游戏全屏 Modal --- */
+#game-modal {
+    transition: opacity 0.3s;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+#game-canvas-container {
+    touch-action: none;
+    /* 防止游戏时触发滚动 */
+}
+
+/* --- 信号枪呼吸动画 --- */
+@keyframes flare-pulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5));
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(250, 204, 21, 0.8));
+    }
+
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(250, 204, 21, 0.5));
+    }
+}
+
+.flare-anim {
+    animation: flare-pulse 2s infinite ease-in-out;
+}
+
+/* --- 六边形雷达图容器 (全新升级) --- */
+.radar-container {
+    position: relative;
+    background: radial-gradient(circle at center, rgba(var(--t-accent-rgb), 0.03) 0%, transparent 70%);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(var(--t-accent-rgb), 0.12);
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 15px rgba(var(--t-accent-rgb), 0.06);
+    overflow: visible;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.radar-container:hover {
+    border-color: rgba(var(--t-accent-rgb), 0.3);
+    box-shadow:
+        inset 0 0 30px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(var(--t-accent-rgb), 0.12);
+}
+
+
+
+
+/* ============================================
+   任务卡片手风琴 (Mission Card Accordion)
+   GPU-accelerated, single-property transition
+   ============================================ */
+
+.mission-list {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    height: 5rem;
+    width: 100%;
+    contain: layout style;
+}
+
+@media (min-width: 768px) {
+    .mission-list {
+        height: 6rem;
+    }
+}
+
+
+.mission-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 0%;
+    min-width: 0;
+    background: rgb(31, 41, 55);
+    border: 1px solid rgb(75, 85, 99);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    overflow: hidden;
+    transform: translateZ(0);
+    will-change: flex-grow;
+    transition: flex-grow 500ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        background 150ms ease,
+        border-color 200ms ease,
+        visibility 0ms linear 500ms;
+}
+
+.mission-card-more {
+    background: rgba(31, 41, 55, 0.5);
+    border: 2px dashed rgb(75, 85, 99);
+}
+
+.mission-card:hover {
+    background: rgb(55, 65, 81);
+}
+
+.mission-list:hover {
+    gap: 0;
+}
+
+.mission-list:hover .mission-card {
+    flex-grow: 0;
+    border-color: transparent;
+    visibility: hidden;
+    transition: flex-grow 500ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        background 150ms ease,
+        border-color 200ms ease,
+        visibility 0ms linear 0ms;
+}
+
+.mission-list:hover .mission-card:hover {
+    flex-grow: 100;
+    border-color: rgb(75, 85, 99);
+    visibility: visible;
+}
+
+/* === 图标 === */
+.mission-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(0);
+    transition: transform 400ms cubic-bezier(0.25, 0.1, 0.25, 1),
+        opacity 300ms ease;
+}
+
+.mission-icon-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgb(17, 24, 39);
+    border-width: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.125rem;
+    transition: transform 250ms ease;
+}
+
+@media (min-width: 768px) {
+    .mission-icon-circle {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+    }
+}
+
+.mission-card:hover .mission-icon {
+    transform: translateX(calc(-50% + 2rem)) translateZ(0);
+}
+
+@media (min-width: 768px) {
+    .mission-card:hover .mission-icon {
+        transform: translateX(calc(-50% + 2.5rem)) translateZ(0);
+    }
+}
+
+.mission-list:hover .mission-card:not(:hover) .mission-icon {
+    opacity: 0;
+}
+
+.mission-card:hover .mission-icon-circle {
+    transform: scale(1.1);
+}
+
+/* === 文字 === */
+.mission-info {
+    position: absolute;
+    left: 4rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(10px) translateZ(0);
+    transition: opacity 250ms ease 100ms,
+        transform 250ms ease 100ms;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .mission-info {
+        left: 5rem;
+        right: 2.5rem;
+    }
+}
+
+.mission-title {
+    font-weight: 700;
+    font-size: 0.875rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+    .mission-title {
+        font-size: 1rem;
+    }
+}
+
+.mission-desc {
+    font-size: 0.75rem;
+    color: rgb(156, 163, 175);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.mission-card:hover .mission-info {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+}
+
+/* === 箭头 === */
+.mission-arrow {
+    position: absolute;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    opacity: 0;
+    transform: translateX(6px) translateZ(0);
+    transition: opacity 200ms ease 150ms,
+        transform 200ms ease 150ms;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+    .mission-arrow {
+        right: 1rem;
+        font-size: 1rem;
+    }
+}
+
+.mission-card:hover .mission-arrow {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+}
+
+@media (max-width: 639px) {
+    .mission-list {
+        flex-wrap: wrap;
+        height: auto;
+        gap: 6px;
+    }
+
+    .mission-card {
+        flex: 0 0 calc(50% - 3px);
+        height: 4rem;
+    }
+
+    .mission-list:hover .mission-card:not(:hover) {
+        visibility: visible;
+        flex-grow: 0;
+    }
+}
+
+/* --- 滚动入场动画 --- */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- 标签悬浮闪光效果 --- */
+@keyframes tag-shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+header span[id^="tag-"],
+header span[id="header-rank"],
+header span[id="header-role"] {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header span[id^="tag-"]:hover,
+header span[id="header-rank"]:hover,
+header span[id="header-role"]:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+header span[id^="tag-"]::after,
+header span[id="header-rank"]::after,
+header span[id="header-role"]::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-25deg);
+    pointer-events: none;
+}
+
+header span[id^="tag-"]:hover::after,
+header span[id="header-rank"]:hover::after,
+header span[id="header-role"]:hover::after {
+    animation: tag-shine 0.6s ease-out forwards;
+}
+
+/* --- 数字跳动 countdown 效果 --- */
+@keyframes countPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.count-pulse {
+    animation: countPulse 0.3s ease;
+}
+
+/* --- 头像呼吸光圈 --- */
+@keyframes avatar-glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.3), 0 0 30px rgba(var(--t-accent-rgb), 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 25px rgba(var(--t-accent-rgb), 0.5), 0 0 50px rgba(var(--t-accent-rgb), 0.2);
+    }
+}
+
+.avatar-glow {
+    animation: avatar-glow 3s ease-in-out infinite;
+}
+
+/* --- 鼠标追踪光斑 --- */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(var(--t-accent-rgb), 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+}
+
+/* --- 卡片 tilt 3D 效果 --- */
+.tilt-card {
+    transition: transform 0.15s ease;
+    transform-style: preserve-3d;
+}
+
+.tilt-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--t-accent-rgb), 0.08);
+}
+
+/* --- 进度条闪光 --- */
+@keyframes progress-shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(200%);
+    }
+}
+
+.progress-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: progress-shimmer 2s infinite;
+}
+
+/* --- 页脚 Easter egg 样式 --- */
+.footer-konami {
+    transition: all 0.5s;
+}
+
+.footer-konami.activated {
+    color: var(--t-accent) !important;
+    text-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.5);
+    opacity: 1 !important;
+}
+
+/* ============================================
+   成就勋章网格 (Achievement Grid)
+   ============================================ */
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.achievement-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 4px;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.5);
+    text-align: center;
+    cursor: default;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-badge.unlocked {
+    border-color: rgba(var(--t-accent-rgb), 0.25);
+    background: rgba(var(--t-accent-rgb), 0.06);
+}
+
+.achievement-badge.unlocked:hover {
+    border-color: rgba(var(--t-accent-rgb), 0.5);
+    box-shadow: 0 0 15px rgba(var(--t-accent-rgb), 0.15);
+    transform: translateY(-2px);
+}
+
+.achievement-badge.locked {
+    opacity: 0.35;
+    filter: grayscale(100%);
+}
+
+.achievement-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.achievement-name {
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: #9CA3AF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.achievement-badge.unlocked .achievement-name {
+    color: var(--t-accent);
+}
+
+/* ============================================
+   成就解锁 Toast 通知
+   ============================================ */
+.achievement-toast {
+    position: fixed;
+    top: 20px;
+    right: -320px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: rgba(17, 24, 39, 0.95);
+    border: 1px solid rgba(var(--t-accent-rgb), 0.4);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--t-accent-rgb), 0.1);
+    z-index: 9999;
+    transition: right 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    backdrop-filter: blur(10px);
+}
+
+.achievement-toast.show {
+    right: 20px;
+}
+
+.achievement-toast-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.achievement-toast-title {
+    font-size: 0.7rem;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.achievement-toast-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--t-accent);
+    margin-top: 2px;
+}
+
+/* ============================================
+   战场日志 空状态 (Battle Log Empty State)
+   ============================================ */
+.battlelog-empty {
+    border: 1px dashed rgba(var(--t-accent-rgb), 0.15);
+    border-radius: 0.5rem;
+    padding: 24px 16px;
+    text-align: center;
+    background: rgba(var(--t-accent-rgb), 0.02);
+}
+
+.battlelog-empty-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    animation: radar-sweep-inline 3s linear infinite;
+}
+
+@keyframes radar-sweep-inline {
+
+    0%,
+    100% {
+        opacity: 0.4;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.battlelog-empty-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--t-accent);
+    margin-bottom: 4px;
+    font-family: 'Segoe UI', monospace;
+}
+
+.battlelog-empty-desc {
+    font-size: 0.75rem;
+    color: #6B7280;
+    line-height: 1.5;
+}
+
+/* ============================================
+   成就勋章 - 紧凑横条布局 (Achievement Strip)
+   ============================================ */
+.achievement-strip {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+}
+
+.achievement-strip::-webkit-scrollbar {
+    display: none;
+}
+
+.achievement-strip .achievement-badge {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(17, 24, 39, 0.5);
+    cursor: default;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.achievement-strip .achievement-badge.unlocked {
+    border-color: rgba(var(--t-accent-rgb), 0.25);
+    background: rgba(var(--t-accent-rgb), 0.06);
+}
+
+.achievement-strip .achievement-badge.unlocked:hover {
+    border-color: rgba(var(--t-accent-rgb), 0.5);
+    box-shadow: 0 0 12px rgba(var(--t-accent-rgb), 0.15);
+    transform: translateY(-1px);
+}
+
+.achievement-strip .achievement-badge.locked {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+.achievement-strip .achievement-icon {
+    font-size: 0.875rem;
+    line-height: 1;
+    margin-bottom: 0;
+}
+
+.achievement-strip .achievement-name {
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: #9CA3AF;
+}
+
+.achievement-strip .achievement-badge.unlocked .achievement-name {
+    color: var(--t-accent);
+}
+
+/* ============================================
+   Gitee 活跃度热力图 (Heatmap)
+   ============================================ */
+.gitee-heatmap {
+    display: grid;
+    grid-template-columns: repeat(30, 1fr);
+    gap: 2px;
+}
+
+.gitee-heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.04);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    min-height: 10px;
+    transform: skewX(-15deg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gitee-heatmap-cell:hover {
+    transform: skewX(-15deg);
+    z-index: 100;
+    border-color: rgba(var(--t-accent-rgb), 1);
+    box-shadow: 0 0 12px rgba(var(--t-accent-rgb), 0.8), inset 0 0 5px rgba(var(--t-accent-rgb), 0.5);
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* --- PUBG PUBG Style Heatmap Tooltip --- */
+.gitee-heatmap-cell[data-tip]:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 160%;
+    left: 50%;
+    transform: translateX(-50%) skewX(15deg); /* 反向修正斜切以保证文字方正 */
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(var(--t-accent-rgb), 0.8);
+    color: var(--t-accent);
+    padding: 4px 8px;
+    font-size: 11px;
+    font-family: 'Oswald', 'PingFang SC', sans-serif;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.3);
+}
+
+.gitee-heatmap-cell[data-tip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) skewX(15deg);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(var(--t-accent-rgb), 0.8) transparent transparent transparent;
+    pointer-events: none;
+}
+
+.gitee-heatmap-cell[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.gitee-heatmap-cell[data-level="1"] {
+    background: rgba(var(--t-accent-rgb), 0.15);
+    box-shadow: 0 0 3px rgba(var(--t-accent-rgb), 0.1);
+}
+
+.gitee-heatmap-cell[data-level="2"] {
+    background: rgba(var(--t-accent-rgb), 0.35);
+    box-shadow: 0 0 5px rgba(var(--t-accent-rgb), 0.15);
+}
+
+.gitee-heatmap-cell[data-level="3"] {
+    background: rgba(var(--t-accent-rgb), 0.55);
+    box-shadow: 0 0 8px rgba(var(--t-accent-rgb), 0.2);
+}
+
+.gitee-heatmap-cell[data-level="4"] {
+    background: rgba(var(--t-accent-rgb), 0.8);
+    box-shadow: 0 0 10px rgba(var(--t-accent-rgb), 0.3);
+}
+
+/* ============================================
+   Gitee 动态列表 (Activity Feed)
+   ============================================ */
+.gitee-feed {
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--t-accent-rgb), 0.2) transparent;
+}
+
+.gitee-feed::-webkit-scrollbar {
+    width: 4px;
+}
+
+.gitee-feed::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.gitee-feed::-webkit-scrollbar-thumb {
+    background: rgba(var(--t-accent-rgb), 0.2);
+    border-radius: 4px;
+}
+
+.gitee-feed-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.gitee-feed-item:last-child {
+    border-bottom: none;
+}
+
+.gitee-feed-item:hover {
+    background: rgba(var(--t-accent-rgb), 0.03);
+    border-radius: 6px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.gitee-feed-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gitee-feed-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.gitee-feed-action {
+    font-size: 0.75rem;
+    color: #D1D5DB;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.gitee-feed-action strong {
+    color: var(--t-accent);
+    font-weight: 700;
+}
+
+.gitee-feed-action a {
+    color: #60A5FA;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.gitee-feed-action a:hover {
+    text-decoration: underline;
+}
+
+.gitee-feed-time {
+    font-size: 0.625rem;
+    color: #6B7280;
+    font-family: 'Segoe UI', monospace;
+    margin-top: 2px;
+}
+
+/* Gitee feed item type icons */
+.gitee-feed-icon.type-push {
+    background: rgba(34, 197, 94, 0.12);
+    color: #22C55E;
+}
+
+.gitee-feed-icon.type-issue {
+    background: rgba(var(--t-accent-rgb), 0.12);
+    color: var(--t-accent);
+}
+
+.gitee-feed-icon.type-pr {
+    background: rgba(168, 85, 247, 0.12);
+    color: #A855F7;
+}
+
+.gitee-feed-icon.type-create {
+    background: rgba(59, 130, 246, 0.12);
+    color: #3B82F6;
+}
+
+.gitee-feed-icon.type-star {
+    background: rgba(250, 204, 21, 0.12);
+    color: #FACC15;
+}
+
+.gitee-feed-icon.type-comment {
+    background: rgba(99, 102, 241, 0.12);
+    color: #6366F1;
+}
+
+.gitee-feed-icon.type-fork {
+    background: rgba(236, 72, 153, 0.12);
+    color: #EC4899;
+}
+
+.gitee-feed-icon.type-default {
+    background: rgba(100, 116, 139, 0.12);
+    color: #64748B;
+}
+
+/* 热力图 tooltip */
+.gitee-heatmap-cell[title] {
+    cursor: pointer;
+}
+
+/* 热力图 Legend */
+.gitee-heatmap-legend {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.gitee-heatmap-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.gitee-heatmap-cell-mini {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 0;
+    transform: skewX(-15deg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gitee-heatmap-cell-mini[data-level="0"] {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gitee-heatmap-cell-mini[data-level="1"] {
+    background: rgba(var(--t-accent-rgb), 0.15);
+}
+
+.gitee-heatmap-cell-mini[data-level="2"] {
+    background: rgba(var(--t-accent-rgb), 0.35);
+}
+
+.gitee-heatmap-cell-mini[data-level="3"] {
+    background: rgba(var(--t-accent-rgb), 0.55);
+}
+
+.gitee-heatmap-cell-mini[data-level="4"] {
+    background: rgba(var(--t-accent-rgb), 0.8);
+}
+
+.gitee-heatmap-legend-text {
+    font-size: 0.55rem;
+    color: #6B7280;
+    font-family: 'Segoe UI', monospace;
+}
+
+/* Feed item tactical border accent */
+.gitee-feed-item {
+    border-left: 2px solid transparent;
+    padding-left: 8px;
+}
+
+.gitee-feed-item:hover {
+    border-left-color: rgba(var(--t-accent-rgb), 0.5);
+}
+
+/* Callsign bracket highlighting in feed */
+.gitee-feed-action {
+    font-family: 'Segoe UI', monospace, sans-serif;
+}
+
+/* Subtle commit message hint — code intel fragment */
+.gitee-feed-commit-hint {
+    font-family: 'Courier New', monospace;
+    font-size: 0.6rem;
+    color: #4ADE80;
+    opacity: 0.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 320px;
+    margin-top: 1px;
+    letter-spacing: 0.3px;
+    transition: opacity 0.3s ease;
+}
+
+.gitee-feed-item:hover .gitee-feed-commit-hint {
+    opacity: 0.55;
+}
+
+@media (max-width: 639px) {
+    .gitee-heatmap {
+        grid-template-columns: repeat(15, 1fr);
+    }
+
+    .gitee-feed {
+        max-height: 180px;
+    }
+
+    .gitee-heatmap-legend {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+/* ============================================
+   页脚技术栈图标条
+   ============================================ */
+.tech-stack-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+}
+
+.tech-stack-bar img {
+    height: 22px;
+    width: auto;
+    opacity: 0.4;
+    filter: grayscale(50%);
+    transition: all 0.3s ease;
+}
+
+.tech-stack-bar img:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+    transform: translateY(-2px);
+}
+
+/* OpenClaw emoji fallback */
+.openclaw-emoji-icon {
+    font-size: 20px;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    cursor: default;
+    line-height: 1;
+}
+
+.openclaw-emoji-icon:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* ===== theme-tw-bridge.css ===== */
+/* ==============================================
+   Tailwind ↔ Theme Bridge
+   ==============================================
+   Maps Tailwind utility classes to CSS custom properties.
+   Loaded AFTER Tailwind CDN so overrides take effect.
+   
+   Default PUBG values match Tailwind's palette,
+   so no visual change occurs until a new theme is applied.
+   ============================================== */
+
+/* ── Body-level ── */
+body[data-theme] {
+  background-color: var(--t-bg-body);
+  color: var(--t-text-body);
+}
+
+/* ── Primary Accent (Yellow) ── */
+body[data-theme] .text-yellow-400 { color: var(--t-accent-light) !important; }
+body[data-theme] .text-yellow-500 { color: var(--t-accent) !important; }
+body[data-theme] .text-yellow-600 { color: var(--t-accent-dark) !important; }
+body[data-theme] .bg-yellow-500 { background-color: var(--t-accent) !important; }
+body[data-theme] .bg-yellow-600 { background-color: var(--t-accent-dark) !important; }
+body[data-theme] .hover\:bg-yellow-400:hover { background-color: var(--t-accent-light) !important; }
+body[data-theme] .hover\:bg-yellow-500:hover { background-color: var(--t-accent) !important; }
+body[data-theme] .border-yellow-500 { border-color: var(--t-accent) !important; }
+body[data-theme] .border-yellow-600 { border-color: var(--t-accent-dark) !important; }
+
+/* Yellow with opacity variants */
+body[data-theme] .bg-yellow-600\/90 { background-color: rgba(var(--t-accent-dark-rgb), 0.9) !important; }
+body[data-theme] .bg-yellow-500\/90 { background-color: rgba(var(--t-accent-rgb), 0.9) !important; }
+body[data-theme] .bg-yellow-500\/20 { background-color: rgba(var(--t-accent-rgb), 0.2) !important; }
+body[data-theme] .border-yellow-500\/50 { border-color: rgba(var(--t-accent-rgb), 0.5) !important; }
+body[data-theme] .border-yellow-600\/50 { border-color: rgba(var(--t-accent-dark-rgb), 0.5) !important; }
+body[data-theme] .shadow-yellow-500\/30 { --tw-shadow-color: rgba(var(--t-accent-rgb), 0.3) !important; }
+body[data-theme] .shadow-yellow-500\/50 { --tw-shadow-color: rgba(var(--t-accent-rgb), 0.5) !important; }
+
+/* Animate-pulse yellow elements */
+body[data-theme] .bg-yellow-400 { background-color: var(--t-accent-light) !important; }
+body[data-theme] .bg-yellow-500 { background-color: var(--t-accent) !important; }
+
+/* ── Danger (Red) ── */
+body[data-theme] .text-red-400 { color: rgba(var(--t-danger-rgb), 0.85) !important; }
+body[data-theme] .text-red-500 { color: var(--t-danger) !important; }
+body[data-theme] .selection\:bg-red-500 ::selection { background-color: var(--t-danger) !important; }
+
+/* Red with opacity */
+body[data-theme] .bg-red-700 { background-color: rgba(var(--t-danger-rgb), 0.75) !important; }
+body[data-theme] .hover\:bg-red-600:hover { background-color: rgba(var(--t-danger-rgb), 0.65) !important; }
+body[data-theme] .border-red-500 { border-color: var(--t-danger) !important; }
+body[data-theme] .shadow-red-500\/50 { --tw-shadow-color: rgba(var(--t-danger-rgb), 0.5) !important; }
+
+/* ── Surface Grays ── */
+body[data-theme] .bg-gray-900 { background-color: var(--t-bg-body) !important; }
+body[data-theme] .bg-gray-800 { background-color: var(--t-bg-surface) !important; }
+body[data-theme] .hover\:bg-gray-700:hover { background-color: var(--t-bg-elevated) !important; }
+body[data-theme] .bg-gray-900\/95 { background-color: rgba(var(--t-bg-deep-rgb), 0.95) !important; }
+
+/* ── Text Grays ── */
+body[data-theme] .text-gray-200 { color: var(--t-text-body) !important; }
+body[data-theme] .text-gray-300 { color: var(--t-text-body) !important; }
+body[data-theme] .text-gray-400 { color: var(--t-text-muted) !important; }
+body[data-theme] .text-gray-500 { color: var(--t-text-dim) !important; }
+body[data-theme] .text-gray-600 { color: var(--t-text-dim) !important; }
+
+/* ── Border Grays ── */
+body[data-theme] .border-gray-600 { border-color: var(--t-border-strong) !important; }
+body[data-theme] .border-gray-700 { border-color: rgba(var(--t-bg-elevated-rgb), 0.8) !important; }
+body[data-theme] .border-gray-700\/50 { border-color: rgba(var(--t-bg-elevated-rgb), 0.5) !important; }
+
+/* ── Success (Green status) ── */
+body[data-theme] .text-green-500 { color: var(--t-success) !important; }
+body[data-theme] .text-green-400 { color: var(--t-success-muted) !important; }
+
+/* ── Drop Shadow accent ── */
+body[data-theme] .drop-shadow-\[0_0_8px_rgba\(234\,179\,8\,0\.8\)\] {
+  filter: drop-shadow(0 0 8px rgba(var(--t-accent-rgb), 0.8)) !important;
+}
