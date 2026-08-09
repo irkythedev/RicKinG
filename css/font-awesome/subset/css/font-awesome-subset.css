@@ -31,30 +31,42 @@
 }
 
 /* ---- solid ---- */
+.fa-arrow-up:before { content: "\f062"; }
+.fa-bolt:before { content: "\f0e7"; }
+.fa-book:before { content: "\f02d"; }
 .fa-car:before { content: "\f1b9"; }
 .fa-chevron-right:before { content: "\f054"; }
 .fa-code-branch:before { content: "\f126"; }
 .fa-comment-dots:before { content: "\f4ad"; }
 .fa-crosshairs:before { content: "\f05b"; }
 .fa-fingerprint:before { content: "\f577"; }
+.fa-flag:before { content: "\f024"; }
 .fa-folder-open:before { content: "\f07c"; }
 .fa-lightbulb:before { content: "\f0eb"; }
+.fa-link:before { content: "\f0c1"; }
 .fa-magnifying-glass:before, .fa-search:before { content: "\f002"; }
+.fa-map:before { content: "\f279"; }
 .fa-mouse-pointer:before { content: "\f245"; }
 .fa-network-wired:before { content: "\f6ff"; }
 .fa-parachute-box:before { content: "\f4cd"; }
 .fa-plus:before { content: "\2b"; }
+.fa-plus-circle:before, .fa-circle-plus:before { content: "\f055"; }
 .fa-quote-left:before { content: "\f10d"; }
 .fa-quote-right:before { content: "\f10e"; }
 .fa-reply:before { content: "\f3e5"; }
 .fa-share-nodes:before, .fa-share-alt:before { content: "\f1e0"; }
 .fa-shield-halved:before, .fa-shield-alt:before { content: "\f3ed"; }
 .fa-signal:before { content: "\f012"; }
+.fa-skull:before { content: "\f54c"; }
+.fa-star:before { content: "\f005"; }
 .fa-terminal:before { content: "\f120"; }
 .fa-times:before, .fa-xmark:before { content: "\f00d"; }
+.fa-users:before { content: "\f0c0"; }
 .fa-volume-high:before, .fa-volume-up:before { content: "\f028"; }
 .fa-volume-up:before { content: "\f028"; }
 .fa-volume-xmark:before, .fa-volume-mute:before { content: "\f6a9"; }
+.fa-walkie-talkie:before { content: "\f8ef"; }
+.fa-wrench:before { content: "\f0ad"; }
 
 /* ---- brands ---- */
 .fa-git-alt:before { content: "\f841"; }
