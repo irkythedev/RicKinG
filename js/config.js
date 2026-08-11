@@ -99,7 +99,7 @@ window.I18N = {
         name: "特种兵_RickinG",
         quote: "落地一把98K，代码一行Bug Free。",
         motto: "好好学习，天天向上",
-        giteeBtn: "Gitee 仓库",
+        giteeBtn: "Gitee",
         githubBtn: "GitHub",
         stats: {
             title: "PLAYER STATS",
@@ -229,7 +229,7 @@ window.I18N = {
         name: "CMD_RickinG",
         quote: "Drop with a Kar98k, code with zero bugs.",
         motto: "Good Good Study, Day Day Up",
-        giteeBtn: "Gitee Repo",
+        giteeBtn: "Gitee",
         githubBtn: "GitHub",
         stats: {
             title: "PLAYER STATS",
