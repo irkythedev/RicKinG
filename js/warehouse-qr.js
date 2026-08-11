@@ -25,13 +25,13 @@
   let modalEl = null;
   let qrInstance = null;
 
-  // 注入 QR 按钮到每张卡片 demo 按钮右侧（同一行，独立按钮）
+  // 注入：访问页面按钮 → 弹出操作面板（QR + 访问 + 复制），去掉独立 QR 按钮
   function injectQrButtons() {
     document.querySelectorAll('.flip-card').forEach(card => {
       const demoBtn = card.querySelector('a[aria-label="View Live Demo"]');
       if (!demoBtn) return;
-      // 已注入过则跳过
-      if (demoBtn.parentElement.querySelector('.qr-trigger')) return;
+      // 已绑定过则跳过
+      if (demoBtn.dataset.qrBound) return;
 
       // 根据 demo href 识别项目 key
       const href = demoBtn.getAttribute('href') || '';
@@ -41,27 +41,17 @@
       });
       if (!key) return;
 
-      // 把 demo 按钮 + QR 按钮包进横向 flex 容器，保证同一行
-      const row = document.createElement('div');
-      row.className = 'flex gap-2 w-full';
-      const parent = demoBtn.parentElement;
-      parent.insertBefore(row, demoBtn);
-      // demo 按钮占满剩余宽度（与"访问代码"按钮对齐），QR 按钮固定
-      demoBtn.classList.add('flex-1');
-      row.appendChild(demoBtn);
+      // 移除旧的独立 QR 按钮（如果存在）
+      const oldTrigger = demoBtn.parentElement.querySelector('.qr-trigger');
+      if (oldTrigger) oldTrigger.remove();
 
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'qr-trigger bg-gray-800 hover:bg-gray-700 text-[var(--t-accent)] py-2.5 px-3 rounded-lg border border-gray-600 flex items-center justify-center transition shrink-0';
-      btn.title = '扫码访问 / Scan QR';
-      btn.setAttribute('aria-label', 'Show QR Code for ' + TITLES[key]);
-      btn.innerHTML = '<i class="fas fa-qrcode"></i>';
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
+      // 访问页面按钮点击 → 打开操作面板（不直接跳转）
+      demoBtn.dataset.qrBound = '1';
+      demoBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         openQrModal(key);
       });
-      row.appendChild(btn);
     });
   }
 
@@ -82,6 +72,10 @@
     const urlEl = modalEl.querySelector('[data-qr-url]');
     urlEl.textContent = url.replace('https://', '');
     urlEl.href = url;
+
+    // 访问页面按钮（面板内直接跳转）
+    const visitBtn = modalEl.querySelector('[data-qr-visit]');
+    visitBtn.href = url;
 
     // 生成二维码（清空重建，避免重复）
     const qrBox = modalEl.querySelector('[data-qr-box]');
@@ -135,11 +129,16 @@
         </div>
         <div class="text-center mb-4">
           <div class="text-xs text-gray-500 mb-1">扫码访问 / Scan to visit</div>
-          <a data-qr-url class="text-sm font-mono text-[var(--t-accent)] hover:underline break-all"></a>
+          <a data-qr-url class="text-sm font-mono text-[var(--t-accent)] hover:underline break-all" target="_blank"></a>
         </div>
-        <div class="flex gap-2 justify-center">
-          <button data-qr-copy class="text-xs font-mono text-gray-300 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[var(--t-accent)] rounded px-3 py-1.5 transition-colors">复制链接 / Copy</button>
-          <button data-qr-close class="text-xs font-mono text-white bg-[var(--t-accent)] hover:opacity-90 rounded px-4 py-1.5 transition-opacity">关闭 / Close</button>
+        <div class="flex flex-col gap-2">
+          <a data-qr-visit class="w-full bg-yellow-600 hover:bg-yellow-500 text-black text-xs font-bold py-2.5 rounded-lg border border-yellow-500 flex items-center justify-center gap-2 transition" target="_blank">
+            <i class="fas fa-external-link-alt"></i> 访问页面 / Visit
+          </a>
+          <div class="flex gap-2 justify-center">
+            <button data-qr-copy class="flex-1 text-xs font-mono text-gray-300 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[var(--t-accent)] rounded px-3 py-2 transition-colors">复制链接 / Copy</button>
+            <button data-qr-close class="flex-1 text-xs font-mono text-white bg-[var(--t-accent)] hover:opacity-90 rounded px-4 py-2 transition-opacity">关闭 / Close</button>
+          </div>
         </div>
       </div>`;
     document.body.appendChild(modalEl);

@@ -371,6 +371,7 @@ window.setLanguage = function (lang) {
     safeSetText('card-tactical-desc', t.warehouse.tactical.desc);
     safeSetText('card-tactical-action', t.warehouse.selectAction);
     safeSetText('card-tactical-btn-code', t.warehouse.tactical.btnCode);
+    safeSetText('card-tactical-btn-code-gh', t.warehouse.tactical.btnCode);
     safeSetText('card-tactical-btn-demo', t.warehouse.tactical.btnDemo);
     safeSetText('card-tactical-back-tip', t.warehouse.backTip);
 
@@ -397,6 +398,7 @@ window.setLanguage = function (lang) {
     safeSetText('card-stem-desc', t.warehouse.stem.desc);
     safeSetText('card-stem-action', t.warehouse.selectAction);
     safeSetText('card-stem-btn-code', t.warehouse.stem.btnCode);
+    safeSetText('card-stem-btn-code-gh', t.warehouse.stem.btnCode);
     safeSetText('card-stem-btn-demo', t.warehouse.stem.btnDemo);
     safeSetText('card-stem-back-tip', t.warehouse.backTip);
 
