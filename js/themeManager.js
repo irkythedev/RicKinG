@@ -163,7 +163,7 @@ const ThemeManager = {
             // Let the chart logic run an update if it uses variables
             // We might have to re-init chart if it relies on hardcoded config colors
             this.updateChartThemeConfig(themeKey);
-            updateChart(lang);
+            updateChart(lang, true); // forceRecreate to apply new accent colors
         }
         
         // Dispatch custom event for other components
@@ -183,12 +183,9 @@ const ThemeManager = {
         // Update the global config so chart recreate works fine
         window.GAME_CONFIG.SKILLS_CHART.COLOR_BG = `rgba(${r}, 0.4)`;
         window.GAME_CONFIG.SKILLS_CHART.COLOR_BORDER = hex;
-        
-        // If chart exists, destroy and recreate is often safest for complex plugin changes
-        if (window.skillsChart && typeof window.updateChart === 'function') {
-            window.skillsChart.destroy();
-            window.skillsChart = null; // force recreate
-        }
+
+        // Chart recreation is handled by applyTheme() via updateChart(lang, true).
+        // Note: window.skillsChart is the canvas element (global id mapping), not the Chart instance.
     },
 
     /**

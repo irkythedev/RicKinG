@@ -51,6 +51,7 @@
 .fa-parachute-box:before { content: "\f4cd"; }
 .fa-plus:before { content: "\2b"; }
 .fa-plus-circle:before, .fa-circle-plus:before { content: "\f055"; }
+.fa-qrcode:before { content: "\f029"; }
 .fa-quote-left:before { content: "\f10d"; }
 .fa-quote-right:before { content: "\f10e"; }
 .fa-reply:before { content: "\f3e5"; }

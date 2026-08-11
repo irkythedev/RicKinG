@@ -458,13 +458,14 @@ window.getComputedLang = () => currentLang;
 
 // --- 5. 战力雷达图 (双数据集: 当前 vs 目标) ---
 let skillsChart = null;
-function updateChart(lang) {
+function updateChart(lang, forceRecreate) {
     const cfg = GAME_CONFIG.SKILLS_CHART;
     const currentData = cfg.DATA_CURRENT;
     const targetData = cfg.DATA_TARGET;
 
     // Language switch: only update labels, no destroy (avoids size jitter)
-    if (skillsChart) {
+    // Theme switch passes forceRecreate=true to apply new accent colors
+    if (skillsChart && !forceRecreate) {
         skillsChart.data.labels = cfg.LABELS[lang];
         skillsChart.data.datasets[0].label = lang === 'zh' ? '当前水平' : 'Current';
         skillsChart.data.datasets[1].label = lang === 'zh' ? '目标水平' : 'Target';
@@ -567,6 +568,12 @@ function updateChart(lang) {
             cancelAnimationFrame(sweepRaf);
         }
     };
+
+    // Force recreate: destroy previous instance to avoid canvas conflicts
+    if (skillsChart && forceRecreate) {
+        try { skillsChart.destroy(); } catch (e) {}
+        skillsChart = null;
+    }
 
     skillsChart = new Chart(ctxChart, {
         type: 'radar',
@@ -678,6 +685,9 @@ function updateChart(lang) {
         plugins: [glowPlugin, sweepPlugin]
     });
 }
+
+// Expose for themeManager (theme switch forces recreate to apply accent colors)
+window.updateChart = updateChart;
 
 
 
