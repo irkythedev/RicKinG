@@ -18,23 +18,31 @@
 #### 🎯 身份铭牌
 
 - **役期时长**: 16年 (努力发育中...)
-- **当前段位**: SS12 赛季王牌 & 代码圈青铜选手 (正向无敌战神冲刺!)
+- **当前段位**: SS37 皇冠 & 代码圈青铜选手 (正向无敌战神冲刺!)
 - **主战武器**: `Python` (精准狙击数据), `JavaScript` (前端贴脸突击)
 - **战术装备**: `React`, `Tailwind`, `AI / LLM Prompting`
 - **最高信条**: `好好学习，天天向上 | Good Good Study, Day Day Up`
 
 #### 🏗️ 核心设施
 
-> **不仅是展示，更是实战演习场。** 
+> **不仅是展示，更是实战演习场。**
 
-1. **📊 动态作战雷达 (Stats Radar)** 
+1. **📊 动态作战雷达 (Stats Radar)**
    双层六维数据对比，直观展示`当前水平`（实心填充）与`目标水平`（雷达扫描虚线）的技术成长路径。
-2. **📦 极品装备库 (Project Warehouse)** 
-   陈列开源战果。带有翻转卡片动效的三级甲/史诗级项目展示（如 AquaInsight 水质分析系统）。
+2. **📦 极品装备库 (Project Warehouse)**
+   陈列开源战果的翻转卡片，支持 **Gitee / GitHub 双平台代码入口 + QR 扫码访问**。当前四个传说级装备：
+   - **🪖 Tactical Terminal** — 本战术终端（Gitee + GitHub 双仓库）
+   - **💧 AquaInsight 水质分析** — AI 驱动地表水环境监测
+   - **🏛️ Century Echo 世纪回声** — 暗色旧地图叙事的历史数字展陈
+   - **🧪 STEM Digital Lab 数理化实验室** — 初中数理化数字实验与探究平台
 3. **🏅 成就与荣誉 (Achievement & Battle Log)**
    - **荣誉系统**: 记录实战成就可以解锁的徽章壁。
    - **战斗日记**: 实时滚动播放代码击杀、项目提交流程的数据大屏。
-4. **📡 紧急联络 (Flare Gun)**
+4. **🛠️ FIELD TOOLKIT 战术工具集**
+   内置 **6 个命令学习模拟终端**（Git 基础 / Linux 文件 / 网络命令 / 文本搜索 / 权限压缩 / Windows CMD），翻转卡片进入实战演练，支持 Tab 补全、历史记录、**键盘敲击音效**（可关闭）。
+5. **🎨 多主题切换**
+   PUBG 战术 / 赛博霓虹 / 黑客绿洲 三套皮肤自由切换。
+6. **📡 紧急联络 (Flare Gun)**
    点击发射红色信号枪，召唤夜间空投并发送支援请求。
 
 #### 🎮 沉浸式战术演练 (Mini-Games)
@@ -44,6 +52,15 @@
 - **🚙 飙车派对 (Road Rage)**: 在公路上驾驶蹦蹦极限狂飙，躲避铁丝网与废弃车辆！
 
 🔗 **立即部署空降**: [https://irky.dev/](https://irky.dev/)
+
+#### 🗂️ 开源仓库 (双平台)
+
+- **Gitee**: [gitee.com/K4Ricky2Win/RicKinG](https://gitee.com/K4Ricky2Win/RicKinG)
+- **GitHub**: [github.com/irkythedev/RicKinG](https://github.com/irkythedev/RicKinG)
+
+#### 🧰 技术栈
+
+原生 `HTML / CSS / JavaScript` · `Tailwind CSS`（本地预编译）· `Chart.js`（本地）· `qrcodejs`（本地）· `Font Awesome`（子集裁剪）· 无后端依赖，纯静态部署
 
 ---
 
@@ -58,7 +75,7 @@ I'm a passionate **Code Commando** and an aspiring **AI Commander**. To me, codi
 #### 🎯 Tactical ID Tag
 
 - **Service Time**: 16 Years (Still looting & leveling up...)
-- **Current Rank**: Season SS12 Ace & Bronze in Coding (Pushing for Conqueror!)
+- **Current Rank**: Season SS37 Crown & Bronze in Coding (Pushing for Conqueror!)
 - **Main Weapons**: `Python` (Data Sniping), `JavaScript` (Frontend Assault)
 - **Tactical Gear**: `React`, `Tailwind`, `AI / LLM Prompting`
 - **Motto**: `Good Good Study, Day Day Up`
@@ -67,14 +84,22 @@ I'm a passionate **Code Commando** and an aspiring **AI Commander**. To me, codi
 
 > **Not just a portfolio, it's an interactive battleground.**
 
-1. **📊 Advanced Stats Radar** 
+1. **📊 Advanced Stats Radar**
    A dynamic dual-layer hexagon chart visualizing my full-stack capabilities. It constantly compares `Current Level` (solid fill) versus the ultimate `Target Level` (sweeping radar outline).
-2. **📦 Project Warehouse** 
-   Showcasing my Legendary projects as flip-cards, complete with animated tech stacks and target-synced favicons (e.g., AquaInsight).
+2. **📦 Project Warehouse**
+   Legendary flip-cards with **dual-platform (Gitee + GitHub) code links and QR scan access**. Four epic gears on display:
+   - **🪖 Tactical Terminal** — this very terminal (Gitee + GitHub)
+   - **💧 AquaInsight** — AI-driven surface water quality monitoring
+   - **🏛️ Century Echo** — historical digital exhibition with dark old-map narrative
+   - **🧪 STEM Digital Lab** — digital experiments & inquiry for junior-high STEM
 3. **🏅 Achievements & Battle Log**
    - **Medal Wall**: Displaying unlockable honors from coding and planning milestones.
    - **Battle Log**: A scrolling terminal feed of code-kills and commit deployments.
-4. **📡 Signal Flare**
+4. **🛠️ FIELD TOOLKIT**
+   Six interactive command-learning terminals (Git / Linux files / Network / Text / Permissions / Windows CMD). Flip the card to drill in a simulated terminal — Tab completion, history, and **keyboard click sounds** (toggleable).
+5. **🎨 Multi-Theme**
+   Switch between PUBG Tactical / Cyber Neon / Hacker Matrix skins.
+6. **📡 Signal Flare**
    Fire the flare gun animation to cast a red supply drop glow and request backup!
 
 #### 🎮 Interactive Combat Training (Mini-Games)
@@ -84,6 +109,15 @@ Take a break and test your reflexes. Compete for the high score on the local Lea
 - **🚙 Road Rage**: Drive a buggy on a high-speed highway, dodging spike traps and abandoned vehicles!
 
 🔗 **Deploy Now**: [https://irky.dev/](https://irky.dev/)
+
+#### 🗂️ Open Source Repos (Dual Platform)
+
+- **Gitee**: [gitee.com/K4Ricky2Win/RicKinG](https://gitee.com/K4Ricky2Win/RicKinG)
+- **GitHub**: [github.com/irkythedev/RicKinG](https://github.com/irkythedev/RicKinG)
+
+#### 🧰 Tech Stack
+
+Vanilla `HTML / CSS / JavaScript` · `Tailwind CSS` (precompiled locally) · `Chart.js` (local) · `qrcodejs` (local) · `Font Awesome` (subset) · No backend, pure static deployment
 
 ---
 
