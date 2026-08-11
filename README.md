@@ -4,6 +4,14 @@
 >
 > *"Study hard, play hard. See you in the final circle!"*
 
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
+![Gitee](https://img.shields.io/badge/Gitee-C71D23?style=for-the-badge&logo=gitee&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
+
 ---
 
 ## 🇨🇳 中文版 (Chinese)
@@ -58,10 +66,6 @@
 - **Gitee**: [gitee.com/K4Ricky2Win/RicKinG](https://gitee.com/K4Ricky2Win/RicKinG)
 - **GitHub**: [github.com/irkythedev/RicKinG](https://github.com/irkythedev/RicKinG)
 
-#### 🧰 技术栈
-
-原生 `HTML / CSS / JavaScript` · `Tailwind CSS`（本地预编译）· `Chart.js`（本地）· `qrcodejs`（本地）· `Font Awesome`（子集裁剪）· 无后端依赖，纯静态部署
-
 ---
 
 ## 🇺🇸 English Version
@@ -114,10 +118,6 @@ Take a break and test your reflexes. Compete for the high score on the local Lea
 
 - **Gitee**: [gitee.com/K4Ricky2Win/RicKinG](https://gitee.com/K4Ricky2Win/RicKinG)
 - **GitHub**: [github.com/irkythedev/RicKinG](https://github.com/irkythedev/RicKinG)
-
-#### 🧰 Tech Stack
-
-Vanilla `HTML / CSS / JavaScript` · `Tailwind CSS` (precompiled locally) · `Chart.js` (local) · `qrcodejs` (local) · `Font Awesome` (subset) · No backend, pure static deployment
 
 ---
 
