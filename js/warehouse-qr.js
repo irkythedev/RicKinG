@@ -25,7 +25,7 @@
   let modalEl = null;
   let qrInstance = null;
 
-  // 注入 QR 按钮到每张卡片 demo 按钮右侧
+  // 注入 QR 按钮到每张卡片 demo 按钮右侧（同一行，独立按钮）
   function injectQrButtons() {
     document.querySelectorAll('.flip-card').forEach(card => {
       const demoBtn = card.querySelector('a[aria-label="View Live Demo"]');
@@ -41,18 +41,25 @@
       });
       if (!key) return;
 
-      const btn = document.createElement('span');
-      btn.className = 'qr-trigger inline-flex items-center gap-1 cursor-pointer text-[var(--t-accent)] hover:opacity-80 transition-opacity ml-1';
+      // 把 demo 按钮 + QR 按钮包进横向 flex 容器，保证同一行
+      const row = document.createElement('div');
+      row.className = 'flex gap-2';
+      const parent = demoBtn.parentElement;
+      parent.insertBefore(row, demoBtn);
+      row.appendChild(demoBtn);
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'qr-trigger bg-gray-800 hover:bg-gray-700 text-[var(--t-accent)] py-2.5 px-3 rounded-lg border border-gray-600 flex items-center justify-center transition shrink-0';
       btn.title = '扫码访问 / Scan QR';
       btn.setAttribute('aria-label', 'Show QR Code for ' + TITLES[key]);
-      btn.innerHTML = '<i class="fas fa-qrcode text-xs"></i>';
+      btn.innerHTML = '<i class="fas fa-qrcode"></i>';
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         e.preventDefault();
         openQrModal(key);
       });
-      // 内联到 demo 链接的文字后面（图标跟地址同行）
-      demoBtn.appendChild(btn);
+      row.appendChild(btn);
     });
   }
 
@@ -65,9 +72,9 @@
     if (!modalEl) buildModal();
     modalEl.classList.remove('hidden');
 
-    // 标题
+    // 标题（PUBG 战术准星图标 + 项目名）
     const titleEl = modalEl.querySelector('[data-qr-title]');
-    titleEl.textContent = '📱 ' + title;
+    titleEl.innerHTML = '<i class="fas fa-crosshairs text-[var(--t-accent)] mr-2"></i>' + title;
 
     // URL 文本
     const urlEl = modalEl.querySelector('[data-qr-url]');
