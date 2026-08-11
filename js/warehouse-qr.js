@@ -43,9 +43,11 @@
 
       // 把 demo 按钮 + QR 按钮包进横向 flex 容器，保证同一行
       const row = document.createElement('div');
-      row.className = 'flex gap-2';
+      row.className = 'flex gap-2 w-full';
       const parent = demoBtn.parentElement;
       parent.insertBefore(row, demoBtn);
+      // demo 按钮占满剩余宽度（与"访问代码"按钮对齐），QR 按钮固定
+      demoBtn.classList.add('flex-1');
       row.appendChild(demoBtn);
 
       const btn = document.createElement('button');
