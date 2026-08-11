@@ -41,18 +41,18 @@
       });
       if (!key) return;
 
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'qr-trigger bg-gray-800 hover:bg-gray-700 text-[var(--t-accent)] py-2.5 px-3 rounded-lg border border-gray-600 flex items-center justify-center gap-1.5 transition shrink-0';
+      const btn = document.createElement('span');
+      btn.className = 'qr-trigger inline-flex items-center gap-1 cursor-pointer text-[var(--t-accent)] hover:opacity-80 transition-opacity ml-1';
       btn.title = '扫码访问 / Scan QR';
       btn.setAttribute('aria-label', 'Show QR Code for ' + TITLES[key]);
-      btn.innerHTML = '<i class="fas fa-qrcode"></i>';
+      btn.innerHTML = '<i class="fas fa-qrcode text-xs"></i>';
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
+        e.preventDefault();
         openQrModal(key);
       });
-      // 插到 demo 按钮后面（同一 flex 容器内）
-      demoBtn.insertAdjacentElement('afterend', btn);
+      // 内联到 demo 链接的文字后面（图标跟地址同行）
+      demoBtn.appendChild(btn);
     });
   }
 
