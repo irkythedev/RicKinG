@@ -39,6 +39,7 @@
 .fa-code-branch:before { content: "\f126"; }
 .fa-comment-dots:before { content: "\f4ad"; }
 .fa-crosshairs:before { content: "\f05b"; }
+.fa-external-link-alt:before, .fa-arrow-up-right-from-square:before, .fa-external-link:before { content: "\f360"; }
 .fa-fingerprint:before { content: "\f577"; }
 .fa-flag:before { content: "\f024"; }
 .fa-folder-open:before { content: "\f07c"; }

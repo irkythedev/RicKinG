@@ -126,25 +126,25 @@ window.I18N = {
             tactical: {
                 title: "特种兵战术终端",
                 desc: "基于原生 HTML/CSS/JS 打造的沉浸式个人主页。集成 Gitee/GitHub 双战区入口，全套 PUBG 官方战术图标。",
-                btnCode: "访问代码",
+                btnCode: "Code",
                 btnDemo: "访问页面"
             },
             aqua: {
                 title: "AquaInsight 水质分析",
                 desc: "AI 驱动的地表水环境监测系统。结合 GIS 与 LLM 技术，深度挖掘气象-水质耦合机理。",
-                btnCode: "访问代码",
+                btnCode: "Code",
                 btnDemo: "访问页面"
             },
             echo: {
                 title: "世纪回声 · 百年回响",
                 desc: "沉浸式历史数字展陈。以暗色旧地图叙事重构百年时空，交互式时间线与海报生成。",
-                btnCode: "访问代码",
+                btnCode: "Code",
                 btnDemo: "访问页面"
             },
             stem: {
                 title: "数理化数字实验室",
                 desc: "基于初中 7-9 年级课程大纲的数学、物理、化学数字实验与探究平台。KaTeX 公式渲染，支持离线使用。",
-                btnCode: "访问代码",
+                btnCode: "Code",
                 btnDemo: "访问页面"
             },
             tools: {
