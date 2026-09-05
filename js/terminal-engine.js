@@ -192,7 +192,7 @@
         if (banner) {
           (Array.isArray(banner) ? banner : [banner]).forEach(l => this.print(card, l, 'text-[var(--t-accent)]'));
         }
-        this.print(card, cfg.term.hint || '// 输入 help 查看可用命令。Tab 补全，↑↓ 历史，exit 返回。', 'text-gray-500');
+        this.print(card, this.toolsHint(), 'text-gray-500');
       }
 
       // 翻转卡片
@@ -298,8 +298,7 @@
         const all = Object.keys(cfg.commands).map(c => c.split(' ')[0]);
         const guess = all.find(c => c.startsWith(cmd));
         this.print(card, `<span class="text-red-400">bash: ${this.escapeHtml(cmd)}: command not found</span>`);
-        if (guess) this.print(card, `<span class="text-yellow-500">// 你是指 "${guess}" 吗？输入 help 查看全部命令。</span>`);
-        else this.print(card, '<span class="text-gray-500">// 输入 help 查看可用命令。</span>');
+        this.print(card, `<span class="text-yellow-500">${this.toolsUnknownHint(guess)}</span>`);
       }
       this.updatePrompt(card);
       card.querySelector('[data-term-out]').scrollTop = card.querySelector('[data-term-out]').scrollHeight;
@@ -361,6 +360,33 @@
 
     escapeHtml: function (s) {
       return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    },
+
+    // 终端提示语（跟随 tools 页语言）
+    toolsLang: function () {
+      try { return (window.__toolsLang || 'zh'); } catch (e) { return 'zh'; }
+    },
+
+    toolsHint: function () {
+      const lang = this.toolsLang();
+      const t = (window.I18N && window.I18N[lang] && window.I18N[lang].tools) ? window.I18N[lang].tools : null;
+      if (t && t.hint) return t.hint;
+      return lang === 'en'
+        ? '// Type help for available commands. Tab to complete, ↑↓ history, exit to return.'
+        : '// 输入 help 查看可用命令。Tab 补全，↑↓ 历史，exit 返回。';
+    },
+
+    // 未知命令提示
+    toolsUnknownHint: function (guess) {
+      const lang = this.toolsLang();
+      if (lang === 'en') {
+        return guess
+          ? `// Did you mean "${guess}"? Type help for all commands.`
+          : '// Type help for available commands.';
+      }
+      return guess
+        ? `// 你是指 "${guess}" 吗？输入 help 查看全部命令。`
+        : '// 输入 help 查看可用命令。';
     }
   };
 

@@ -211,6 +211,25 @@ window.I18N = {
             title: "NEW MISSION REQUEST!",
             desc: "指挥官，请指示下一个任务目标！🫡<br><span class=\"text-xs text-gray-500\">Tell us what game you want to play next.</span>",
             action: "前往 Gitee Issue 提交创意"
+        },
+        tools: {
+            banner: "战术命令手册 — Linux / Windows / Git 基础，随取随用。",
+            cards: {
+                git: { title: "Git 基础", desc: "版本控制核心命令 / Version control essentials" },
+                files: { title: "文件与目录", desc: "Linux 文件操作 / File & directory ops" },
+                network: { title: "网络命令", desc: "连通性 & 端口排查 / Network diagnostics" },
+                text: { title: "文本与搜索", desc: "查看 & 检索文件 / View & search" },
+                perm: { title: "权限与压缩", desc: "权限 & 归档打包 / Permissions & archives" },
+                windows: { title: "Windows 命令", desc: "CMD / PowerShell 基础 / Windows essentials" }
+            },
+            launch: "进入终端",
+            terminal: "终端运行中",
+            back: "返回",
+            inputPlaceholder: "输入命令，Tab 补全 · exit 返回",
+            hint: "// 输入 help 查看可用命令。Tab 补全，↑↓ 历史，exit 返回。",
+            soundOn: "键盘音效：开（点击关闭）",
+            soundOff: "键盘音效：关（点击开启）",
+            cmdCount: (n) => `// 共 ${n} 条命令，翻转终端实操`
         }
     },
     en: {
@@ -341,6 +360,25 @@ window.I18N = {
             title: "NEW MISSION REQUEST!",
             desc: "Commander, awaiting your orders for the next mission! 🫡",
             action: "Submit Idea on Gitee Issue"
+        },
+        tools: {
+            banner: "Tactical Command Manual — Linux / Windows / Git essentials at hand.",
+            cards: {
+                git: { title: "Git Basics", desc: "Version control essentials" },
+                files: { title: "Files & Directories", desc: "Linux file operations" },
+                network: { title: "Network Commands", desc: "Connectivity & port diagnostics" },
+                text: { title: "Text & Search", desc: "View & search files" },
+                perm: { title: "Permissions & Archives", desc: "Permissions & packaging" },
+                windows: { title: "Windows Commands", desc: "CMD / PowerShell essentials" }
+            },
+            launch: "Launch Terminal",
+            terminal: "Terminal Active",
+            back: "Back",
+            inputPlaceholder: "Type a command, Tab to complete · exit to return",
+            hint: "// Type help for available commands. Tab to complete, ↑↓ history, exit to return.",
+            soundOn: "Keyboard sound: ON (click to mute)",
+            soundOff: "Keyboard sound: OFF (click to enable)",
+            cmdCount: (n) => `// ${n} commands, flip to practice in terminal`
         }
     }
 };

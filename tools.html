@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Field Toolkit | TACTICAL TERMINAL</title>
     <link rel="icon" type="image/png" href="img/icons/pubg-helmet.png">
-    <link rel="stylesheet" href="css/tailwind.css">
+    <link rel="stylesheet" href="css/tailwind.css?v=20260811b">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/font-awesome/subset/css/font-awesome-subset.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/font-awesome/subset/css/font-awesome-subset.css?v=20260811b">
+    <link rel="stylesheet" href="css/main.css?v=20260811b">
     <style>
         body {
             font-family: 'JetBrains Mono', 'Courier New', monospace;
@@ -200,7 +200,10 @@
         <div class="flex items-center gap-3 md:gap-4 text-gray-500 whitespace-nowrap">
             <span class="hidden md:inline">[TOOLS: 6]</span>
             <span class="hidden md:inline text-[var(--t-success-muted)]">[ONLINE]</span>
-            <button id="keysound-toggle" onclick="toggleKeySound(this)" class="text-gray-500 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center" title="键盘音效：开（点击关闭）">
+            <button id="tools-lang-btn" onclick="toolsToggleLang()" class="text-gray-500 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center" title="切换语言 / Switch Language">
+                <span id="tools-lang-label" class="text-xs font-black tracking-tight">中</span>
+            </button>
+            <button id="keysound-toggle" onclick="toggleKeySound(this)" class="text-gray-500 hover:text-[var(--t-accent)] transition-colors focus:outline-none flex items-center" title="键盘音效：开（点击关闭）" data-i18n-title="tools.soundOn">
                 <i class="fa-solid fa-volume-high"></i>
             </button>
             <a href="index.html" class="bg-[var(--t-accent)] text-[#0a0a0f] font-bold px-3 border border-[var(--t-accent)] hover:bg-transparent hover:text-[var(--t-accent)] shadow-[0_0_8px_rgba(var(--t-accent-rgb),0.5)] transition-all focus:outline-none flex items-center" title="返回主站 / Return to Base">
@@ -224,7 +227,7 @@
  | |     _| |_| |____| |____| |__| |    | | | |__| | |__| | |____| . \ _| |_   | |   
  |_|    |_____|______|______|_____/     |_|  \____/ \____/|______|_|\_\_____|  |_|   
             </pre>
-            <div class="mt-4 text-gray-400 text-sm md:text-base typing-effect border-r-2 border-[var(--t-success-muted)] pr-1">
+            <div class="mt-4 text-gray-400 text-sm md:text-base typing-effect border-r-2 border-[var(--t-success-muted)] pr-1" data-i18n="tools.banner">
                 // 战术工具集 — 前线实用装备，随取随用。 / Field utilities ready for deployment.
             </div>
         </div>
@@ -249,12 +252,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-brands fa-git-alt text-sm" style="color:#F05133"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">Git 基础</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.git.title">Git 基础</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">版本控制核心命令 / Version control essentials</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.git.desc">版本控制核心命令 / Version control essentials</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -267,13 +270,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/git/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -297,12 +300,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-solid fa-folder-open text-sm" style="color:#4D88FE"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">文件与目录</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.files.title">文件与目录</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">Linux 文件操作 / File & directory ops</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.files.desc">Linux 文件操作 / File & directory ops</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -315,13 +318,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/files/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -345,12 +348,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-solid fa-network-wired text-sm" style="color:#10B981"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">网络命令</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.network.title">网络命令</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">连通性 & 端口排查 / Network diagnostics</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.network.desc">连通性 & 端口排查 / Network diagnostics</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -363,13 +366,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/network/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -393,12 +396,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-solid fa-magnifying-glass text-sm" style="color:#F59E0B"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">文本与搜索</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.text.title">文本与搜索</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">查看 & 检索文件 / View & search</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.text.desc">查看 & 检索文件 / View & search</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -411,13 +414,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/text/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -441,12 +444,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-solid fa-shield-halved text-sm" style="color:#8B5CF6"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">权限与压缩</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.perm.title">权限与压缩</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">权限 & 归档打包 / Permissions & archives</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.perm.desc">权限 & 归档打包 / Permissions & archives</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -459,13 +462,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/perm/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -489,12 +492,12 @@
                         <div class="p-4 flex flex-col flex-grow min-h-0">
                             <div class="flex items-center gap-2 mb-1.5">
                                 <i class="fa-brands fa-windows text-sm" style="color:#4D88FE"></i>
-                                <h3 class="text-base font-bold text-white leading-tight">Windows 命令</h3>
+                                <h3 class="text-base font-bold text-white leading-tight" data-i18n="tools.cards.windows.title">Windows 命令</h3>
                             </div>
-                            <p class="text-[10px] text-gray-500 mb-2 truncate">CMD / PowerShell 基础 / Windows essentials</p>
+                            <p class="text-[10px] text-gray-500 mb-2 truncate" data-i18n="tools.cards.windows.desc">CMD / PowerShell 基础 / Windows essentials</p>
                             <div class="flex-grow overflow-hidden relative" data-front-cmds></div>
                             <button type="button" onclick="flipCard(this)" class="mt-2 w-full flex items-center justify-center gap-1.5 text-[11px] font-mono text-[var(--t-accent)] border border-[rgba(var(--t-accent-rgb),0.4)] hover:bg-[rgba(var(--t-accent-rgb),0.12)] rounded px-2 py-1.5 transition-all group/flip">
-                                <i class="fa-solid fa-terminal text-[10px]"></i> 进入终端 / Launch
+                                <i class="fa-solid fa-terminal text-[10px]"></i> <span data-i18n="tools.launch">进入终端 / Launch</span>
                             </button>
                         </div>
                     </div>
@@ -507,13 +510,13 @@
                                 <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                             </div>
                             <span class="text-[10px] text-gray-400 ml-1 font-mono truncate">~/tools/windows/terminal</span>
-                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back">[&#8617; 返回]</button>
+                            <button type="button" onclick="flipCard(this)" class="ml-auto text-[9px] font-mono text-gray-500 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[rgba(var(--t-accent-rgb),0.5)] rounded px-1.5 py-0.5 transition-colors" title="返回 / Back" data-i18n="tools.back" data-i18n-title="tools.back">[&#8617; <span data-i18n="tools.back">返回</span>]</button>
                         </div>
                         <div class="term-body flex-grow min-h-0 flex flex-col">
                             <div class="term-output flex-grow overflow-y-auto p-3 font-mono text-[11px] leading-relaxed space-y-0.5" data-term-out></div>
                             <div class="term-inputline flex items-center gap-2 px-3 py-2 border-t border-[rgba(var(--t-accent-rgb),0.15)] bg-black/40 shrink-0">
                                 <span class="term-prompt text-[var(--t-success-muted)] font-mono text-[11px] whitespace-nowrap" data-term-prompt></span>
-                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回">
+                                <input class="term-input flex-1 bg-transparent outline-none text-gray-100 font-mono text-[11px] min-w-0" data-term-input autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="输入命令，Tab 补全 · exit 返回" data-i18n-ph="tools.inputPlaceholder">
                             </div>
                         </div>
                     </div>
@@ -544,6 +547,7 @@
 
     <!-- Include Theme Manager to support theme switching even on this page -->
     <script src="js/qrcode.min.js" defer></script>
+    <script src="js/config.js?v=20260811" defer></script>
     <script  src="js/themeManager.js?v=20260520" defer></script>
     <script  src="js/share.js?v=20260521" defer></script>
     <script  src="js/toolkit-data.js?v=2" defer></script>
@@ -616,7 +620,71 @@
             // Init cursors
             initCursorGlow();
             initTacticalCursor();
+
+            // Init tools i18n
+            if (typeof window.I18N !== 'undefined') {
+                initToolsI18n();
+            }
         });
+
+        // ==================== Tools 页 i18n ====================
+        let toolsLang = 'zh';
+
+        function toolsGetI18n() {
+            return (window.I18N && window.I18N[toolsLang]) ? window.I18N[toolsLang] : null;
+        }
+
+        // 解析 data-i18n="tools.cards.git.title" 路径
+        function toolsResolve(t, path) {
+            if (!t) return null;
+            return path.split('.').reduce((o, k) => (o && o[k] !== undefined) ? o[k] : null, t);
+        }
+
+        function toolsApplyI18n() {
+            const t = toolsGetI18n();
+            if (!t) return;
+            // 文本类
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const val = toolsResolve(t, el.dataset.i18n);
+                if (typeof val === 'string') el.textContent = val;
+            });
+            // 占位符
+            document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+                const val = toolsResolve(t, el.dataset.i18nPh);
+                if (typeof val === 'string') el.placeholder = val;
+            });
+            // title
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const val = toolsResolve(t, el.dataset.i18nTitle);
+                if (typeof val === 'string') el.title = val;
+            });
+            // 语言按钮 label
+            const label = document.getElementById('tools-lang-label');
+            if (label) label.textContent = toolsLang === 'zh' ? 'EN' : '中';
+            // banner 打字效果重触发
+            const banner = document.querySelector('.typing-effect');
+            if (banner) banner.classList.remove('typing-effect');
+        }
+
+        function initToolsI18n() {
+            // 从 localStorage 读取偏好，或默认跟随首页（检测 URL 参数）
+            try {
+                const saved = localStorage.getItem('ricking_lang');
+                if (saved === 'zh' || saved === 'en') toolsLang = saved;
+            } catch (e) {}
+            window.__toolsLang = toolsLang;
+            // 终端提示语：terminal-engine 打开时用当前语言
+            toolsApplyI18n();
+        }
+
+        function toolsToggleLang() {
+            toolsLang = toolsLang === 'zh' ? 'en' : 'zh';
+            window.__toolsLang = toolsLang;
+            try { localStorage.setItem('ricking_lang', toolsLang); } catch (e) {}
+            toolsApplyI18n();
+            // 通知 terminal-engine 更新提示语
+            window.dispatchEvent(new CustomEvent('toolsLanguageChanged', { detail: { lang: toolsLang } }));
+        }
     </script>
 </body>
 </html>

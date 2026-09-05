@@ -63,6 +63,7 @@
 
     if (!modalEl) buildModal();
     modalEl.classList.remove('hidden');
+    applyQrI18n(); // 同步语言文案
 
     // 标题（PUBG 战术准星图标 + 项目名）
     const titleEl = modalEl.querySelector('[data-qr-title]');
@@ -96,19 +97,20 @@
     // 复制按钮
     const copyBtn = modalEl.querySelector('[data-qr-copy]');
     copyBtn.onclick = () => {
+      const resetLabel = () => { copyBtn.textContent = qrI18n().copy; };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(() => {
-          copyBtn.textContent = '✓ 已复制 / Copied';
-          setTimeout(() => { copyBtn.textContent = '复制链接 / Copy'; }, 1500);
+          copyBtn.textContent = qrI18n().copied;
+          setTimeout(resetLabel, 1500);
         });
       } else {
         const ta = document.createElement('textarea');
         ta.value = url;
         document.body.appendChild(ta);
         ta.select();
-        try { document.execCommand('copy'); copyBtn.textContent = '✓ 已复制'; } catch (e) {}
+        try { document.execCommand('copy'); copyBtn.textContent = qrI18n().copied; } catch (e) {}
         document.body.removeChild(ta);
-        setTimeout(() => { copyBtn.textContent = '复制链接 / Copy'; }, 1500);
+        setTimeout(resetLabel, 1500);
       }
     };
 
@@ -117,6 +119,18 @@
   }
 
   // 构建 modal DOM
+  function qrI18n() {
+    const lang = (window.__toolsLang || 'zh');
+    const t = (window.I18N && window.I18N[lang]) ? window.I18N[lang] : null;
+    return {
+      scan: t && t.warehouse ? (lang === 'en' ? 'Scan to visit' : '扫码访问') : '扫码访问 / Scan to visit',
+      visit: t && t.warehouse ? (lang === 'en' ? 'Visit' : '访问页面') : '访问页面 / Visit',
+      copy: lang === 'en' ? 'Copy' : '复制链接',
+      copied: lang === 'en' ? '✓ Copied' : '✓ 已复制',
+      close: lang === 'en' ? 'Close' : '关闭'
+    };
+  }
+
   function buildModal() {
     modalEl = document.createElement('div');
     modalEl.id = 'warehouse-qr-modal';
@@ -128,16 +142,16 @@
           <div data-qr-box class="bg-[#0a0e14] rounded-lg p-3 border border-gray-700"></div>
         </div>
         <div class="text-center mb-4">
-          <div class="text-xs text-gray-500 mb-1">扫码访问 / Scan to visit</div>
+          <div class="text-xs text-gray-500 mb-1" data-qr-scan-label>扫码访问</div>
           <a data-qr-url class="text-sm font-mono text-[var(--t-accent)] hover:underline break-all" target="_blank"></a>
         </div>
         <div class="flex flex-col gap-2">
           <a data-qr-visit class="w-full bg-yellow-600 hover:bg-yellow-500 text-black text-xs font-bold py-2.5 rounded-lg border border-yellow-500 flex items-center justify-center gap-2 transition" target="_blank">
-            <i class="fas fa-external-link-alt"></i> 访问页面 / Visit
+            <i class="fas fa-external-link-alt"></i> <span data-qr-visit-label>访问页面</span>
           </a>
           <div class="flex gap-2 justify-center">
-            <button data-qr-copy class="flex-1 text-xs font-mono text-gray-300 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[var(--t-accent)] rounded px-3 py-2 transition-colors">复制链接 / Copy</button>
-            <button data-qr-close class="flex-1 text-xs font-mono text-white bg-[var(--t-accent)] hover:opacity-90 rounded px-4 py-2 transition-opacity">关闭 / Close</button>
+            <button data-qr-copy class="flex-1 text-xs font-mono text-gray-300 hover:text-[var(--t-accent)] border border-gray-700 hover:border-[var(--t-accent)] rounded px-3 py-2 transition-colors" data-qr-copy-label>复制链接</button>
+            <button data-qr-close class="flex-1 text-xs font-mono text-white bg-[var(--t-accent)] hover:opacity-90 rounded px-4 py-2 transition-opacity" data-qr-close-label>关闭</button>
           </div>
         </div>
       </div>`;
@@ -151,6 +165,20 @@
         modalEl.classList.add('hidden');
       }
     });
+  }
+
+  // 每次打开 modal 时同步语言文案
+  function applyQrI18n() {
+    if (!modalEl) return;
+    const t = qrI18n();
+    const scan = modalEl.querySelector('[data-qr-scan-label]');
+    const visit = modalEl.querySelector('[data-qr-visit-label]');
+    const copy = modalEl.querySelector('[data-qr-copy]');
+    const close = modalEl.querySelector('[data-qr-close]');
+    if (scan) scan.textContent = t.scan;
+    if (visit) visit.textContent = t.visit;
+    if (copy) copy.textContent = t.copy;
+    if (close) close.textContent = t.close;
   }
 
   // 初始化
