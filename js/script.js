@@ -402,6 +402,16 @@ window.setLanguage = function (lang) {
     safeSetText('card-stem-btn-demo', t.warehouse.stem.btnDemo);
     safeSetText('card-stem-back-tip', t.warehouse.backTip);
 
+    // Lexi card
+    safeSetText('card-lexi-tag', t.warehouse.epic);
+    safeSetText('card-lexi-title', t.warehouse.lexi.title);
+    safeSetText('card-lexi-desc', t.warehouse.lexi.desc);
+    safeSetText('card-lexi-action', t.warehouse.selectAction);
+    safeSetText('card-lexi-btn-code', t.warehouse.lexi.btnCode);
+    safeSetText('card-lexi-btn-code-gh', t.warehouse.lexi.btnCode);
+    safeSetText('card-lexi-btn-demo', t.warehouse.lexi.btnDemo);
+    safeSetText('card-lexi-back-tip', t.warehouse.backTip);
+
     // Tools card
     safeSetText('card-tools-tag', t.warehouse.tools.tag);
     safeSetText('card-tools-title', `${t.warehouse.tools.title} <span class="inline-block w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>`, true);

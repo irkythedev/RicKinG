@@ -197,7 +197,7 @@
                     </div>
                     <div>
                         <div id="stats-proj-label" class="text-xs text-gray-400">项目数</div>
-                        <div id="stats-proj-val" class="text-2xl font-mono text-green-400 font-bold">4</div>
+                        <div id="stats-proj-val" class="text-2xl font-mono text-green-400 font-bold">5</div>
                     </div>
                     <div>
                         <div id="stats-ach-label" class="text-xs text-gray-400">成就</div>
@@ -820,6 +820,93 @@
                             </div>
                         </div>
 
+                        <!-- 史诗级武器 (Lexi) -->
+                        <div class="block group relative h-72 flip-card cursor-pointer"
+                            onclick="this.classList.toggle('flipped')"
+                            onkeydown="if(event.key==='Enter'||event.key===' ') this.classList.toggle('flipped')"
+                            role="button" tabindex="0" aria-label="Toggle Project Card: Lexi" data-updated="2026-09-06T20:00:00+08:00">
+                            <div class="flip-card-inner h-full">
+                                <!-- 正面 -->
+                                <div class="flip-card-front glass-panel rounded-lg legendary-glow flex flex-col relative overflow-hidden h-full"
+                                    aria-hidden="false">
+                                    <div id="card-lexi-tag"
+                                        class="absolute top-0 right-0 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-bl">
+                                        史诗级</div>
+
+                                    <!-- 武器图标区 -->
+                                    <div class="h-16 flex items-center justify-center pt-5 pb-2 px-5">
+                                        <img src="img/icons/lexi-favicon.svg"
+                                            class="h-full object-contain filter drop-shadow-[0_0_5px_rgba(147,51,234,0.5)]"
+                                            alt="Lexi">
+                                    </div>
+
+                                    <!-- 标题 + 简介 -->
+                                    <div class="px-5 flex flex-col flex-grow min-h-0">
+                                        <h3 id="card-lexi-title"
+                                            class="text-base font-bold text-white mb-1 leading-tight">Lexi · 英语听说词汇
+                                        </h3>
+                                        <p id="card-lexi-desc"
+                                            class="text-gray-400 text-xs text-left leading-relaxed line-clamp-3 flex-grow">
+                                            围绕江苏译林教材的英语单词、短语、句式听说学习工具。纯前端、本地优先、无需登录。
+                                        </p>
+                                    </div>
+
+                                    <!-- 技术标签 (固定在底部) -->
+                                    <div class="px-5 pb-4 pt-2 flex gap-1.5 flex-wrap border-t border-gray-700/50 mt-2">
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/react-original.svg"
+                                                class="h-3 w-3" alt="">React
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/typescript-original.svg"
+                                                class="h-3 w-3" alt="">TypeScript
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-gray-300 text-xs px-2 py-0.5 rounded flex items-center gap-1">
+                                            <img src="img/icons/tailwindcss-original.svg"
+                                                class="h-3 w-3" alt="">Tailwind
+                                        </span>
+                                        <span
+                                            class="bg-gray-800 text-teal-300 text-xs px-2 py-0.5 rounded font-mono border border-gray-700 leading-none">PWA</span>
+                                        <span
+                                            class="bg-gray-800 text-teal-300 text-xs px-2 py-0.5 rounded font-mono border border-gray-700 leading-none">TTS</span>
+                                    </div>
+                                </div>
+
+                                <!-- 背面 -->
+                                <div class="flip-card-back glass-panel rounded-lg shadow-2xl h-full absolute inset-0"
+                                    aria-hidden="true">
+                                    <h3 id="card-lexi-action" class="text-lg font-bold text-purple-400 mb-5">SELECT
+                                        ACTION</h3>
+                                    <div class="flex flex-col gap-3 w-full px-5">
+                                        <a href="https://gitee.com/K4Ricky2Win/lexi" target="_blank"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Code on Gitee">
+                                            <img src="https://gitee.com/favicon.ico"
+                                                class="h-4 w-4 rounded-full bg-white p-0.5" alt="">
+                                            <span id="card-lexi-btn-code">Code</span>
+                                        </a>
+                                        <a href="https://github.com/irkythedev/lexi" target="_blank"
+                                            class="bg-gray-800 hover:bg-gray-700 text-white py-2.5 rounded-lg border border-gray-600 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Code on GitHub">
+                                            <i class="fab fa-github"></i>
+                                            <span id="card-lexi-btn-code-gh">Code</span>
+                                        </a>
+                                        <a href="https://lexi.irky.dev" target="_blank"
+                                            class="bg-purple-700 hover:bg-purple-600 text-white py-2.5 rounded-lg border border-purple-500 flex items-center justify-center gap-2 transition"
+                                            onclick="event.stopPropagation()" aria-label="View Live Demo">
+                                            <img src="img/icons/lexi-favicon.svg"
+                                                class="h-4 w-4 rounded-full" alt="">
+                                            <span id="card-lexi-btn-demo">访问页面</span>
+                                        </a>
+                                    </div>
+                                    <p id="card-lexi-back-tip" class="text-xs text-gray-600 mt-5">点击空白处返回</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>                </section>
             </div>
         </div>
@@ -922,7 +1009,7 @@
     <script  src="js/themeManager.js?v=20260521b" defer></script>
     <script  src="js/share.js?v=20260521" defer></script>
     <script src="js/warehouse-qr.js?v=1" defer></script>
-    <script  src="js/config.js?v=20260811" defer></script>
+    <script  src="js/config.js?v=20260906" defer></script>
     <script  src="js/audio.js?v=20260306c" defer></script>
     <script  src="js/achievements.js?v=20260306c" defer></script>
     <script  src="js/giteeActivity.js?v=20260318a" defer></script>
@@ -932,7 +1019,7 @@
     <script  src="js/game/DodgeGame.js?v=20260306c" defer></script>
     <script  src="js/game/VehicleGame.js?v=20260306c" defer></script>
     <script  src="js/game/GameManager.js?v=20260306c" defer></script>
-    <script  src="js/script.js?v=20260811" defer></script>
+    <script  src="js/script.js?v=20260906" defer></script>
     <script>
         // 初始化主题系统并生成挂件
         document.addEventListener('DOMContentLoaded', () => {

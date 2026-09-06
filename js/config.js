@@ -147,6 +147,12 @@ window.I18N = {
                 btnCode: "Code",
                 btnDemo: "访问页面"
             },
+            lexi: {
+                title: "Lexi · 英语听说词汇",
+                desc: "围绕江苏译林教材的英语单词、短语、句式听说学习工具。纯前端、本地优先、无需登录。",
+                btnCode: "Code",
+                btnDemo: "访问页面"
+            },
             tools: {
                 tag: "稀有级",
                 title: "FIELD TOOLKIT",
@@ -293,6 +299,12 @@ window.I18N = {
             stem: {
                 title: "STEM Digital Lab",
                 desc: "Digital experiments & inquiry platform for junior-high math, physics & chemistry. KaTeX formula rendering, PWA offline support.",
+                btnCode: "Code",
+                btnDemo: "Visit"
+            },
+            lexi: {
+                title: "Lexi · Listening & Vocab",
+                desc: "English listening & vocabulary tool built around the Jiangsu Yilin textbooks. Pure frontend, local-first, no login.",
                 btnCode: "Code",
                 btnDemo: "Visit"
             },
