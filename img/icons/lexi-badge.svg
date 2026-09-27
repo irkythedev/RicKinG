@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 深色圆角方形底（与 stem-favicon.svg 同规格） -->
+  <rect width="512" height="512" rx="112" fill="#111210"/>
+  <!-- 打开的书（两页，白色粗线，16px 下仅剩这一主形） -->
+  <path d="M256 214 C214 186 168 186 126 210 L126 326 C168 302 214 302 256 330" fill="none" stroke="#f7f7f5" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M256 214 C298 186 344 186 386 210 L386 326 C344 302 298 302 256 330" fill="none" stroke="#f7f7f5" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- 书脊 -->
+  <path d="M256 214 V330" stroke="#f7f7f5" stroke-width="32" stroke-linecap="round"/>
+  <!-- AI 星点（品牌绿，右上，缩至 16px 即为一个绿点） -->
+  <path d="M392 40 C398 82 414 98 456 104 C414 110 398 126 392 168 C386 126 370 110 328 104 C370 98 386 82 392 40 Z" fill="#3FA37C"/>
+</svg>
