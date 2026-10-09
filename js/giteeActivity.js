@@ -147,7 +147,10 @@ window.GiteeActivity = (function () {
         if (cached && cached.events !== undefined) return cached;
 
         try {
-            const evResp = await fetch(`${API_BASE}/users/${GITEE_USER}/events/public?limit=30&page=1`, {
+            // limit=100: Gitee events API ignores `page` (page1==page2 verified),
+            // so depth comes only from limit. 100 events ≈ 40+ days of history,
+            // which fully covers the 30-day heatmap window. Feed still shows 12.
+            const evResp = await fetch(`${API_BASE}/users/${GITEE_USER}/events/public?limit=100&page=1`, {
                 headers: { 'Accept': 'application/json' }
             });
             if (!evResp.ok) throw new Error(`HTTP ${evResp.status}`);
